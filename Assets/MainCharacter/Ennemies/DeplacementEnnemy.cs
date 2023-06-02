@@ -24,12 +24,10 @@ public class DeplacementEnnemy : MonoBehaviour
         if (ennemyAgent.remainingDistance > walkDistance || ennemyAgent.remainingDistance < attackDistance)
         {
             ennemyAgent.speed = 0;
-
         }
         else 
         {
             ennemyAgent.speed = 1f;
-
         }
 
 
