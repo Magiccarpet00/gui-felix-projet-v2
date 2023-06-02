@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public float attackRange = 1.5f; // Portée de l'attaque
-    public int attackDamage = 10; // Dégâts infligés par l'attaque
+    public float attackDamage = 10f; // Dégâts infligés par l'attaque
     public LayerMask enemyLayer; // Couche des ennemis
     public GameObject fire;
 
@@ -24,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
 
             fire.SetActive(true); 
             Attack();
+          
         }
 
         if (Input.GetKeyUp(KeyCode.A))
