@@ -8,10 +8,9 @@ public class DeplacementPointAndClick : MonoBehaviour
     public Camera cam; // Référence à la caméra
     public NavMeshAgent agent; // Référence à l'agent de navigation
     public LayerMask groundLayer; // Couche du sol
-    public bool isSelected = false;
+    bool isSelected = false;
     bool rayCast;
     private Vector3 mousePosition;
-    public GameObject fire;
 
     
     void Update()
@@ -45,22 +44,22 @@ public class DeplacementPointAndClick : MonoBehaviour
             agent.SetDestination(hit.point); // Définit la destination de l'agent de navigation sur le point d'intersection
         }
 
-        //attack
+        ////attack
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            fire.SetActive(true);
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    fire.SetActive(true);
 
-        }
+        //}
 
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            fire.SetActive(false);
-            Debug.Log("Attack");
+        //if (Input.GetKeyUp(KeyCode.A))
+        //{
+        //    fire.SetActive(false);
+        //    Debug.Log("Attack");
 
-        }
+        //}
 
-       
+
 
     }
 }
