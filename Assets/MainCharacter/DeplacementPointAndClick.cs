@@ -16,7 +16,6 @@ public class DeplacementPointAndClick : MonoBehaviour
     
     void Update()
     {
-        Debug.DrawLine(transform.position, Vector3.back);
 
         mousePosition = Input.mousePosition;
         Ray ray = cam.ScreenPointToRay(mousePosition); // Crée un rayon à partir de la position de la souris
