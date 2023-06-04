@@ -25,7 +25,7 @@ public class CameraFollow : MonoBehaviour
             else freezeCam = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             Vector3 newPos = follow.position + offSet;
             cam.transform.position = newPos;
