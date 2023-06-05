@@ -210,7 +210,8 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    IEnumerator ButtonColorCoroutine(Button button) // Coroutine pour chagement couleur bouton
+    IEnumerator ButtonColorCoroutine(Button button) // Coroutine pour changement couleur bouton
+
     {
         // suspend execution for 2 seconds
         yield return new WaitForSeconds(0.1f);
