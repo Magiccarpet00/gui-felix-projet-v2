@@ -5,6 +5,7 @@ public class PlayerDeplacement : MonoBehaviour
 {
     public Camera cam;
     public NavMeshAgent agent;
+   
 
     void Update()
     {

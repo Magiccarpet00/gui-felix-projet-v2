@@ -26,7 +26,7 @@ public class DeplacementPointAndClick : MonoBehaviour
         {
             if (rayCast)
             {
-                Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer); // Lance un rayon et vérifie s'il intersecte le sol
+                //Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer); // Lance un rayon et vérifie s'il intersecte le sol
                 agent.SetDestination(hit.point); // Définit la destination de l'agent de navigation sur le point d'intersection
             }
             else
