@@ -68,7 +68,8 @@ public class SpellsFusionUI : MonoBehaviour
         }
 
 
-    }   
+    }
+
 
 
 }
