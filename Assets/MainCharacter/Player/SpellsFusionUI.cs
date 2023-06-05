@@ -30,7 +30,11 @@ public class SpellsFusionUI : MonoBehaviour
     void Update()
     {
         spellsFusionBar.position = new Vector3(player.position.x + spellsFusionBarPositionx, player.position.y + spellsFusionBarPositiony, player.position.z);
-        spellIconTranslation = GameObject.Find("Spell(Clone)").GetComponent<Animator>();
+
+        if (transform.childCount > 0)
+        {
+            spellIconTranslation = GameObject.Find("Spell(Clone)").GetComponent<Animator>();
+        }
     }
 
     public void DisplaySpell(GameObject g)
