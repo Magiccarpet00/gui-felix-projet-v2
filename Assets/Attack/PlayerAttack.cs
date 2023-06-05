@@ -13,7 +13,8 @@ public class PlayerAttack : MonoBehaviour
     public Button button3;
     public Button button4;
     public Button button5;
-    [SerializeField] GameObject imageSpell1;
+    [SerializeField] GameObject spell;
+   
 
 
     public GameObject anim1;
@@ -22,11 +23,13 @@ public class PlayerAttack : MonoBehaviour
     public GameObject anim4;
     public GameObject anim5;
 
-   
-    
+    private SpellsFusionUI displaySpell;
+
+
     private void Start()
     {
-       
+        displaySpell = GameObject.Find("SpellsFusionBG").GetComponent<SpellsFusionUI>();
+
     }
 
     private void Update()
@@ -36,7 +39,7 @@ public class PlayerAttack : MonoBehaviour
         {
             anim1.SetActive(true);
             PressButtonColorChange(button1);
-            imageSpell1.SetActive(true);
+            spell.SetActive(true);
 
             Attack1();
             
@@ -52,6 +55,7 @@ public class PlayerAttack : MonoBehaviour
 
             anim2.SetActive(true);
             PressButtonColorChange(button2);
+            displaySpell.DisplaySpell(spell);
             Attack2();
 
         }
@@ -230,6 +234,7 @@ public class PlayerAttack : MonoBehaviour
     {
         button.image.color = button.colors.normalColor;
     }
+
 
     private void OnDrawGizmosSelected()
     {

@@ -540,6 +540,8 @@ MonoBehaviour:
   spellsFusionBarPositiony: 3
   spellsFusionBarPositionx: 4.5
   player: {fileID: 880469670}
+  spell: {fileID: 1996208435}
+  instantiatePosition: 1.5
 --- !u!1 &322486467 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d7281a178afd194babecb306cb164b2, type: 3}
@@ -3138,7 +3140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0431a3d7db6fb864a8da8575ea766bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageComponent: {fileID: 0}
   button1: {fileID: 1467506477}
 --- !u!1001 &2016682734
 PrefabInstance:
@@ -3508,7 +3509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 833548532228621219, guid: b2088cde52b73eb43be5b32ff3fa7452, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 833548532228621220, guid: b2088cde52b73eb43be5b32ff3fa7452, type: 3}
       propertyPath: m_Pivot.x
@@ -3568,7 +3569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 833548532228621220, guid: b2088cde52b73eb43be5b32ff3fa7452, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.000004843295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 833548532228621220, guid: b2088cde52b73eb43be5b32ff3fa7452, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3817,6 +3818,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1049133851}
     - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+      propertyPath: spell
+      value: 
+      objectReference: {fileID: 1996208435}
+    - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: button1
       value: 
       objectReference: {fileID: 1467506477}
@@ -3840,6 +3845,10 @@ PrefabInstance:
       propertyPath: imageSpell1
       value: 
       objectReference: {fileID: 1996208435}
+    - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+      propertyPath: displaySpell
+      value: 
+      objectReference: {fileID: 311758135}
     - target: {fileID: 3802898010326024977, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: m_IsActive
       value: 0
