@@ -9,6 +9,7 @@ public class PlayerDeplacement : MonoBehaviour
     public Rigidbody rb;
 
     public bool bumped;
+    public bool jumped;
 
 
     void Update()
@@ -25,13 +26,20 @@ public class PlayerDeplacement : MonoBehaviour
                 
             }
         }
+
+        if(Input.GetKey(KeyCode.J) && FreezeInput() == false)
+        {
+            Debug.Log("zizi");
+            StartCoroutine(Jump(0.3f, 150f));
+            agent.ResetPath();
+        }
     }
 
 
     public bool FreezeInput()
     {
         if (bumped) return true;
-
+        if (jumped) return true;
 
         return false;
     }
@@ -55,6 +63,16 @@ public class PlayerDeplacement : MonoBehaviour
         yield return new WaitForSeconds(bumpTime);
         rb.AddForce(-dirWithForce, ForceMode.Impulse);
         bumped = false;
+    }
+
+    public IEnumerator Jump(float jumpTime, float velocity)
+    {
+        jumped = true;
+        Vector3 dirWithForce = Vector3.up * velocity;
+        rb.AddForce(dirWithForce, ForceMode.Impulse);
+        yield return new WaitForSeconds(jumpTime);
+        rb.AddForce(-dirWithForce, ForceMode.Impulse);
+        jumped = false;
     }
 
 

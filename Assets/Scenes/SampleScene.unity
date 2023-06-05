@@ -2730,11 +2730,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d7281a178afd194babecb306cb164b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.094
+      value: -1.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d7281a178afd194babecb306cb164b2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.008
+      value: 0.14
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d7281a178afd194babecb306cb164b2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3431,6 +3431,7 @@ MonoBehaviour:
   agent: {fileID: 2106366651}
   rb: {fileID: 2106366662}
   bumped: 0
+  jumped: 0
 --- !u!114 &2106366657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3746,7 +3747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3801220734181014129, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.75
+      value: 5.54
       objectReference: {fileID: 0}
     - target: {fileID: 3801220734181014129, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: m_LocalPosition.z
