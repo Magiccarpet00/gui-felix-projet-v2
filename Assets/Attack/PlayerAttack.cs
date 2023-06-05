@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     public Button button3;
     public Button button4;
     public Button button5;
+    [SerializeField] GameObject imageSpell1;
 
 
     public GameObject anim1;
@@ -21,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject anim4;
     public GameObject anim5;
 
-    
+   
     
     private void Start()
     {
@@ -35,6 +36,8 @@ public class PlayerAttack : MonoBehaviour
         {
             anim1.SetActive(true);
             PressButtonColorChange(button1);
+            imageSpell1.SetActive(true);
+
             Attack1();
             
         }
