@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ChangeImageScript : MonoBehaviour
 {
-    public Image imageComponent;
+    private Image imageComponent;
     public Button button1;
     private Sprite newSprite;
 
