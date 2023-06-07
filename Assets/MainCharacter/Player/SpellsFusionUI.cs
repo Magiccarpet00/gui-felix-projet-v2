@@ -14,15 +14,14 @@ public class SpellsFusionUI : MonoBehaviour
     [SerializeField] float instantiatePositiony;
     private Animator spellIconTranslation;
 
+
   
 
     // Start is called before the first frame update
     void Start()
     {
         spellsFusionBar = GetComponent<Transform>();
-
-        //DisplaySpell(spell);
-
+        
 
     }
 
@@ -31,10 +30,10 @@ public class SpellsFusionUI : MonoBehaviour
     {
         spellsFusionBar.position = new Vector3(player.position.x + spellsFusionBarPositionx, player.position.y + spellsFusionBarPositiony, player.position.z);
 
-        if (transform.childCount > 0)
-        {
-            spellIconTranslation = GameObject.Find("Spell(Clone)").GetComponent<Animator>();
-        }
+        //if (transform.childCount > 0)
+        //{
+        //    spellIconTranslation = GameObject.Find("Spell(Clone)").GetComponent<Animator>();
+        //}
     }
 
     public void DisplaySpell(GameObject g)

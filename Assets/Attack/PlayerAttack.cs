@@ -13,9 +13,7 @@ public class PlayerAttack : MonoBehaviour
     public Button button3;
     public Button button4;
     public Button button5;
-    [SerializeField] GameObject spell;
-   
-
+ 
 
     public GameObject anim1;
     public GameObject anim2;
@@ -25,23 +23,34 @@ public class PlayerAttack : MonoBehaviour
 
     private SpellsFusionUI displaySpell;
 
+    private Image imageButton1;
+    private Image imageButton2;
+    private Image imageButton3;
+    private Image imageButton4;
+    private Image imageButton5;
+
 
     private void Start()
     {
         displaySpell = GameObject.Find("SpellsFusionBG").GetComponent<SpellsFusionUI>();
+        imageButton1 = button1.image;
 
     }
 
     private void Update()
     {
+
    
         if (Input.GetKeyDown(KeyCode.A)) //attaque 1
         {
+            GameObject targetImage;
+            targetImage = GameObject.Find("TargetImage1");
+            
             anim1.SetActive(true);
             PressButtonColorChange(button1);
-            spell.SetActive(true);
+           
 
-            Attack1();
+            Attack1(targetImage);
             
         }
 
@@ -55,7 +64,6 @@ public class PlayerAttack : MonoBehaviour
 
             anim2.SetActive(true);
             PressButtonColorChange(button2);
-            displaySpell.DisplaySpell(spell);
             Attack2();
 
         }
@@ -111,8 +119,10 @@ public class PlayerAttack : MonoBehaviour
 
     //attaque 1
 
-    public void Attack1()
+    public void Attack1( GameObject g)
     {
+        displaySpell.DisplaySpell(g);
+
         //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
 
         // Détection des ennemis dans la zone d'attaque
