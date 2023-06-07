@@ -10,7 +10,6 @@ public class CameraFollow : MonoBehaviour
     public Transform follow;
 
 
-
     public bool freezeCam;
 
     public float panSpeed;
