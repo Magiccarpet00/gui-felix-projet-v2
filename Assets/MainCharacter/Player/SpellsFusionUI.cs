@@ -15,9 +15,6 @@ public class SpellsFusionUI : MonoBehaviour
 
 
 
-
-
-
     // Start is called before the first frame update
 
 
@@ -32,7 +29,7 @@ public class SpellsFusionUI : MonoBehaviour
     void Update()
     {
         childCount = spellsFusionBar.childCount;
-        spellsFusionBar.position = new Vector3(player.position.x + spellsFusionBarPositionx, player.position.y + spellsFusionBarPositiony, player.position.z);
+        spellsFusionBar.position = new Vector3(player.position.x + spellsFusionBarPositionx, player.position.y + spellsFusionBarPositiony, player.position.z);  
     }
 
     public void DisplaySpell(GameObject g)
@@ -45,44 +42,36 @@ public class SpellsFusionUI : MonoBehaviour
 
         GameObject[] instantiateSpells = new GameObject[childCount + 1];
 
+
         for (int i = 0; i < childCount; i++)
         {
-  
-            instantiateSpells[i] = spellsFusionBar.GetChild(i).gameObject;
+            
+                instantiateSpells[i] = spellsFusionBar.GetChild(i).gameObject;
 
-            if (instantiateSpells[i].GetComponent<Translate>().enabled == false)
-            {
-                instantiateSpells[i].GetComponent<Translate>().enabled = true;
+                if (instantiateSpells[i].GetComponent<Translate>().enabled == false)
+                {
+                    instantiateSpells[i].GetComponent<Translate>().enabled = true;
 
-                StartCoroutine(TranslationCoroutineenabled(i));
-            }
+                    StartCoroutine(TranslationCoroutineenabled(i));
+                }
+                
 
-            IEnumerator TranslationCoroutineenabled(int i)
-            {
-
+                IEnumerator TranslationCoroutineenabled(int i)
+                {
                 yield return new WaitForSeconds(0.2f);
 
-                instantiateSpells[i].GetComponent<Translate>().enabled = false;
+                    instantiateSpells[i].GetComponent<Translate>().enabled = false;
 
-            }
-            //else
-            //{
-            //    StartCoroutine(TranslationCoroutinedisabled(i));
-            //}
-
-            //Debug.Log(instantiateSpells[i]);
+                    for (int j = 4; j < childCount; j++)
+                    {
+                    Destroy(instantiateSpells[j - 4]);
+                    }
+   
+                }
+ 
         }
 
-        
 
-        //IEnumerator TranslationCoroutinedisabled(int i)
-        //{
-
-        //    yield return new WaitForSeconds(1f);
-
-        //    instantiateSpells[i].GetComponent<Translate>().enabled = false;
-
-        //}
     }
 
  

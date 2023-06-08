@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -565,7 +565,7 @@ GameObject:
   - component: {fileID: 395456565}
   m_Layer: 5
   m_Name: TargetImage4
-  m_TagString: Untagged
+  m_TagString: SpellToDestroy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -662,7 +662,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmount: {x: 1, y: 0, z: 0}
-  speed: 2
 --- !u!1 &418998640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,7 +1012,7 @@ GameObject:
   - component: {fileID: 551730907}
   m_Layer: 5
   m_Name: TargetImage2
-  m_TagString: Untagged
+  m_TagString: SpellToDestroy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1110,7 +1109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmount: {x: 1, y: 0, z: 0}
-  speed: 2
 --- !u!1 &608265204
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,7 +1124,7 @@ GameObject:
   - component: {fileID: 608265209}
   m_Layer: 5
   m_Name: TargetImage3
-  m_TagString: Untagged
+  m_TagString: SpellToDestroy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1223,7 +1221,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmount: {x: 1, y: 0, z: 0}
-  speed: 2
 --- !u!1001 &642060665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1795,7 +1792,7 @@ GameObject:
   - component: {fileID: 1109901140}
   m_Layer: 5
   m_Name: TargetImage1
-  m_TagString: Untagged
+  m_TagString: SpellToDestroy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1892,7 +1889,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmount: {x: 1, y: 0, z: 0}
-  speed: 2
 --- !u!1 &1231069798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,7 +1901,7 @@ GameObject:
   - component: {fileID: 1231069800}
   m_Layer: 0
   m_Name: CubeTest
-  m_TagString: Untagged
+  m_TagString: SpellToDestroy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3046,7 +3042,7 @@ GameObject:
   - component: {fileID: 1745872925}
   m_Layer: 5
   m_Name: TargetImage5
-  m_TagString: Untagged
+  m_TagString: SpellToDestroy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3143,7 +3139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmount: {x: 1, y: 0, z: 0}
-  speed: 10
 --- !u!1001 &1789993404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3482,7 +3477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
