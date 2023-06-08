@@ -43,14 +43,14 @@ public class PlayerAttack : MonoBehaviour
    
         if (Input.GetKeyDown(KeyCode.A)) //attaque 1
         {
-            GameObject targetImage;
-            targetImage = GameObject.Find("TargetImage1");
+            GameObject targetImage1;
+            targetImage1 = GameObject.Find("TargetImage1");
             
             anim1.SetActive(true);
             PressButtonColorChange(button1);
            
 
-            Attack1(targetImage);
+            Attack1(targetImage1);
             
         }
 
@@ -59,12 +59,14 @@ public class PlayerAttack : MonoBehaviour
             anim1.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Z)) // attque 2 
+        if (Input.GetKeyDown(KeyCode.Z)) // attaque 2 
         {
+            GameObject targetImage2;
+            targetImage2 = GameObject.Find("TargetImage2");
 
             anim2.SetActive(true);
             PressButtonColorChange(button2);
-            Attack2();
+            Attack2(targetImage2);
 
         }
 
@@ -73,12 +75,14 @@ public class PlayerAttack : MonoBehaviour
             anim2.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.E)) // attque 3 
+        if (Input.GetKeyDown(KeyCode.E)) // attaque 3 
         {
+            GameObject targetImage3;
+            targetImage3 = GameObject.Find("TargetImage3");
 
             anim3.SetActive(true);
             PressButtonColorChange(button3);
-            Attack3();
+            Attack3(targetImage3);
 
         }
 
@@ -89,10 +93,12 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R)) // attaque 4 
         {
+            GameObject targetImage4;
+            targetImage4 = GameObject.Find("TargetImage4");
 
             anim4.SetActive(true);
             PressButtonColorChange(button4);
-            Attack4();
+            Attack4(targetImage4);
 
         }
 
@@ -103,10 +109,12 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S)) // attaque 5 
         {
+            GameObject targetImage5;
+            targetImage5 = GameObject.Find("TargetImage5");
 
             anim5.SetActive(true);
             PressButtonColorChange(button5);
-            Attack5();
+            Attack5(targetImage5);
 
         }
 
@@ -119,7 +127,7 @@ public class PlayerAttack : MonoBehaviour
 
     //attaque 1
 
-    public void Attack1( GameObject g)
+    public void Attack1(GameObject g)
     {
         displaySpell.DisplaySpell(g);
 
@@ -141,8 +149,9 @@ public class PlayerAttack : MonoBehaviour
     }
 
     //attaque 2
-    public void Attack2()
+    public void Attack2(GameObject g)
     {
+        displaySpell.DisplaySpell(g);
         //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
 
         // Détection des ennemis dans la zone d'attaque
@@ -161,8 +170,9 @@ public class PlayerAttack : MonoBehaviour
 
     //attaque 3
 
-    public void Attack3()
+    public void Attack3(GameObject g)
     {
+        displaySpell.DisplaySpell(g);
         //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
 
         // Détection des ennemis dans la zone d'attaque
@@ -181,8 +191,9 @@ public class PlayerAttack : MonoBehaviour
 
     //attaque 4
 
-    public void Attack4()
+    public void Attack4(GameObject g)
     {
+        displaySpell.DisplaySpell(g);
         //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
 
         // Détection des ennemis dans la zone d'attaque
@@ -201,8 +212,9 @@ public class PlayerAttack : MonoBehaviour
 
     //attaque 5
 
-    public void Attack5()
+    public void Attack5(GameObject g)
     {
+        displaySpell.DisplaySpell(g);
         //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
 
         // Détection des ennemis dans la zone d'attaque

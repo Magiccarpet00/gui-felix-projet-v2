@@ -26,24 +26,21 @@ public class SpellsUI : MonoBehaviour
             Sprite sprite1 = buttonImage1.sprite;
             targetImage1.sprite = sprite1;
 
-        Image buttonImage2 = button2.GetComponent<Image>();
-        Sprite sprite2 = buttonImage2.sprite;
-        targetImage2.sprite = sprite2;
+            Image buttonImage2 = button2.GetComponent<Image>();
+            Sprite sprite2 = buttonImage2.sprite;
+            targetImage2.sprite = sprite2;
 
-        Image buttonImage3 = button3.GetComponent<Image>();
-        Sprite sprite3 = buttonImage3.sprite;
-        targetImage3.sprite = sprite3;
+            Image buttonImage3 = button3.GetComponent<Image>();
+            Sprite sprite3 = buttonImage3.sprite;
+            targetImage3.sprite = sprite3;
 
-        Image buttonImage4 = button4.GetComponent<Image>();
-        Sprite sprite4 = buttonImage4.sprite;
-        targetImage4.sprite = sprite4;
+            Image buttonImage4 = button4.GetComponent<Image>();
+            Sprite sprite4 = buttonImage4.sprite;
+            targetImage4.sprite = sprite4;
 
-        Image buttonImage5 = button5.GetComponent<Image>();
-        Sprite sprite5 = buttonImage5.sprite;
-        targetImage5.sprite = sprite5;
-
-
-
+            Image buttonImage5 = button5.GetComponent<Image>();
+            Sprite sprite5 = buttonImage5.sprite;
+            targetImage5.sprite = sprite5;
 
 
     }
