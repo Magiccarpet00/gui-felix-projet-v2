@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 791565052832114564}
   - component: {fileID: 791565052832114563}
-  - component: {fileID: 6421159529791867228}
   m_Layer: 0
-  m_Name: spell2
+  m_Name: dash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,20 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bb02c03ff5788145ac0d0969e4b4909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellData: {fileID: 11400000, guid: d5acfab2a5369034c9bd1f97d9f50645, type: 2}
+  spellData: {fileID: 11400000, guid: 9c6813edd7b61b742bfb9b43a0f1c4bd, type: 2}
   owner: {fileID: 0}
   rb: {fileID: 0}
   targets: []
---- !u!135 &6421159529791867228
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791565052832114562}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

@@ -41,8 +41,6 @@ public class SpellsUI : MonoBehaviour
             Image buttonImage5 = button5.GetComponent<Image>();
             Sprite sprite5 = buttonImage5.sprite;
             targetImage5.sprite = sprite5;
-
-
     }
 
     // Update is called once per frame

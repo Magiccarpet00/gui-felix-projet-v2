@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CubeTest
   - SpellToDestroy
+  - Enemy
   layers:
   - Default
   - TransparentFX

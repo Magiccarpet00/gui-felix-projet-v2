@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35963f80c0d0fcf4db359d32a2f3aabf, type: 3}
-  m_Name: shell2
+  m_Name: dash
   m_EditorClassIdentifier: 
-  castType: 1
-  target: 2
+  castType: 2
+  target: 0
   effect: 2
-  model: {fileID: 919132149155446097, guid: de07ea9adc7b0c842b344270bf9de883, type: 3}
-  lifeTime: 1.2
-  speed: 16
-  bump_velocity: 10
-  bump_time: 0.15
-  bump_Dir: 1
+  model: {fileID: 0}
+  lifeTime: 1
+  speed: 0
+  bump_velocity: 20
+  bump_time: 0.3
+  bump_Dir: 0
