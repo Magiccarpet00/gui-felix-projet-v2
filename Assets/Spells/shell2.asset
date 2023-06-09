@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castType: 1
   target: 2
-  effect: 2
+  effect: 1
   model: {fileID: 919132149155446097, guid: de07ea9adc7b0c842b344270bf9de883, type: 3}
   lifeTime: 1.2
   speed: 16
   bump_velocity: 10
   bump_time: 0.15
   bump_Dir: 1
+  damage: 1

@@ -21,4 +21,6 @@ public class SpellData : ScriptableObject
     public float bump_time;
     public Bump_Dir bump_Dir;
 
+    [Header("Stat")]
+    public float damage;
 }

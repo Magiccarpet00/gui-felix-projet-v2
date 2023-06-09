@@ -92,6 +92,10 @@ public class Spell : MonoBehaviour
                 break;
 
             case Spell_Effect.DOMAGE_HEAL:
+                foreach (GameObject t in targets)
+                {
+                    t.GetComponent<Character>().TakeDamage(spellData.damage);
+                }
                 break;
 
             case Spell_Effect.INVOKE:
@@ -100,7 +104,6 @@ public class Spell : MonoBehaviour
             case Spell_Effect.MOVE:
                 foreach (GameObject t in targets)
                 {
-                    Debug.Log("zgeg de ouf");
                     Vector3 dir = Vector3.zero;
                     if (spellData.bump_Dir == Bump_Dir.CENTER)
                         dir = t.transform.position - this.transform.position;
