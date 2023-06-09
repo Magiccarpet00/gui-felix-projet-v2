@@ -1,16 +1,25 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerDeplacement : MonoBehaviour
 {
     public Camera cam;
     public NavMeshAgent agent;
     public Rigidbody rb;
+    public Image spellFusionBar;
+    [SerializeField] float spellsFusionBarPositionx;
+    [SerializeField] float spellsFusionBarPositiony;
+
 
     public bool bumped;
     public bool jumped;
 
+    private void Start()
+    {
+        
+    }
 
     void Update()
     {
@@ -26,6 +35,17 @@ public class PlayerDeplacement : MonoBehaviour
                 
             }
         }
+
+        float width = cam.pixelWidth;
+        float height = cam.pixelHeight;
+
+        Vector3 playerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
+        Vector2 playerScreenPosition = cam.WorldToScreenPoint(playerPosition);
+
+        spellFusionBar.rectTransform.position = new Vector2(playerScreenPosition.x + spellsFusionBarPositionx * width , playerScreenPosition.y + spellsFusionBarPositiony * height);
+
+
 
     }
 
