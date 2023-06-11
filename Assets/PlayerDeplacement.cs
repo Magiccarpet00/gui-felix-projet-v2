@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerDeplacement : MonoBehaviour
 {
+    public Character character;    
+
     public Camera cam;
     public NavMeshAgent agent;
     public Rigidbody rb;
@@ -16,6 +18,7 @@ public class PlayerDeplacement : MonoBehaviour
     public bool isPlayer;
     public bool bumped;
     public bool jumped;
+    public bool blink;
 
     public Vector3 clicBuffer;
 
@@ -64,6 +67,7 @@ public class PlayerDeplacement : MonoBehaviour
         if (!isPlayer) return true;
         if (bumped) return true;
         if (jumped) return true;
+        if (blink) return true;
         
 
         return false;
@@ -87,8 +91,10 @@ public class PlayerDeplacement : MonoBehaviour
     public IEnumerator Bump(float bumpTime, float velocity, Vector3 direction)
     {
         bumped = true;
+
         agent.ResetPath();
         clicBuffer = Vector3.negativeInfinity;
+
         direction.y = 0;
         Vector3 dirWithForce = direction.normalized * velocity;
         Debug.Log(dirWithForce.magnitude);
@@ -100,6 +106,42 @@ public class PlayerDeplacement : MonoBehaviour
             agent.SetDestination(clicBuffer);
 
         bumped = false;
+    }
+
+    public void _Blink(float blinkTime, Vector3 newPos)
+    {
+        StartCoroutine(Blink(blinkTime, newPos));
+    }
+
+    public IEnumerator Blink(float blinkTime, Vector3 newPos)
+    {
+        blink = true;
+        agent.ResetPath();
+        clicBuffer = Vector3.negativeInfinity;
+        
+        character.model.SetActive(false);
+        character.capsuleCollider.enabled = false;
+        transform.position = newPos;
+        agent.SetDestination(newPos);
+        yield return new WaitForSeconds(blinkTime);
+        
+        character.model.SetActive(true);
+        character.capsuleCollider.enabled = true;
+
+        blink = false;
+    }
+
+    //Methode qui sert à "retirer du jeux" un personage pendant un laps de temps
+    public IEnumerator Exil(float time)
+    {
+        
+        character.model.SetActive(false);
+        character.capsuleCollider.enabled = false;
+        character.navMeshAgent.enabled = false;
+        yield return new WaitForSeconds(time);
+        character.model.SetActive(true);
+        character.capsuleCollider.enabled = true;
+        character.navMeshAgent.enabled = true;
     }
 
 }

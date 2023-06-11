@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 791565052832114564}
   - component: {fileID: 791565052832114563}
+  - component: {fileID: 6421159529791867228}
   m_Layer: 0
-  m_Name: spell1
+  m_Name: blink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,5 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bb02c03ff5788145ac0d0969e4b4909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellData: {fileID: 11400000, guid: 3ed1b5f673bf87744b7218e27d0c67a9, type: 2}
+  spellData: {fileID: 11400000, guid: f9f4a8e180f9b7b4488f90f687d9d151, type: 2}
   owner: {fileID: 0}
+  rb: {fileID: 0}
+  targets: []
+--- !u!135 &6421159529791867228
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791565052832114562}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

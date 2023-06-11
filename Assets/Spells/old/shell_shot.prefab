@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 791565052832114563}
   - component: {fileID: 6421159529791867228}
   m_Layer: 0
-  m_Name: spell2
+  m_Name: shell_shot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

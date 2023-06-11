@@ -60,6 +60,9 @@ public class Spell : MonoBehaviour
             case Spell_Target.ENEMY:
                 tag = "Enemy";
                 break;
+
+            case Spell_Target.NONE:
+                break;
         }
 
         if(other.gameObject.CompareTag(tag))
@@ -114,7 +117,17 @@ public class Spell : MonoBehaviour
                     t.GetComponent<PlayerDeplacement>()._Bump(spellData.bump_time, spellData.bump_velocity, dir);
                 }
                 break;
+
+            case Spell_Effect.BLINK:
+                foreach (GameObject t in targets)
+                {
+                    t.GetComponent<PlayerDeplacement>()._Blink(spellData.blinkTime, GameManager.instance.GetMousePos());
+                }
+                break;
         }
+
+        targets.Clear();
+        
     }
 
 
@@ -133,7 +146,8 @@ public enum Spell_Target
 {
     SELF,
     ALLY,
-    ENEMY
+    ENEMY,
+    NONE
 }
 
 public enum Spell_Effect
@@ -141,7 +155,8 @@ public enum Spell_Effect
     BUFF_DEBUFF,
     DOMAGE_HEAL,
     MOVE,
-    INVOKE //On peut instantiat un autre spell pour reaction en chaine
+    INVOKE, //On peut instantiat un autre spell pour reaction en chaine
+    BLINK
 }
 
 public enum Bump_Dir

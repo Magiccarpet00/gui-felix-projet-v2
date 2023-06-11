@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Character : MonoBehaviour
 {
     public CharacterData characterData;
+
+    public GameObject model;
+    public CapsuleCollider capsuleCollider;
+    public NavMeshAgent navMeshAgent;
 
     public float currentLife;
     public float currentMoveSpeed;
@@ -27,7 +32,7 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentLife -= damage; // Réduit les points de vie actuels de l'ennemi
+        currentLife -= damage; // Rï¿½duit les points de vie actuels de l'ennemi
         healthBar.fillAmount = currentLife / characterData.Life;
 
         if (currentLife <= 0)
@@ -36,8 +41,8 @@ public class Character : MonoBehaviour
 
     private void Die()
     {
-        // Code à exécuter lorsque l'ennemi est vaincu
-        // Par exemple, jouer une animation de mort, détruire l'ennemi, etc.
+        // Code ï¿½ exï¿½cuter lorsque l'ennemi est vaincu
+        // Par exemple, jouer une animation de mort, dï¿½truire l'ennemi, etc.
         Destroy(gameObject);
     }
 

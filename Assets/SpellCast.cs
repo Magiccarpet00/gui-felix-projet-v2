@@ -34,6 +34,8 @@ public class SpellCast : MonoBehaviour
             Physics.Raycast(ray, out hit);
             Vector3 mousePos = new Vector3(hit.point.x, transform.position.y, hit.point.z);
 
+            Debug.DrawRay(cam.transform.position, mousePos- cam.transform.position, Color.red, 3f);
+
             GameObject spell = Instantiate(spells[1], transform.position, Quaternion.identity);
             spell.GetComponent<Spell>().Cast(mousePos, this.gameObject);
         }

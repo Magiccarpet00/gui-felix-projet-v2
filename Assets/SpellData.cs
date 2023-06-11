@@ -23,4 +23,7 @@ public class SpellData : ScriptableObject
 
     [Header("Stat")]
     public float damage;
+
+    [Header("Blink")]
+    public float blinkTime;
 }
