@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17694043, g: 0.22149308, b: 0.3037731, a: 1}
+  m_IndirectSpecularColor: {r: 0.17694062, g: 0.2214935, b: 0.30377394, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -420,6 +420,10 @@ MonoBehaviour:
   Slot3: {fileID: 1812399504}
   Slot4: {fileID: 706517208}
   translateScript: {fileID: 1109901140}
+  playerTransform: {fileID: 2106366675}
+  cam: {fileID: 963194227}
+  xOffset: 0.05
+  yOffset: 0.08
 --- !u!1 &387221069
 GameObject:
   m_ObjectHideFlags: 0

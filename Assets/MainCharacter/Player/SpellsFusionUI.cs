@@ -19,7 +19,12 @@ public class SpellsFusionUI : MonoBehaviour
 
     public Translate translateScript;
 
+    [SerializeField] Transform playerTransform;
+    public Camera cam;
+    [SerializeField] float xOffset;
+    [SerializeField] float yOffset;
 
+    GameObject[] tableau;
 
     // Start is called before the first frame update
 
@@ -36,16 +41,23 @@ public class SpellsFusionUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        childCount = spellsFusionBar.childCount;
+        childCount = spellsFusionBar.childCount; //comptage du nombre d'enfants
         
+
+        float width = cam.pixelWidth; // Permet d'ajuster la position de la barre au format de la caméra
+        float height = cam.pixelHeight;
+
+        Vector3 screenPosition = cam.WorldToScreenPoint(playerTransform.position); // récupère la position du player sur l'écran de la caméra
+        transform.position = new Vector3(screenPosition.x + xOffset * width, screenPosition.y + yOffset * height, screenPosition.z); // place la barre des sorts sur le player
+
     }
 
     public void DisplaySpell(GameObject g)
     {
 
         GameObject s = Instantiate(g, spellsFusionBar);
-        s.transform.position = new Vector3(spellsFusionBar.position.x + instantiatePositionx, spellsFusionBar.position.y + instantiatePositiony, spellsFusionBar.position.z);
-        s.transform.rotation = g.gameObject.transform.rotation;
+        //s.transform.position = new Vector3(spellsFusionBar.position.x + instantiatePositionx, spellsFusionBar.position.y + instantiatePositiony, spellsFusionBar.position.z);
+        //s.transform.rotation = g.gameObject.transform.rotation;
 
 
         GameObject[] instantiateSpells = new GameObject[childCount + 1];
@@ -58,12 +70,15 @@ public class SpellsFusionUI : MonoBehaviour
         };
 
 
-        for (int i = 0; i < childCount; i++)
+        for (int i = 0; i <= childCount; i++)
         {
             
                 instantiateSpells[i] = spellsFusionBar.GetChild(i).gameObject;
-
                 translateScript.Translation(instantiateSpells[i].transform, slots[i].transform, slots[i + 1].transform);
+            
+
+
+            
 
                 //if (instantiateSpells[i].GetComponent<Translate>().enabled == false)
                 //{
@@ -87,7 +102,7 @@ public class SpellsFusionUI : MonoBehaviour
                 //}
  
         }
-
+        Debug.Log(instantiateSpells[0]);    
 
     }
 

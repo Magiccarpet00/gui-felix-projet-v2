@@ -6,11 +6,11 @@ public class Translate : MonoBehaviour
 {
 
     [SerializeField] Vector3 moveAmount = new Vector3(1000f, 0f, 0f);
-    private float speed = 100f;
+    private float speed = 1;
 
     public float duration = 1.0f; // Durée de l'interpolation en secondes
 
-    private float elapsedTime = 0.0f; // Temps écoulé depuis le début de l'interpolation
+    private float elapsedTime = 1.0f; // Temps écoulé depuis le début de l'interpolation
 
     // Start is called before the first frame update
     void Start()
@@ -28,18 +28,15 @@ public class Translate : MonoBehaviour
 
     public void Translation(Transform spellToTranslate, Transform startTransform, Transform endTransform)
     {
-        elapsedTime += Time.deltaTime;
+        float t = 0f;
 
-        // Vérifiez si l'interpolation est terminée
-        if (elapsedTime >= duration)
-        {
-            elapsedTime = duration; // Assurez-vous que le temps écoulé ne dépasse pas la durée
-        }
-
-        // Calculez le facteur d'interpolation en fonction du temps écoulé et de la durée
-        float t = elapsedTime / duration;
+        while(t < duration)
+        { 
+        t += Time.deltaTime;
 
         // Interpole la position de l'empty entre les Transform de départ et de destination
-        spellToTranslate.position = Vector3.Lerp(startTransform.position, endTransform.position, t);
+        Vector3 currentPosition = Vector3.Lerp(startTransform.position, endTransform.position, t / duration);
+        spellToTranslate.position = currentPosition;
+        }
     }
 }
