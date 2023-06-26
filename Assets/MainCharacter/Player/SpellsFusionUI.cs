@@ -27,6 +27,9 @@ public class SpellsFusionUI : MonoBehaviour
     GameObject[] tableau;
 
     public float duration = 1.0f; // Durée de l'interpolation en secondes
+    private int upCount = 0 ;
+
+    [SerializeField] float spellSpeed;
 
     // Start is called before the first frame update
 
@@ -56,12 +59,6 @@ public class SpellsFusionUI : MonoBehaviour
 
     public void DisplaySpell(GameObject g)
     {
-
-        GameObject s = Instantiate(g, spellsFusionBar);
-        //s.transform.position = new Vector3(spellsFusionBar.position.x + instantiatePositionx, spellsFusionBar.position.y + instantiatePositiony, spellsFusionBar.position.z);
-        //s.transform.rotation = g.gameObject.transform.rotation;
-
-
         GameObject[] instantiateSpells = new GameObject[childCount + 1];
         GameObject[] slots = new GameObject[]
         {
@@ -70,41 +67,29 @@ public class SpellsFusionUI : MonoBehaviour
             Slot3,
             Slot4,
         };
-
-
-        for (int i = 0; i <= childCount; i++)
+        GameObject s = Instantiate(g, spellsFusionBar);
+        if (upCount == 0)
         {
-            
-                instantiateSpells[i] = spellsFusionBar.GetChild(i).gameObject;
-                StartCoroutine(TranslationCoroutine(instantiateSpells[i].transform, slots[i].transform, slots[i + 1].transform));
-            
-
-
-            
-
-                //if (instantiateSpells[i].GetComponent<Translate>().enabled == false)
-                //{
-                //    instantiateSpells[i].GetComponent<Translate>().enabled = true;
-
-                //    StartCoroutine(TranslationCoroutineenabled(i));
-                //}
-                
-
-                //IEnumerator TranslationCoroutineenabled(int i)
-                //{
-                //yield return new WaitForSeconds(0.2f);
-
-                //    instantiateSpells[i].GetComponent<Translate>().enabled = false;
-
-                //    for (int j = 4; j < childCount; j++)
-                //    {
-                //    Destroy(instantiateSpells[j - 4]);
-                //    }
-   
-                //}
- 
+            s.transform.position = new Vector3(Slot1.transform.position.x, Slot1.transform.position.y, Slot1.transform.position.z);
+            s.transform.rotation = g.gameObject.transform.rotation;
+            upCount++;
         }
-        Debug.Log(instantiateSpells[0]);    
+        else if(upCount > 0 && upCount < 4)
+        {
+            for (int i = upCount; i <= childCount; i++)
+            {
+
+                instantiateSpells[i] = spellsFusionBar.GetChild(i).gameObject;
+                StartCoroutine(TranslationCoroutine(instantiateSpells[i].transform, slots[i-1].transform, slots[i].transform));
+
+            }
+            upCount++;
+        }
+        else if (upCount >= 4)
+        {
+          
+            
+        }
 
     }
 
@@ -114,7 +99,7 @@ public class SpellsFusionUI : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime * spellSpeed;
             float percentageComplete = elapsedTime / duration;
             spellToTranslate.position = Vector3.Lerp(startTransform.position, endTransform.position, percentageComplete);
 
@@ -123,5 +108,4 @@ public class SpellsFusionUI : MonoBehaviour
 
     }
 
- 
 }
