@@ -12,6 +12,11 @@ public class Translate : MonoBehaviour
 
     private float elapsedTime = 1.0f; // Temps écoulé depuis le début de l'interpolation
 
+    public Transform test;
+    public Transform démarrage;
+    public Transform arrivée;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,22 +26,21 @@ public class Translate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       gameObject.transform.Translate(moveAmount * speed *  Time.deltaTime);
+        Translation(test, démarrage, arrivée);
 
-        
+    
+
     }
 
     public void Translation(Transform spellToTranslate, Transform startTransform, Transform endTransform)
     {
-        float t = 0f;
+        float elapsedTime = 0f;
 
-        while(t < duration)
-        { 
-        t += Time.deltaTime;
-
-        // Interpole la position de l'empty entre les Transform de départ et de destination
-        Vector3 currentPosition = Vector3.Lerp(startTransform.position, endTransform.position, t / duration);
-        spellToTranslate.position = currentPosition;
+        while(elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float percentageComplete = elapsedTime / duration;
+            spellToTranslate.position = Vector3.Lerp(startTransform.position, endTransform.position, percentageComplete);
         }
     }
 }

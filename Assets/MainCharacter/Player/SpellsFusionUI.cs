@@ -26,6 +26,8 @@ public class SpellsFusionUI : MonoBehaviour
 
     GameObject[] tableau;
 
+    public float duration = 1.0f; // Durée de l'interpolation en secondes
+
     // Start is called before the first frame update
 
 
@@ -74,7 +76,7 @@ public class SpellsFusionUI : MonoBehaviour
         {
             
                 instantiateSpells[i] = spellsFusionBar.GetChild(i).gameObject;
-                translateScript.Translation(instantiateSpells[i].transform, slots[i].transform, slots[i + 1].transform);
+                StartCoroutine(TranslationCoroutine(instantiateSpells[i].transform, slots[i].transform, slots[i + 1].transform));
             
 
 
@@ -103,6 +105,21 @@ public class SpellsFusionUI : MonoBehaviour
  
         }
         Debug.Log(instantiateSpells[0]);    
+
+    }
+
+    IEnumerator TranslationCoroutine (Transform spellToTranslate, Transform startTransform, Transform endTransform)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float percentageComplete = elapsedTime / duration;
+            spellToTranslate.position = Vector3.Lerp(startTransform.position, endTransform.position, percentageComplete);
+
+            yield return null;
+        }
 
     }
 
