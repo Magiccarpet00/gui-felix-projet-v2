@@ -107,21 +107,21 @@ public class PlayerAttack : MonoBehaviour
             anim4.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.S)) // attaque 5 
-        {
-            GameObject targetImage5;
-            targetImage5 = GameObject.Find("TargetImage5");
+        //if (Input.GetKeyDown(KeyCode.S)) // attaque 5 
+        //{
+        //    GameObject targetImage5;
+        //    targetImage5 = GameObject.Find("TargetImage5");
 
-            anim5.SetActive(true);
-            PressButtonColorChange(button5);
-            Attack5(targetImage5);
+        //    anim5.SetActive(true);
+        //    PressButtonColorChange(button5);
+        //    Attack5(targetImage5);
 
-        }
+        //}
 
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            anim5.SetActive(false);
-        }
+        //if (Input.GetKeyUp(KeyCode.S))
+        //{
+        //    anim5.SetActive(false);
+        //}
 
     }
 

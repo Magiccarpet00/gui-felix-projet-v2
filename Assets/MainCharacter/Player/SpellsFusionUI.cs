@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class SpellsFusionUI : MonoBehaviour
 {
     private Transform spellsFusionBar;
-    private RectTransform spellsFusionBarRect;
-  
-    
+    private Transform spellsFusionBarRect;
+
+
     [SerializeField] float instantiatePositionx;
     [SerializeField] float instantiatePositiony;
     [SerializeField] GameObject Slot1;
@@ -27,9 +27,11 @@ public class SpellsFusionUI : MonoBehaviour
     GameObject[] tableau;
 
     public float duration = 1.0f; // Durée de l'interpolation en secondes
-    private int upCount = 0 ;
+    private int upCount = 0;
 
     [SerializeField] float spellSpeed;
+
+    Image BGImage;
 
     // Start is called before the first frame update
 
@@ -38,8 +40,8 @@ public class SpellsFusionUI : MonoBehaviour
     void Start()
     {
         spellsFusionBar = GetComponent<Transform>();
-        //spellsFusionBarRect = GetComponent<RectTransform>();
-
+        BGImage = gameObject.GetComponent<Image>();
+        spellsFusionBarRect = GetComponent<Transform>();
 
     }
 
@@ -47,13 +49,25 @@ public class SpellsFusionUI : MonoBehaviour
     void Update()
     {
         childCount = spellsFusionBar.childCount; //comptage du nombre d'enfants
-        
+
 
         float width = cam.pixelWidth; // Permet d'ajuster la position de la barre au format de la caméra
         float height = cam.pixelHeight;
 
         Vector3 screenPosition = cam.WorldToScreenPoint(playerTransform.position); // récupère la position du player sur l'écran de la caméra
         transform.position = new Vector3(screenPosition.x + xOffset * width, screenPosition.y + yOffset * height, screenPosition.z); // place la barre des sorts sur le player
+
+
+            if (Input.GetKeyDown(KeyCode.S)) // attaque 5 
+            {
+                foreach (Transform child in spellsFusionBarRect)
+                {
+                    GameObject.Destroy(child.gameObject);
+                    upCount = 0;
+                    BGImage.color = Color.white;
+                }
+            }
+
 
     }
 
@@ -72,40 +86,56 @@ public class SpellsFusionUI : MonoBehaviour
         {
             s.transform.position = new Vector3(Slot1.transform.position.x, Slot1.transform.position.y, Slot1.transform.position.z);
             s.transform.rotation = g.gameObject.transform.rotation;
+
+            BGImage.color = Color.green; //gestion des couleur du BG
+
             upCount++;
         }
-        else if(upCount > 0 && upCount < 4)
+        else if (upCount > 0 && upCount < 4)
         {
             for (int i = upCount; i <= childCount; i++)
             {
 
                 instantiateSpells[i] = spellsFusionBar.GetChild(i).gameObject;
-                StartCoroutine(TranslationCoroutine(instantiateSpells[i].transform, slots[i-1].transform, slots[i].transform));
+                StartCoroutine(TranslationCoroutine(instantiateSpells[i].transform, slots[i - 1].transform, slots[i].transform));
 
             }
             upCount++;
+
+            //gestion des couleur du BG
+
+            if (upCount > 1)
+            {
+                BGImage.color = Color.yellow;
+            }
+
+            if (upCount > 2)
+            {
+                BGImage.color = new Color(1f, 0.5f, 0f);
+            }
+
+            if (upCount > 3)
+            {
+                BGImage.color = Color.red;
+            }
+
         }
-        else if (upCount >= 4)
+       
+
+        IEnumerator TranslationCoroutine(Transform spellToTranslate, Transform startTransform, Transform endTransform)
         {
-          
-            
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime * spellSpeed;
+                float percentageComplete = elapsedTime / duration;
+                spellToTranslate.position = Vector3.Lerp(startTransform.position, endTransform.position, percentageComplete);
+
+                yield return null;
+            }
+
         }
 
     }
-
-    IEnumerator TranslationCoroutine (Transform spellToTranslate, Transform startTransform, Transform endTransform)
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime * spellSpeed;
-            float percentageComplete = elapsedTime / duration;
-            spellToTranslate.position = Vector3.Lerp(startTransform.position, endTransform.position, percentageComplete);
-
-            yield return null;
-        }
-
-    }
-
 }
