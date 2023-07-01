@@ -23,113 +23,98 @@ public class PlayerAttack : MonoBehaviour
 
     private SpellsFusionUI displaySpell;
 
-    private Image imageButton1;
-    private Image imageButton2;
-    private Image imageButton3;
-    private Image imageButton4;
-    private Image imageButton5;
+    public int spellIDButton;
+    [SerializeField] SpellsUI spellUI;
+    [SerializeField] SpellsFusionUI spellFusionUI;
+    [SerializeField] BuildManagerScript buildManagerScript;
 
 
     private void Start()
     {
         displaySpell = GameObject.Find("SpellsFusionBG").GetComponent<SpellsFusionUI>();
-        imageButton1 = button1.image;
+       
 
     }
 
     private void Update()
     {
+        if (spellFusionUI.childCount < 4)
+            {
 
-   
-        if (Input.GetKeyDown(KeyCode.A)) //attaque 1
-        {
-            GameObject targetImage1;
-            targetImage1 = GameObject.Find("TargetImage1");
-            
-            anim1.SetActive(true);
-            PressButtonColorChange(button1);
-           
+            if (Input.GetKeyDown(KeyCode.A)) //attaque 1
+            {
+                GameObject targetImage1;
+                targetImage1 = GameObject.Find("TargetImage1");
 
-            Attack1(targetImage1);
-            
+                anim1.SetActive(true);
+                PressButtonColorChange(button1);
+
+
+                Attack1(targetImage1);
+
+            }
+
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                anim1.SetActive(false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z)) // attaque 2 
+            {
+                GameObject targetImage2;
+                targetImage2 = GameObject.Find("TargetImage2");
+
+                anim2.SetActive(true);
+                PressButtonColorChange(button2);
+                Attack2(targetImage2);
+
+            }
+
+            if (Input.GetKeyUp(KeyCode.Z))
+            {
+                anim2.SetActive(false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E)) // attaque 3 
+            {
+                GameObject targetImage3;
+                targetImage3 = GameObject.Find("TargetImage3");
+
+                anim3.SetActive(true);
+                PressButtonColorChange(button3);
+                Attack3(targetImage3);
+
+            }
+
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                anim3.SetActive(false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.R)) // attaque 4 
+            {
+                GameObject targetImage4;
+                targetImage4 = GameObject.Find("TargetImage4");
+
+                anim4.SetActive(true);
+                PressButtonColorChange(button4);
+                Attack4(targetImage4);
+
+            }
+
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                anim4.SetActive(false);
+            }
+
         }
-
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            anim1.SetActive(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z)) // attaque 2 
-        {
-            GameObject targetImage2;
-            targetImage2 = GameObject.Find("TargetImage2");
-
-            anim2.SetActive(true);
-            PressButtonColorChange(button2);
-            Attack2(targetImage2);
-
-        }
-
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-            anim2.SetActive(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.E)) // attaque 3 
-        {
-            GameObject targetImage3;
-            targetImage3 = GameObject.Find("TargetImage3");
-
-            anim3.SetActive(true);
-            PressButtonColorChange(button3);
-            Attack3(targetImage3);
-
-        }
-
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            anim3.SetActive(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.R)) // attaque 4 
-        {
-            GameObject targetImage4;
-            targetImage4 = GameObject.Find("TargetImage4");
-
-            anim4.SetActive(true);
-            PressButtonColorChange(button4);
-            Attack4(targetImage4);
-
-        }
-
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            anim4.SetActive(false);
-        }
-
-        //if (Input.GetKeyDown(KeyCode.S)) // attaque 5 
-        //{
-        //    GameObject targetImage5;
-        //    targetImage5 = GameObject.Find("TargetImage5");
-
-        //    anim5.SetActive(true);
-        //    PressButtonColorChange(button5);
-        //    Attack5(targetImage5);
-
-        //}
-
-        //if (Input.GetKeyUp(KeyCode.S))
-        //{
-        //    anim5.SetActive(false);
-        //}
-
     }
 
     //attaque 1
 
     public void Attack1(GameObject g)
     {
-        displaySpell.DisplaySpell(g);
+        displaySpell.DisplaySpell(g); //DisplaySpell déclarée dans SpellsFusionUI.cs
 
         //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
 
@@ -145,6 +130,10 @@ public class PlayerAttack : MonoBehaviour
                 enemyHealth.TakeDamage(attackDamage);
             }
         }
+
+        spellIDButton = spellUI.spellBuildActif[0].spellID; // récupère l'ID du scriptableobject spell lancé 
+        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
+
 
     }
 
@@ -166,6 +155,11 @@ public class PlayerAttack : MonoBehaviour
                 enemyHealth.TakeDamage(attackDamage);
             }
         }
+
+        spellIDButton = spellUI.spellBuildActif[1].spellID; // récupère l'ID du scriptableobject spell lancé 
+        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
+
+
     }
 
     //attaque 3
@@ -187,6 +181,9 @@ public class PlayerAttack : MonoBehaviour
                 enemyHealth.TakeDamage(attackDamage);
             }
         }
+
+        spellIDButton = spellUI.spellBuildActif[2].spellID; // récupère l'ID du scriptableobject spell lancé 
+        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
     }
 
     //attaque 4
@@ -208,6 +205,9 @@ public class PlayerAttack : MonoBehaviour
                 enemyHealth.TakeDamage(attackDamage);
             }
         }
+
+        spellIDButton = spellUI.spellBuildActif[3].spellID; // récupère l'ID du scriptableobject spell lancé 
+        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
     }
 
     //attaque 5

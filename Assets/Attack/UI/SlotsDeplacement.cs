@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlotsDeplacement : MonoBehaviour
 {
-    [SerializeField] Transform spellsFusionBG;
+    private Transform spellsFusionBG;
     [SerializeField] float xOffset;
     [SerializeField] float yOffset;
 
