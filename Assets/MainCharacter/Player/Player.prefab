@@ -17,8 +17,6 @@ GameObject:
   - component: {fileID: 2106366662}
   - component: {fileID: 2106366656}
   - component: {fileID: 2106366657}
-  - component: {fileID: 2106366666}
-  - component: {fileID: 2106366670}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -159,6 +157,10 @@ MonoBehaviour:
   anim3: {fileID: 3802898010326024977}
   anim4: {fileID: 9093268028539583973}
   anim5: {fileID: 519448819260636749}
+  spellIDButton: 0
+  spellUI: {fileID: 0}
+  spellFusionUI: {fileID: 0}
+  buildManagerScript: {fileID: 0}
 --- !u!54 &2106366662
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -187,12 +189,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8388d1d7fe2f42245b45de4da6e40fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 0}
   cam: {fileID: 0}
   agent: {fileID: 3801220734181014128}
   rb: {fileID: 2106366662}
   spellFusionBar: {fileID: 0}
+  spellsFusionBarPositionx: 0
+  spellsFusionBarPositiony: 0
+  isPlayer: 0
   bumped: 0
   jumped: 0
+  blink: 0
+  clicBuffer: {x: 0, y: 0, z: 0}
 --- !u!114 &2106366657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,35 +219,6 @@ MonoBehaviour:
   freezeCam: 0
   panSpeed: 15
   panBorder: 1
---- !u!114 &2106366666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3801220734181014134}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cea22a3ee1a94242ab644f571e8450b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shellPrefab: {fileID: 5722263341797311809, guid: ff0a814f058b051499128c91f9d6a503, type: 3}
---- !u!114 &2106366670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3801220734181014134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c628f3faa0458074d83e390563189a2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  spells:
-  - {fileID: 791565052832114562, guid: 2823557100bb98d4cb16bab793611772, type: 3}
-  - {fileID: 791565052832114562, guid: 720d4adacd229114bb6770b9b173d0d2, type: 3}
 --- !u!1001 &2825852366527149955
 PrefabInstance:
   m_ObjectHideFlags: 0

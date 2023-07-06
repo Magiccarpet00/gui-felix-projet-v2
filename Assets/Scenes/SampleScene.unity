@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17694062, g: 0.2214935, b: 0.30377394, a: 1}
+  m_IndirectSpecularColor: {r: 0.17694043, g: 0.22149308, b: 0.3037731, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3864,8 +3864,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
   - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
   - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
+  spellCombinaisonList: 
   spellCombinaison: 
-  beforeSpellCombinaison: 
+  spellCombinaisonPosition: -1
 --- !u!1 &1648720700 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3801220734181014134, guid: a7e5399111452414e8484cb1775ea089, type: 3}
@@ -4846,21 +4847,6 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 3801220734181014132, guid: a7e5399111452414e8484cb1775ea089, type: 3}
   m_PrefabInstance: {fileID: 3801220733310311639}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2106366693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1648720700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d36954e3f34833141aa1ecf0f837aa79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 963194227}
-  spells:
-  - {fileID: 5411673746336905361, guid: fc3c3ddd9546d0e48906c000ea1f0047, type: 3}
 --- !u!1 &42033665448554699
 GameObject:
   m_ObjectHideFlags: 0
@@ -4976,19 +4962,19 @@ PrefabInstance:
       propertyPath: follow
       value: 
       objectReference: {fileID: 2106366675}
-    - target: {fileID: 2106366670, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+    - target: {fileID: 0}
       propertyPath: cam
       value: 
       objectReference: {fileID: 963194227}
-    - target: {fileID: 2106366670, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2106366670, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+    - target: {fileID: 0}
       propertyPath: spells.Array.data[0]
       value: 
       objectReference: {fileID: 791565052832114562, guid: 7cdeb6c7d5fa6cb4e8a7819e174a656f, type: 3}
-    - target: {fileID: 2106366670, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+    - target: {fileID: 0}
       propertyPath: spells.Array.data[1]
       value: 
       objectReference: {fileID: 791565052832114562, guid: a03939a6d3eb4784d86e7d3f82209dfc, type: 3}
@@ -5084,8 +5070,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2106366666, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7e5399111452414e8484cb1775ea089, type: 3}
 --- !u!33 &4074777922083583885
 MeshFilter:
