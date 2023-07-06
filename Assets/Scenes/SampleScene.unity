@@ -3902,6 +3902,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
+  prefabElements:
+  - {fileID: 4716932150152681594, guid: b1b5a0153af571d439228658e4161f0a, type: 3}
+  speelQueue: []
 --- !u!4 &1696754208
 Transform:
   m_ObjectHideFlags: 0
@@ -4962,22 +4965,6 @@ PrefabInstance:
       propertyPath: follow
       value: 
       objectReference: {fileID: 2106366675}
-    - target: {fileID: 0}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 963194227}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: spells.Array.data[0]
-      value: 
-      objectReference: {fileID: 791565052832114562, guid: 7cdeb6c7d5fa6cb4e8a7819e174a656f, type: 3}
-    - target: {fileID: 0}
-      propertyPath: spells.Array.data[1]
-      value: 
-      objectReference: {fileID: 791565052832114562, guid: a03939a6d3eb4784d86e7d3f82209dfc, type: 3}
     - target: {fileID: 3801220734181014131, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: m_Enabled
       value: 0

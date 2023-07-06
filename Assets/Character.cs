@@ -32,7 +32,7 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentLife -= damage; // R�duit les points de vie actuels de l'ennemi
+        currentLife -= damage; // Reduit les points de vie actuels de l'ennemi
         healthBar.fillAmount = currentLife / characterData.Life;
 
         if (currentLife <= 0)

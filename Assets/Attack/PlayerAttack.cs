@@ -13,7 +13,6 @@ public class PlayerAttack : MonoBehaviour
     public Button button3;
     public Button button4;
     public Button button5;
- 
 
     public GameObject anim1;
     public GameObject anim2;
