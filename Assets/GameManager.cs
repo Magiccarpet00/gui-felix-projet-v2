@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public Camera cam;
 
     public GameObject[] prefabElements;
-    public List<Element> speelQueue = new List<Element>();
+   
 
     private void Awake()
     {
@@ -17,45 +17,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.A))
-        {
-            AddElementsInSpellQueue(0);
-        }
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-            AddElementsInSpellQueue(1);
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            AddElementsInSpellQueue(2);
-        }
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            AddElementsInSpellQueue(3);
-        }
-
-        
-        if(Input.GetKeyUp(KeyCode.S))
-        {
-            ExecuteSpellQueue();
-        }
-
-
+       
     }
 
-    public void AddElementsInSpellQueue(int i)
-    {
-        speelQueue.Add(prefabElements[i].GetComponent<Element>());
-    }
-    
-    public void ExecuteSpellQueue()
-    {
-        foreach (Element element in speelQueue)
-        {
-            element.Cast();
-        }
-        speelQueue.Clear();
-    }
 
     public Vector3 GetMousePos()
     {

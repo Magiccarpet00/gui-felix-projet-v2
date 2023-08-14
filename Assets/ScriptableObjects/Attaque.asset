@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c90cae169865324e9493a8713f9b549, type: 3}
   m_Name: Attaque
   m_EditorClassIdentifier: 
-  spellName: Attaque
+  spellName: Attaque 1
   spellID: 0
   spellIcon: {fileID: 21300000, guid: c6fea52dbe997324e9067c5b0bfb7c5d, type: 3}
+  spellTime: 3
+  spellType: 
+  spellZone: sphere
+  spellEffect: 
+  attackRange: 3
+  attackDamage: 5
+  spellIDButton: 0
+  spellUI: {fileID: 0}
+  spellFusionUI: {fileID: 0}
+  buildManagerScript: {fileID: 0}

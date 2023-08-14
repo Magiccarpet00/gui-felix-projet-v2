@@ -24,6 +24,8 @@ public class BuildManagerScript : MonoBehaviour
     void Start()
     {
 
+        //GameObject coucou = Instantiate(GameObject prefab, transform.position, Quaternion.identity);
+        //AreaEffect coucou2 = coucou.AddComponent<AreaEffect>();
       
 
         int digits = 4;
@@ -43,6 +45,8 @@ public class BuildManagerScript : MonoBehaviour
 
 
     }
+
+   
 
     // Update is called once per frame
     void Update()

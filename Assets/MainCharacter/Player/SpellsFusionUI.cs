@@ -74,7 +74,7 @@ public class SpellsFusionUI : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.S)) // attaque 5 
+        if (Input.GetKeyDown(KeyCode.S)) //réinitialise la séquence de spell
             {
                 foreach (Transform child in spellsFusionBarRect) // destroy les spell dans le BGFusion
                 {
@@ -96,7 +96,7 @@ public class SpellsFusionUI : MonoBehaviour
 
             if (buildManagerScript.spellCombinaisonPosition != -1) // Fais une action en fonction de la correspondance de la combinsaison de sort
             {
-                Debug.Log("Le sort lancé est le " + buildManagerScript.correspondanceSpellCombinaison[buildManagerScript.spellCombinaisonPosition, 1]);
+               
             }
             else
             {

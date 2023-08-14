@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth -= damage; // Réduit les points de vie actuels de l'ennemi
         healthBar.fillAmount = currentHealth / maxHealth;
-
+      
 
         if (currentHealth <= 0)
         {

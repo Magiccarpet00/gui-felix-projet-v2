@@ -27,7 +27,7 @@ public class SpellsUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        SetBuildUn();
     }
 
     // Update is called once per frame

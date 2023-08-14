@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float attackRange = 1.5f; // Portée de l'attaque
     public float attackDamage = 10f; // Dégâts infligés par l'attaque
-    public LayerMask enemyLayer; // Couche des ennemis
+    
     public Button button1;
     public Button button2;
     public Button button3;
@@ -20,12 +19,24 @@ public class PlayerAttack : MonoBehaviour
     public GameObject anim4;
     public GameObject anim5;
 
-    private SpellsFusionUI displaySpell;
 
     public int spellIDButton;
     [SerializeField] SpellsUI spellUI;
     [SerializeField] SpellsFusionUI spellFusionUI;
     [SerializeField] BuildManagerScript buildManagerScript;
+
+    private SpellsFusionUI displaySpell;
+    private LayerMask enemyLayer; // Couche des ennemis
+
+    
+
+
+    float attackRange;
+
+    public GameObject ballSpell;
+
+    public GameObject prefabSpell;
+
 
 
     private void Start()
@@ -49,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
                 PressButtonColorChange(button1);
 
 
-                Attack1(targetImage1);
+                CastSpell(targetImage1,spellUI.spellBuildActif[0]);
 
             }
 
@@ -65,8 +76,7 @@ public class PlayerAttack : MonoBehaviour
 
                 anim2.SetActive(true);
                 PressButtonColorChange(button2);
-                Attack2(targetImage2);
-
+                CastSpell(targetImage2, spellUI.spellBuildActif[1]);
             }
 
             if (Input.GetKeyUp(KeyCode.Z))
@@ -81,7 +91,7 @@ public class PlayerAttack : MonoBehaviour
 
                 anim3.SetActive(true);
                 PressButtonColorChange(button3);
-                Attack3(targetImage3);
+                CastSpell(targetImage3, spellUI.spellBuildActif[2]);
 
             }
 
@@ -97,7 +107,7 @@ public class PlayerAttack : MonoBehaviour
 
                 anim4.SetActive(true);
                 PressButtonColorChange(button4);
-                Attack4(targetImage4);
+                CastSpell(targetImage4, spellUI.spellBuildActif[3]);
 
             }
 
@@ -106,128 +116,148 @@ public class PlayerAttack : MonoBehaviour
                 anim4.SetActive(false);
             }
 
+            if (Input.GetKeyDown(KeyCode.S)) // attaque 4 
+            {
+
+                anim5.SetActive(true);
+
+            }
+
+            if (Input.GetKeyUp(KeyCode.S))
+            {
+                anim5.SetActive(false);
+            }
+
+
         }
+     
     }
 
-    //attaque 1
-
-    public void Attack1(GameObject g)
+    public void CastSpell (GameObject g, SpellScriptableObject spell)
     {
+
         displaySpell.DisplaySpell(g); //DisplaySpell déclarée dans SpellsFusionUI.cs
+        GameObject newSpell = Instantiate(prefabSpell, transform.position, Quaternion.identity);
+        SpellLifeTime lifeTime = newSpell.AddComponent<SpellLifeTime>();
+        lifeTime.SpellDie(spell.spellTime);
 
-        //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
+        if (spell.spellZone == "sphere")
+        {
+            SpellZone spellZone = newSpell.AddComponent<SpellZone>();
+            spellZone.SphereAttack(spell);
+        }
+        else if (spell.spellZone == "cone")
+        {
+            SpellZone spellZone = newSpell.AddComponent<SpellZone>();
+            spellZone.ConeAttack(spell);
+        }
+        else if (spell.spellZone == "ray")
+        {
+            SpellZone spellZone = newSpell.AddComponent<SpellZone>();
+            spellZone.RayAttack(spell);
+        }
+        else if (spell.spellZone == "ball")
+        {
+            SpellZone spellZone = newSpell.AddComponent<SpellZone>();
+            spellZone.BallAttack(spell);
+        }
 
-        // Détection des ennemis dans la zone d'attaque
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
+
+        spellIDButton = spell.spellID; // récupère l'ID du scriptableobject spell lancé 
+        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
+
+    }
+
+
+    public void SphereAttack (SpellScriptableObject spell)
+    {
+        
+        attackRange = spell.attackRange;
+
+
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
 
         foreach (Collider enemy in hitEnemies)
         {
+
             // Inflige des dégâts à l'ennemi
             EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(attackDamage);
+
             }
         }
+    }
 
-        spellIDButton = spellUI.spellBuildActif[0].spellID; // récupère l'ID du scriptableobject spell lancé 
-        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
+    public void ConeAttack (SpellScriptableObject spell)
+    {
+       float coneAngle = 45f;
+
+        
+
+        attackRange = spell.attackRange;
+
+
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
+
+        foreach (Collider enemy in hitEnemies)
+        {
+
+            // Check if the collider is within the cone angle
+            Vector3 directionToCollider = enemy.transform.position - transform.position;
+            float angleToCollider = Vector3.Angle(transform.forward, directionToCollider);
+
+          
+            if (angleToCollider < coneAngle)
+            {
+                // Inflige des dégâts à l'ennemi
+                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(attackDamage);
+
+                }
+            }
+
+        }
 
 
     }
 
-    //attaque 2
-    public void Attack2(GameObject g)
+    public void RayAttack(SpellScriptableObject spell)
     {
-        displaySpell.DisplaySpell(g);
-        //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
+       
 
-        // Détection des ennemis dans la zone d'attaque
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
+        attackRange = spell.attackRange;
 
-        foreach (Collider enemy in hitEnemies)
+        Ray ray = new Ray(transform.position, transform.forward);
+
+        RaycastHit[] hitEnemies = Physics.RaycastAll(ray);
+
+        foreach (RaycastHit enemy in hitEnemies)
         {
+
             // Inflige des dégâts à l'ennemi
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+            EnemyHealth enemyHealth = enemy.collider.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(attackDamage);
+
             }
         }
-
-        spellIDButton = spellUI.spellBuildActif[1].spellID; // récupère l'ID du scriptableobject spell lancé 
-        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
-
 
     }
 
-    //attaque 3
-
-    public void Attack3(GameObject g)
+    public void BallAttack(SpellScriptableObject spell)
     {
-        displaySpell.DisplaySpell(g);
-        //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
+       
+        
+        attackRange = spell.attackRange;
 
-        // Détection des ennemis dans la zone d'attaque
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
+        GameObject areaEffect = Instantiate(ballSpell, transform.position, Quaternion.identity);
+        //areaEffect.GetComponent<AreaEffect>().SetUp(spell.attackDamage, spell.spellTime);
 
-        foreach (Collider enemy in hitEnemies)
-        {
-            // Inflige des dégâts à l'ennemi
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(attackDamage);
-            }
-        }
-
-        spellIDButton = spellUI.spellBuildActif[2].spellID; // récupère l'ID du scriptableobject spell lancé 
-        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
-    }
-
-    //attaque 4
-
-    public void Attack4(GameObject g)
-    {
-        displaySpell.DisplaySpell(g);
-        //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
-
-        // Détection des ennemis dans la zone d'attaque
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
-
-        foreach (Collider enemy in hitEnemies)
-        {
-            // Inflige des dégâts à l'ennemi
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(attackDamage);
-            }
-        }
-
-        spellIDButton = spellUI.spellBuildActif[3].spellID; // récupère l'ID du scriptableobject spell lancé 
-        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
-    }
-
-    //attaque 5
-
-    public void Attack5(GameObject g)
-    {
-        displaySpell.DisplaySpell(g);
-        //animator.SetTrigger("Attack"); // Déclenche l'animation d'attaque dans l'animator
-
-        // Détection des ennemis dans la zone d'attaque
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
-
-        foreach (Collider enemy in hitEnemies)
-        {
-            // Inflige des dégâts à l'ennemi
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(attackDamage);
-            }
-        }
     }
 
 
@@ -258,10 +288,5 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    private void OnDrawGizmosSelected()
-    {
-        // Dessine une sphère pour représenter la portée d'attaque dans l'éditeur
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
+   
 }
