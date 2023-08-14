@@ -14,7 +14,7 @@ public class SpellZone : MonoBehaviour
     float attackRange;
 
 
-    Vector3 mousePos = GameManager.instance.GetMousePos();
+    Vector3 mousPosLocalPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -64,16 +64,17 @@ public class SpellZone : MonoBehaviour
 
         attackRange = spell.attackRange;
 
+        mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
 
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
 
         foreach (Collider enemy in hitEnemies)
         {
-           
 
-            // Check if the collider is within the cone angle
+
+            // Check si le collider est dans le cone angle
             Vector3 directionToCollider = enemy.transform.position - transform.position;
-            float angleToCollider = Vector3.Angle(mousePos, directionToCollider);
+            float angleToCollider = Vector3.Angle(mousPosLocalPlayer, directionToCollider);
 
 
             if (angleToCollider < coneAngle)
@@ -101,12 +102,15 @@ public class SpellZone : MonoBehaviour
 
         attackRange = spell.attackRange;
 
-        Ray ray = new Ray(transform.position, transform.forward);
+        mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
+        Ray ray = new Ray(transform.position, Vector3.Normalize(mousPosLocalPlayer));
+       
 
-        RaycastHit[] hitEnemies = Physics.RaycastAll(ray);
+        RaycastHit[] hitEnemies = Physics.RaycastAll(ray,attackRange);
 
         foreach (RaycastHit enemy in hitEnemies)
         {
+
 
             // Inflige des dégâts à l'ennemi
             EnemyHealth enemyHealth = enemy.collider.GetComponent<EnemyHealth>();
@@ -146,13 +150,13 @@ public class SpellZone : MonoBehaviour
             //Gizmo cone parameter
             float angle = 45f;
             float halfFOV = angle / 2.0f;
-            float coneDirection = 90;
+            
 
-            Quaternion leftRayRotation = Quaternion.AngleAxis(-halfFOV - coneDirection, transform.up);
-            Quaternion rightRayRotation = Quaternion.AngleAxis(halfFOV - coneDirection, transform.up);
+            Quaternion leftRayRotation = Quaternion.AngleAxis(-halfFOV, transform.up);
+            Quaternion rightRayRotation = Quaternion.AngleAxis(halfFOV, transform.up);
 
-            Vector3 leftRayDirection = leftRayRotation * transform.right * attackRange;
-            Vector3 rightRayDirection = rightRayRotation * transform.right * attackRange;
+            Vector3 leftRayDirection = leftRayRotation *  Vector3.Normalize(mousPosLocalPlayer) * attackRange;
+            Vector3 rightRayDirection = rightRayRotation * Vector3.Normalize(mousPosLocalPlayer) * attackRange;
 
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, leftRayDirection);
@@ -162,7 +166,7 @@ public class SpellZone : MonoBehaviour
         }
         else if (gizmoRay == true)
         {
-            Ray ray = new Ray(transform.position, transform.forward);
+            Ray ray = new Ray(transform.position, mousPosLocalPlayer);
             Gizmos.color = Color.red;
             Gizmos.DrawRay(ray.origin, ray.direction * attackRange);
         }
