@@ -14,6 +14,8 @@ public class SpellZone : SpellEffect
 
 
     Vector3 mousPosLocalPlayer;
+    Vector3 mousPosworld;
+
 
 
 
@@ -97,9 +99,11 @@ public class SpellZone : SpellEffect
         attackRange = spell.attackRange;
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
-        Vector3 blinkVector = new Vector3(mousPosLocalPlayer.x, transform.position.y, mousPosLocalPlayer.z);
-        Ray ray = new Ray(transform.position, Vector3.Normalize(mousPosLocalPlayer));
+        mousPosworld = GameManager.instance.GetMousePosWorld(transform);
+        Vector3 interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
+        Ray ray = new Ray(transform.position, Vector3.Normalize(mousPosLocalPlayer));
+       
         RaycastHit[] hitEnemies = Physics.RaycastAll(ray,attackRange);
 
         foreach (RaycastHit enemy in hitEnemies)
@@ -108,6 +112,7 @@ public class SpellZone : SpellEffect
             {
                 // Inflige des dégâts à l'ennemi
                 DammageEffect(spell, enemy.collider);
+                
             }
             else if (spell.spellEffect == "Slow")
             {
@@ -118,7 +123,7 @@ public class SpellZone : SpellEffect
         }
         if (spell.spellEffect == "Blink")
         {
-            BlinkEffect(spell, Vector3.Normalize(mousPosLocalPlayer));
+            BlinkEffect(spell, interpolatePos);
         }
     }
 

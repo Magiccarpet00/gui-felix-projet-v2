@@ -45,11 +45,23 @@ public class GameManager : MonoBehaviour
          //Étape 3 : Inversion de l'échelle
         Vector3 vectorLocalFinal = new Vector3(
             vectorLocalNonRotate.x / transform.localScale.x,
-            vectorLocalNonRotate.y / transform.transform.localScale.y,
-            vectorLocalNonRotate.z / transform.transform.localScale.z);
+            vectorLocalNonRotate.y / transform.localScale.y,
+            vectorLocalNonRotate.z / transform.localScale.z);
 
         return vectorLocalFinal; 
     }
- 
-    
+
+    public Vector3 InterpolatePoints(Vector3 start, Vector3 end, float f)
+    {
+        float x = start.x + f * (end.x - start.x);
+        float z = start.z + f * (end.z - start.z);
+
+        Vector3 interpolateVector = new Vector3(x,1f,z);
+
+        return interpolateVector;
+
+
+    }
+
+
 }

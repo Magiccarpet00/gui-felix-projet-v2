@@ -108,19 +108,19 @@ public class PlayerDeplacement : MonoBehaviour
         bumped = false;
     }
 
-    public void Blink(float blinkTime, Vector3 newPos, float spellValue)
+    public void Blink(float blinkTime, Vector3 newPos)
     {
-        StartCoroutine(BlinkCoroutine(blinkTime, newPos, spellValue));
+        StartCoroutine(BlinkCoroutine(blinkTime, newPos));
     }
 
-    public IEnumerator BlinkCoroutine(float blinkTime, Vector3 newPos, float spellValue)
+    public IEnumerator BlinkCoroutine(float blinkTime, Vector3 newPos)
     {
         blink = true;
         agent.ResetPath();       
         character.model.SetActive(false);
         character.capsuleCollider.enabled = false;
-        transform.position = newPos * spellValue;
-        agent.SetDestination(newPos * spellValue);
+        transform.position = newPos;
+        agent.SetDestination(transform.position);
         yield return new WaitForSeconds(blinkTime);
         character.model.SetActive(true);
         character.capsuleCollider.enabled = true;

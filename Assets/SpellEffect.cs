@@ -38,7 +38,7 @@ public class SpellEffect : MonoBehaviour
     public void BlinkEffect(SpellScriptableObject spell, Vector3 endPoint)
     {
         PlayerDeplacement playerDeplacement = GameManager.instance.prefabPlayer.GetComponent<PlayerDeplacement>();
-        playerDeplacement.Blink(spell.spellTime, endPoint, spell.spellValue);
+        playerDeplacement.Blink(spell.spellTime, endPoint);
 
 
     }
