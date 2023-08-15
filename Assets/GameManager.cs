@@ -6,8 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Camera cam;
-
     public GameObject[] prefabElements;
+    public GameObject prefabPlayer;
    
 
     private void Awake()

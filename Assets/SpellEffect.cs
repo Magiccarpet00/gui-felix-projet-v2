@@ -2,52 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public class SpellEffect : MonoBehaviour
 {
-    private HashSet<Collider> touchedEnemies = new HashSet<Collider>();
+
+
+    public List<Collider> listTouchedEnemies = new List<Collider>();
     
     //---------------------Dommages-------------------
     public void DammageEffect(SpellScriptableObject spell, Collider enemy)
     {
         EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-        if (enemyHealth != null)
+        if (enemyHealth != null && !listTouchedEnemies.Contains(enemy))
         {
             enemyHealth.TakeDamage(spell.spellValue);
+            listTouchedEnemies.Add(enemy);
         }
 
-    }
-
-    public void DammageBallEffect(SpellScriptableObject spell, Collider enemy)
-    {
-        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-        if (enemyHealth != null && !touchedEnemies.Contains(enemy))
-        {
-            enemyHealth.TakeDamage(spell.spellValue);
-            touchedEnemies.Add(enemy);
-        }
     }
 
     //---------------------Slow-------------------
     public void SlowEffect(SpellScriptableObject spell, Collider enemy)
     {
         DeplacementEnnemy enemyDeplacement = enemy.GetComponent<DeplacementEnnemy>();
-        if (enemyDeplacement != null)
-        {
-            enemyDeplacement.slowDeplacement(spell.spellValue,spell.spellTime);
-        }
-
-    }
-
-    public void SlowBallEffect(SpellScriptableObject spell, Collider enemy)
-    {
-        DeplacementEnnemy enemyDeplacement = enemy.GetComponent<DeplacementEnnemy>();
-        if (enemyDeplacement != null && !touchedEnemies.Contains(enemy))
+        if (enemyDeplacement != null && !listTouchedEnemies.Contains(enemy))
         {
             enemyDeplacement.slowDeplacement(spell.spellValue, spell.spellTime);
-            touchedEnemies.Add(enemy);
+            listTouchedEnemies.Add(enemy);
         }
+    }
+
+    //---------------------Blink-------------------
+    public void BlinkEffect(SpellScriptableObject spell, Vector3 endPoint)
+    {
+        PlayerDeplacement playerDeplacement = GameManager.instance.prefabPlayer.GetComponent<PlayerDeplacement>();
+        playerDeplacement.Blink(spell.spellTime, endPoint, spell.spellValue);
+
 
     }
+
+
+
 
 
 }

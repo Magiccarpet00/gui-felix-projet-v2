@@ -17,8 +17,8 @@ MonoBehaviour:
   spellIcon: {fileID: 21300000, guid: 14473aed868584b4a8444b9fb33824fc, type: 3}
   spellTime: 5
   spellType: 
-  spellZone: ball
-  spellEffect: 
+  spellZone: Sphere
+  spellEffect: Dommage
   attackRange: 2
   spellValue: 3
   spellIDButton: 0

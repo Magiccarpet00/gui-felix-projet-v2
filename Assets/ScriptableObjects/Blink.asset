@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c90cae169865324e9493a8713f9b549, type: 3}
-  m_Name: Magie
+  m_Name: Blink
   m_EditorClassIdentifier: 
-  spellName: Magie
-  spellID: 2
-  spellIcon: {fileID: 21300000, guid: 9fbb28421021d034991dd9bda68d2854, type: 3}
-  spellTime: 3
+  spellName: Blink
+  spellID: 1
+  spellIcon: {fileID: 21300000, guid: 8835a15468858364181ad68b0ded8925, type: 3}
+  spellTime: 0.2
   spellType: 
-  spellZone: Cone
-  spellEffect: Dommage
-  attackRange: 10
-  spellValue: 3
+  spellZone: Ray
+  spellEffect: Blink
+  attackRange: 5
+  spellValue: 10
   spellIDButton: 0
   spellUI: {fileID: 0}
   spellFusionUI: {fileID: 0}

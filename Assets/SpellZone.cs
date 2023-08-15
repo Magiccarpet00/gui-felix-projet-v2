@@ -29,7 +29,7 @@ public class SpellZone : SpellEffect
         
     }
 
-    public void SphereAttack(SpellScriptableObject spell)
+    public void Sphere(SpellScriptableObject spell)
     {
         gizmoSphere = true;
         gizmoCone = false;
@@ -37,25 +37,13 @@ public class SpellZone : SpellEffect
 
         attackRange = spell.attackRange;
 
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
+        mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
 
-        foreach (Collider enemy in hitEnemies)
-        {
-            if(spell.spellEffect=="Dommage")
-            {
-                // Inflige des dégâts à l'ennemi
-                DammageEffect(spell, enemy);
-            }
-            else if(spell.spellEffect == "Slow")
-            {
-                // Ralenti la cible
-                SlowEffect(spell, enemy);
-            }
-            
-        }
+        StartCoroutine(DetectColisionTranslate(spell));
+
     }
 
-    public void ConeAttack(SpellScriptableObject spell)
+    public void Cone(SpellScriptableObject spell)
     {
         float coneAngle = 45f;
 
@@ -89,6 +77,10 @@ public class SpellZone : SpellEffect
                     // Ralenti la cible
                     SlowEffect(spell, enemy);
                 }
+                else if (spell.spellEffect =="Blink")
+                {
+                    
+                }
             }
 
         }
@@ -96,7 +88,7 @@ public class SpellZone : SpellEffect
 
     }
 
-    public void RayAttack(SpellScriptableObject spell)
+    public void Ray(SpellScriptableObject spell)
     {
         gizmoSphere = false;
         gizmoCone = false;
@@ -105,6 +97,7 @@ public class SpellZone : SpellEffect
         attackRange = spell.attackRange;
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
+        Vector3 blinkVector = new Vector3(mousPosLocalPlayer.x, transform.position.y, mousPosLocalPlayer.z);
         Ray ray = new Ray(transform.position, Vector3.Normalize(mousPosLocalPlayer));
 
         RaycastHit[] hitEnemies = Physics.RaycastAll(ray,attackRange);
@@ -121,21 +114,17 @@ public class SpellZone : SpellEffect
                 // Ralenti la cible
                 SlowEffect(spell, enemy.collider);
             }
+            
+        }
+        if (spell.spellEffect == "Blink")
+        {
+            BlinkEffect(spell, Vector3.Normalize(mousPosLocalPlayer));
         }
     }
 
-    public void BallAttack(SpellScriptableObject spell)
-    {
-        gizmoSphere = true;
-        gizmoCone = false;
-        gizmoRay = false;
+    
 
-        attackRange = spell.attackRange;
-
-        StartCoroutine(DetectColisionBall(spell));
-    }
-
-    IEnumerator DetectColisionBall(SpellScriptableObject spell)
+    IEnumerator DetectColisionTranslate(SpellScriptableObject spell)
     {
 
         while (true)
@@ -147,14 +136,15 @@ public class SpellZone : SpellEffect
                 if (spell.spellEffect == "Dommage")
                 {
                     // Inflige des dégâts à l'ennemi
-                    DammageBallEffect(spell, enemy);
+                    DammageEffect(spell, enemy);
                 }
                 else if (spell.spellEffect == "Slow")
                 {
                     // Ralenti la cible
-                    SlowBallEffect(spell, enemy);
+                    SlowEffect(spell, enemy);
                 }
             }
+
         yield return null; 
         }
     }

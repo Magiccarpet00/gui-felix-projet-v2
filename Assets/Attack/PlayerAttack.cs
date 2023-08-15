@@ -135,28 +135,22 @@ public class PlayerAttack : MonoBehaviour
         SpellEffect spellEffect = newSpell.AddComponent<SpellEffect>();
 
 
-        if (spell.spellZone == "sphere")
+        if (spell.spellZone == "Sphere")
         {
             SpellZone spellZone = newSpell.AddComponent<SpellZone>();
-            spellZone.SphereAttack(spell);
+            spellZone.Sphere(spell);
         }
-        else if (spell.spellZone == "cone")
+        else if (spell.spellZone == "Cone")
         {
             SpellZone spellZone = newSpell.AddComponent<SpellZone>();
-            spellZone.ConeAttack(spell);
+            spellZone.Cone(spell);
         }
-        else if (spell.spellZone == "ray")
+        else if (spell.spellZone == "Ray")
         {
             SpellZone spellZone = newSpell.AddComponent<SpellZone>();
-            spellZone.RayAttack(spell);
+            spellZone.Ray(spell);
         }
-        else if (spell.spellZone == "ball")
-        {
-            SpellZone spellZone = newSpell.AddComponent<SpellZone>();
-            spellZone.BallAttack(spell);
-
-            BallSpell ball = newSpell.AddComponent<BallSpell>();
-        }
+       
 
 
         spellIDButton = spell.spellID; // récupère l'ID du scriptableobject spell lancé 

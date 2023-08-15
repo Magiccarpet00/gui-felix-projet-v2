@@ -7,7 +7,8 @@ public class DeplacementEnnemy : MonoBehaviour
 {
     public NavMeshAgent ennemyAgent;
     public Transform target;
-    public float ennemyAgentWlakingSpeed =1f;
+    public float walkingSpeed =1f;
+    public bool isSlowed = false;
 
     [SerializeField] float walkDistance = 7f, attackDistance = 1f; // ajouter une variable idleDistance = 10f pour l'animation d'idle
 
@@ -33,22 +34,27 @@ public class DeplacementEnnemy : MonoBehaviour
         }
         else
         {
-            ennemyAgent.speed = ennemyAgentWlakingSpeed;
+            ennemyAgent.speed = walkingSpeed;
         }
 
     }
 
     public void slowDeplacement(float spellValue, float spellTime)
     {
-        StartCoroutine(ReduceEnnemySpeed(spellValue, spellTime));
+        if(isSlowed == false)
+        {
+            StartCoroutine(ReduceEnnemySpeed(spellValue, spellTime));
+        }
     }
 
     IEnumerator ReduceEnnemySpeed(float spellValue, float time)
     {
-        ennemyAgentWlakingSpeed = ennemyAgentWlakingSpeed - spellValue;
+        walkingSpeed = walkingSpeed - spellValue;
+        isSlowed = true;
 
             yield return new WaitForSeconds(time);
 
-        ennemyAgentWlakingSpeed = ennemyAgentWlakingSpeed + spellValue;
+        walkingSpeed = walkingSpeed + spellValue;
+        isSlowed = false;
     }
 }

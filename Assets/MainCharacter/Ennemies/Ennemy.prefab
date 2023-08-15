@@ -280,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ennemyAgent: {fileID: 8369173806147952637}
   target: {fileID: 0}
+  ennemyAgentWlakingSpeed: 1
   walkDistance: 7
   attackDistance: 1
 --- !u!114 &8369173806147952519
