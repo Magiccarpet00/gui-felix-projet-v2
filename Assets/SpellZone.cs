@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellZone : MonoBehaviour
+public class SpellZone : SpellEffect
 {
 
 
     bool gizmoSphere = false;
     bool gizmoCone = false;
     bool gizmoRay = false;
-    bool gizmoBall = false;
 
     float attackRange;
 
 
     Vector3 mousPosLocalPlayer;
 
-    private HashSet<Collider> touchedEnemies = new HashSet<Collider>();
 
 
     // Start is called before the first frame update
@@ -36,23 +34,24 @@ public class SpellZone : MonoBehaviour
         gizmoSphere = true;
         gizmoCone = false;
         gizmoRay = false;
-        gizmoBall = false;
 
         attackRange = spell.attackRange;
-
 
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
 
         foreach (Collider enemy in hitEnemies)
         {
-
-            // Inflige des dégâts à l'ennemi
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
+            if(spell.spellEffect=="Dommage")
             {
-                enemyHealth.TakeDamage(spell.attackDamage);
-
+                // Inflige des dégâts à l'ennemi
+                DammageEffect(spell, enemy);
             }
+            else if(spell.spellEffect == "Slow")
+            {
+                // Ralenti la cible
+                SlowEffect(spell, enemy);
+            }
+            
         }
     }
 
@@ -63,7 +62,6 @@ public class SpellZone : MonoBehaviour
         gizmoSphere = false;
         gizmoCone = true;
         gizmoRay = false;
-        gizmoBall = false;
 
         attackRange = spell.attackRange;
 
@@ -74,7 +72,6 @@ public class SpellZone : MonoBehaviour
         foreach (Collider enemy in hitEnemies)
         {
 
-
             // Check si le collider est dans le cone angle
             Vector3 directionToCollider = enemy.transform.position - transform.position;
             float angleToCollider = Vector3.Angle(mousPosLocalPlayer, directionToCollider);
@@ -82,12 +79,15 @@ public class SpellZone : MonoBehaviour
 
             if (angleToCollider < coneAngle)
             {
-                // Inflige des dégâts à l'ennemi
-                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
+                if (spell.spellEffect == "Dommage")
                 {
-                    enemyHealth.TakeDamage(spell.attackDamage);
-
+                    // Inflige des dégâts à l'ennemi
+                    DammageEffect(spell, enemy);
+                }
+                else if (spell.spellEffect == "Slow")
+                {
+                    // Ralenti la cible
+                    SlowEffect(spell, enemy);
                 }
             }
 
@@ -101,29 +101,27 @@ public class SpellZone : MonoBehaviour
         gizmoSphere = false;
         gizmoCone = false;
         gizmoRay = true;
-        gizmoBall = false;
 
         attackRange = spell.attackRange;
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
         Ray ray = new Ray(transform.position, Vector3.Normalize(mousPosLocalPlayer));
-       
 
         RaycastHit[] hitEnemies = Physics.RaycastAll(ray,attackRange);
 
         foreach (RaycastHit enemy in hitEnemies)
         {
-
-
-            // Inflige des dégâts à l'ennemi
-            EnemyHealth enemyHealth = enemy.collider.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
+            if (spell.spellEffect == "Dommage")
             {
-                enemyHealth.TakeDamage(spell.attackDamage);
-
+                // Inflige des dégâts à l'ennemi
+                DammageEffect(spell, enemy.collider);
+            }
+            else if (spell.spellEffect == "Slow")
+            {
+                // Ralenti la cible
+                SlowEffect(spell, enemy.collider);
             }
         }
-
     }
 
     public void BallAttack(SpellScriptableObject spell)
@@ -133,7 +131,6 @@ public class SpellZone : MonoBehaviour
         gizmoRay = false;
 
         attackRange = spell.attackRange;
-
 
         StartCoroutine(DetectColisionBall(spell));
     }
@@ -147,13 +144,16 @@ public class SpellZone : MonoBehaviour
 
             foreach (Collider enemy in hitEnemies)
             {
+                if (spell.spellEffect == "Dommage")
+                {
                     // Inflige des dégâts à l'ennemi
-                    EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-                    if (enemyHealth != null && !touchedEnemies.Contains(enemy))
-                    {
-                        enemyHealth.TakeDamage(spell.attackDamage);
-                        touchedEnemies.Add(enemy);
-                    }
+                    DammageBallEffect(spell, enemy);
+                }
+                else if (spell.spellEffect == "Slow")
+                {
+                    // Ralenti la cible
+                    SlowBallEffect(spell, enemy);
+                }
             }
         yield return null; 
         }

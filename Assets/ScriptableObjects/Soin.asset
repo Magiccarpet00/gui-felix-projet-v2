@@ -20,7 +20,7 @@ MonoBehaviour:
   spellZone: ball
   spellEffect: 
   attackRange: 2
-  attackDamage: 5
+  spellValue: 3
   spellIDButton: 0
   spellUI: {fileID: 0}
   spellFusionUI: {fileID: 0}

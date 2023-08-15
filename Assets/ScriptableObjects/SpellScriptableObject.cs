@@ -13,7 +13,7 @@ public class SpellScriptableObject : ScriptableObject
     public string spellZone;
     public string spellEffect;
     public float attackRange;
-    public float attackDamage;
+    public float spellValue;
     private SpellsFusionUI displaySpell;
     public int spellIDButton;
     [SerializeField] SpellsUI spellUI;

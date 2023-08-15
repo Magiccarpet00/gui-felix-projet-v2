@@ -18,9 +18,9 @@ MonoBehaviour:
   spellTime: 3
   spellType: 
   spellZone: sphere
-  spellEffect: 
+  spellEffect: Slow
   attackRange: 3
-  attackDamage: 5
+  spellValue: 3
   spellIDButton: 0
   spellUI: {fileID: 0}
   spellFusionUI: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float attackDamage = 10f; // Dégâts infligés par l'attaque
+    public float spellValue = 10f; // Dégâts infligés par l'attaque
     
     public Button button1;
     public Button button2;
@@ -26,12 +26,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] BuildManagerScript buildManagerScript;
 
     private SpellsFusionUI displaySpell;
-    private LayerMask enemyLayer; // Couche des ennemis
 
-    
-
-
-   
 
     public GameObject prefabSpell;
 
@@ -40,7 +35,6 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         displaySpell = GameObject.Find("SpellsFusionBG").GetComponent<SpellsFusionUI>();
-       
 
     }
 
@@ -138,6 +132,8 @@ public class PlayerAttack : MonoBehaviour
         GameObject newSpell = Instantiate(prefabSpell, transform.position, Quaternion.identity);
         SpellLifeTime lifeTime = newSpell.AddComponent<SpellLifeTime>();
         lifeTime.SpellDie(spell.spellTime);
+        SpellEffect spellEffect = newSpell.AddComponent<SpellEffect>();
+
 
         if (spell.spellZone == "sphere")
         {

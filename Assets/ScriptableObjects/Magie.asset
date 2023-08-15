@@ -20,7 +20,7 @@ MonoBehaviour:
   spellZone: cone
   spellEffect: 
   attackRange: 10
-  attackDamage: 10
+  spellValue: 3
   spellIDButton: 0
   spellUI: {fileID: 0}
   spellFusionUI: {fileID: 0}
