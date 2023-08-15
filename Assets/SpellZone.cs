@@ -90,16 +90,7 @@ public class SpellZone : SpellEffect
 
             foreach (Collider enemy in hitEnemies)
             {
-                if (spell.spellEffect == "Dommage")
-                {
-                    // Inflige des dégâts à l'ennemi
-                    DammageEffect(spell, enemy);
-                }
-                else if (spell.spellEffect == "Slow")
-                {
-                    // Ralenti la cible
-                    SlowEffect(spell, enemy);
-                }
+                SetSpellActiveEffect(spell, enemy);
             }
 
         yield return null; 
@@ -123,20 +114,7 @@ public class SpellZone : SpellEffect
 
                 if (angleToCollider < coneAngle)
                 {
-                    if (spell.spellEffect == "Dommage")
-                    {
-                        // Inflige des dégâts à l'ennemi
-                        DammageEffect(spell, enemy);
-                    }
-                    else if (spell.spellEffect == "Slow")
-                    {
-                        // Ralenti la cible
-                        SlowEffect(spell, enemy);
-                    }
-                    else if (spell.spellEffect == "Blink")
-                    {
-
-                    }
+                    SetSpellActiveEffect(spell, enemy);
                 }
 
             }
@@ -178,10 +156,23 @@ public class SpellZone : SpellEffect
         }
     }
 
+    public void SetSpellActiveEffect(SpellScriptableObject spell, Collider enemy)
+    {
+        if (spell.spellEffect == "Dommage")
+        {
+            // Inflige des dégâts à l'ennemi
+            DammageEffect(spell, enemy);
+
+        }
+        else if (spell.spellEffect == "Slow")
+        {
+            // Ralenti la cible
+            SlowEffect(spell, enemy);
+        }
+    }
 
 
-
-    private void OnDrawGizmos()
+        private void OnDrawGizmos()
     {
 
         if (gizmoSphere == true)

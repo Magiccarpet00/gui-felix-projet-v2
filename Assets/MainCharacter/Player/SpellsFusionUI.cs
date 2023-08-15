@@ -29,7 +29,7 @@ public class SpellsFusionUI : MonoBehaviour
 
     Image BGImage;
 
-    [SerializeField] BuildManagerScript buildManagerScript;
+ 
    
 
     // Start is called before the first frame update
@@ -56,58 +56,18 @@ public class SpellsFusionUI : MonoBehaviour
 
         childCount = spellsFusionBar.childCount; //comptage du nombre d'enfants
 
-        if (buildManagerScript.spellCombinaisonList.Count == 1)
+
+    }
+
+    public void ResetSpellBar()
+    {
+        Debug.Log("destr");
+        foreach (Transform child in spellsFusionBarRect) // destroy les spell dans le BGFusion
         {
-         buildManagerScript.spellCombinaison = "000"+ string.Join("", buildManagerScript.spellCombinaisonList); //création de la combinaison de spell
+            GameObject.Destroy(child.gameObject);
+            upCount = 0;
+            BGImage.color = Color.white;
         }
-        if (buildManagerScript.spellCombinaisonList.Count ==2 )
-        {
-            buildManagerScript.spellCombinaison = "00" + string.Join("", buildManagerScript.spellCombinaisonList); //création de la combinaison de spell
-        }
-        if (buildManagerScript.spellCombinaisonList.Count == 3)
-        {
-            buildManagerScript.spellCombinaison = "0" + string.Join("", buildManagerScript.spellCombinaisonList); //création de la combinaison de spell
-        }
-        if (buildManagerScript.spellCombinaisonList.Count == 4)
-        {
-            buildManagerScript.spellCombinaison = string.Join("", buildManagerScript.spellCombinaisonList); //création de la combinaison de spell
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.S)) //réinitialise la séquence de spell
-            {
-                foreach (Transform child in spellsFusionBarRect) // destroy les spell dans le BGFusion
-                {
-                    GameObject.Destroy(child.gameObject);
-                    upCount = 0;
-                    BGImage.color = Color.white;
-                }
-
-            for (int i = 0; i < buildManagerScript.correspondanceSpellCombinaison.GetLength(0); i++) //trouve la position de la combinaison de sort dans le tableau
-            {
-
-                if (buildManagerScript.spellCombinaison == buildManagerScript.correspondanceSpellCombinaison[i,0])
-                {
-                    buildManagerScript.spellCombinaisonPosition = i;
-                    break;
-                }
-                
-            }
-
-            if (buildManagerScript.spellCombinaisonPosition != -1) // Fais une action en fonction de la correspondance de la combinsaison de sort
-            {
-               
-            }
-            else
-            {
-                Debug.Log("Le sort n'a pas été trouvé dans la tableau de correspondance.");
-            }
-
-            buildManagerScript.spellCombinaisonList.Clear();
-            buildManagerScript.spellCombinaisonPosition = -1;
-        }
-
-
     }
 
     public void DisplaySpell(GameObject g)

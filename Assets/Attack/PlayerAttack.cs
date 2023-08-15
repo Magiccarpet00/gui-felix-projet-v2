@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
-{
-    public float spellValue = 10f; // Dégâts infligés par l'attaque
-    
+{  
     public Button button1;
     public Button button2;
     public Button button3;
@@ -23,12 +21,14 @@ public class PlayerAttack : MonoBehaviour
     public int spellIDButton;
     [SerializeField] SpellsUI spellUI;
     [SerializeField] SpellsFusionUI spellFusionUI;
-    [SerializeField] BuildManagerScript buildManagerScript;
-
     private SpellsFusionUI displaySpell;
-
-
     public GameObject prefabSpell;
+
+    public List<float> spellTime;
+    public List<string> spellZone;
+    public List<string> spellEffect;
+    public List<float> attackRange;
+    public List<float> spellValue; 
 
 
 
@@ -52,7 +52,8 @@ public class PlayerAttack : MonoBehaviour
                 PressButtonColorChange(button1);
 
 
-                CastSpell(targetImage1,spellUI.spellBuildActif[0]);
+                CastSpell(spellUI.spellBuildActif[0]);
+                DisplaySpellCast(targetImage1);
 
             }
 
@@ -68,7 +69,8 @@ public class PlayerAttack : MonoBehaviour
 
                 anim2.SetActive(true);
                 PressButtonColorChange(button2);
-                CastSpell(targetImage2, spellUI.spellBuildActif[1]);
+                CastSpell(spellUI.spellBuildActif[1]);
+                DisplaySpellCast(targetImage2);
             }
 
             if (Input.GetKeyUp(KeyCode.Z))
@@ -83,7 +85,8 @@ public class PlayerAttack : MonoBehaviour
 
                 anim3.SetActive(true);
                 PressButtonColorChange(button3);
-                CastSpell(targetImage3, spellUI.spellBuildActif[2]);
+                CastSpell(spellUI.spellBuildActif[2]);
+                DisplaySpellCast(targetImage3);
 
             }
 
@@ -99,7 +102,8 @@ public class PlayerAttack : MonoBehaviour
 
                 anim4.SetActive(true);
                 PressButtonColorChange(button4);
-                CastSpell(targetImage4, spellUI.spellBuildActif[3]);
+                CastSpell(spellUI.spellBuildActif[3]);
+                DisplaySpellCast(targetImage4);
 
             }
 
@@ -108,31 +112,38 @@ public class PlayerAttack : MonoBehaviour
                 anim4.SetActive(false);
             }
 
-            if (Input.GetKeyDown(KeyCode.S)) // attaque 4 
-            {
+        }
 
-                anim5.SetActive(true);
+        if (Input.GetKeyDown(KeyCode.S)) // attaque 4 
+        {
 
-            }
-
-            if (Input.GetKeyUp(KeyCode.S))
-            {
-                anim5.SetActive(false);
-            }
-
+            anim5.SetActive(true);
+            ResetLists();
+            spellFusionUI.ResetSpellBar();
+            //CastSpell(spellUI.spellBuildActif[3]);
 
         }
-     
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            anim5.SetActive(false);
+        }
+
+
+
+
     }
 
-    public void CastSpell (GameObject g, SpellScriptableObject spell)
+    public void CastSpell (SpellScriptableObject spell)
     {
+        
 
-        displaySpell.DisplaySpell(g); //DisplaySpell déclarée dans SpellsFusionUI.cs
         GameObject newSpell = Instantiate(prefabSpell, transform.position, Quaternion.identity);
         SpellLifeTime lifeTime = newSpell.AddComponent<SpellLifeTime>();
         lifeTime.SpellDie(spell.spellTime);
         SpellEffect spellEffect = newSpell.AddComponent<SpellEffect>();
+
+        RegisterSpellCasted(spell);
 
 
         if (spell.spellZone == "Sphere")
@@ -150,16 +161,33 @@ public class PlayerAttack : MonoBehaviour
             SpellZone spellZone = newSpell.AddComponent<SpellZone>();
             spellZone.Ray(spell);
         }
-       
 
 
-        spellIDButton = spell.spellID; // récupère l'ID du scriptableobject spell lancé 
-        buildManagerScript.spellCombinaisonList.Add(spellIDButton); // l'ajoute à la combinaison de quatre éléments (liste dans le BuildManager)
+    }
+    public void DisplaySpellCast(GameObject g)
+    {
+        displaySpell.DisplaySpell(g); //DisplaySpell déclarée dans SpellsFusionUI.cs
+    }
 
+    public void RegisterSpellCasted(SpellScriptableObject spell)
+    {
+        spellZone.Add(spell.spellZone);
+        spellEffect.Add(spell.spellEffect);
+        attackRange.Add(spell.attackRange);
+        spellTime.Add(spell.spellTime);
+        spellValue.Add(spell.spellValue);
+    }
+
+    public void ResetLists()
+    {
+        spellZone.Clear();
+        spellEffect.Clear();
+        attackRange.Clear();
+        spellTime.Clear();
+        spellValue.Clear();
     }
 
 
-    
     IEnumerator ButtonColorCoroutine(Button button) // Coroutine pour changement couleur bouton
 
     {

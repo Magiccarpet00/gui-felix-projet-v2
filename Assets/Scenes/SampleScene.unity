@@ -4155,9 +4155,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
   - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
   - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
-  spellCombinaisonList: 
-  spellCombinaison: 
-  spellCombinaisonPosition: -1
 --- !u!1001 &1643389854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4865,6 +4862,21 @@ MonoBehaviour:
   targetImage5: {fileID: 1745872922}
   buildManager: {fileID: 1570255845}
   spellBuildActif: []
+  buildOne:
+  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
+  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
+  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
+  - {fileID: 11400000, guid: 3e2e2a15e861a8f44921e651b2c31701, type: 2}
+  buildDeux:
+  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
+  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
+  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
+  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
+  buildTrois:
+  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
+  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
+  - {fileID: 11400000, guid: 6da4eb9b6c8b09d439eb2fb7df970015, type: 2}
+  - {fileID: 11400000, guid: 6da4eb9b6c8b09d439eb2fb7df970015, type: 2}
 --- !u!1001 &2016682734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5363,7 +5375,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 2106366657, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1457793918047337409, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: m_RootOrder

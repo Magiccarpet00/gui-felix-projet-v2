@@ -19,7 +19,10 @@ public class SpellsUI : MonoBehaviour
 
     [SerializeField] GameObject buildManager;
     public SpellScriptableObject[] spellBuildActif;
-  
+
+    public SpellScriptableObject[] buildOne;
+    public SpellScriptableObject[] buildDeux;
+    public SpellScriptableObject[] buildTrois;
 
 
 
@@ -38,7 +41,7 @@ public class SpellsUI : MonoBehaviour
 
     public void SetBuildUn()
     {
-        spellBuildActif = buildManager.GetComponent<BuildManagerScript>().buildOne;
+        spellBuildActif = buildOne;
 
         Image buttonImage1 = button1.GetComponent<Image>();
         buttonImage1.sprite = spellBuildActif[0].spellIcon;
@@ -64,7 +67,7 @@ public class SpellsUI : MonoBehaviour
 
     public void SetBuildDeux()
     {
-        spellBuildActif = buildManager.GetComponent<BuildManagerScript>().buildDeux;
+        spellBuildActif = buildDeux;
 
         Image buttonImage1 = button1.GetComponent<Image>();
         buttonImage1.sprite = spellBuildActif[0].spellIcon;
@@ -90,7 +93,7 @@ public class SpellsUI : MonoBehaviour
 
     public void SetBuildTrois()
     {
-        spellBuildActif = buildManager.GetComponent<BuildManagerScript>().buildTrois;
+        spellBuildActif = buildTrois;
 
         Image buttonImage1 = button1.GetComponent<Image>();
         buttonImage1.sprite = spellBuildActif[0].spellIcon;
