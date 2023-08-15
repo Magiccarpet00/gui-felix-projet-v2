@@ -19,7 +19,7 @@ MonoBehaviour:
   spellType: 
   spellZone: Ray
   spellEffect: Blink
-  attackRange: 10
+  attackRange: 5
   spellValue: 0.5
   spellIDButton: 0
   spellUI: {fileID: 0}

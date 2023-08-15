@@ -120,7 +120,6 @@ public class PlayerDeplacement : MonoBehaviour
         character.model.SetActive(false);
         character.capsuleCollider.enabled = false;
         transform.position = newPos;
-        agent.SetDestination(transform.position);
         yield return new WaitForSeconds(blinkTime);
         character.model.SetActive(true);
         character.capsuleCollider.enabled = true;

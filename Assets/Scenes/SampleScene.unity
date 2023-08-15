@@ -1992,7 +1992,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -2177,7 +2177,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -2796,7 +2796,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -4239,7 +4239,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
