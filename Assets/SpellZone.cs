@@ -16,6 +16,9 @@ public class SpellZone : MonoBehaviour
 
     Vector3 mousPosLocalPlayer;
 
+    private HashSet<Collider> touchedEnemies = new HashSet<Collider>();
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,16 +128,35 @@ public class SpellZone : MonoBehaviour
 
     public void BallAttack(SpellScriptableObject spell)
     {
-        gizmoSphere = false;
+        gizmoSphere = true;
         gizmoCone = false;
         gizmoRay = false;
-        gizmoBall = true;
 
         attackRange = spell.attackRange;
 
-        //GameObject areaEffect = Instantiate(ballSpell, transform.position, Quaternion.identity);
-        //areaEffect.GetComponent<AreaEffect>().SetUp(spell.attackDamage, spell.spellTime);
 
+        StartCoroutine(DetectColisionBall(spell));
+    }
+
+    IEnumerator DetectColisionBall(SpellScriptableObject spell)
+    {
+
+        while (true)
+        {
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
+
+            foreach (Collider enemy in hitEnemies)
+            {
+                    // Inflige des dégâts à l'ennemi
+                    EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                    if (enemyHealth != null && !touchedEnemies.Contains(enemy))
+                    {
+                        enemyHealth.TakeDamage(spell.attackDamage);
+                        touchedEnemies.Add(enemy);
+                    }
+            }
+        yield return null; 
+        }
     }
 
     private void OnDrawGizmos()

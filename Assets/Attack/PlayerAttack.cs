@@ -31,9 +31,7 @@ public class PlayerAttack : MonoBehaviour
     
 
 
-    float attackRange;
-
-    public GameObject ballSpell;
+   
 
     public GameObject prefabSpell;
 
@@ -160,6 +158,8 @@ public class PlayerAttack : MonoBehaviour
         {
             SpellZone spellZone = newSpell.AddComponent<SpellZone>();
             spellZone.BallAttack(spell);
+
+            BallSpell ball = newSpell.AddComponent<BallSpell>();
         }
 
 
@@ -169,98 +169,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    public void SphereAttack (SpellScriptableObject spell)
-    {
-        
-        attackRange = spell.attackRange;
-
-
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
-
-        foreach (Collider enemy in hitEnemies)
-        {
-
-            // Inflige des dégâts à l'ennemi
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(attackDamage);
-
-            }
-        }
-    }
-
-    public void ConeAttack (SpellScriptableObject spell)
-    {
-       float coneAngle = 45f;
-
-        
-
-        attackRange = spell.attackRange;
-
-
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
-
-        foreach (Collider enemy in hitEnemies)
-        {
-
-            // Check if the collider is within the cone angle
-            Vector3 directionToCollider = enemy.transform.position - transform.position;
-            float angleToCollider = Vector3.Angle(transform.forward, directionToCollider);
-
-          
-            if (angleToCollider < coneAngle)
-            {
-                // Inflige des dégâts à l'ennemi
-                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
-                {
-                    enemyHealth.TakeDamage(attackDamage);
-
-                }
-            }
-
-        }
-
-
-    }
-
-    public void RayAttack(SpellScriptableObject spell)
-    {
-       
-
-        attackRange = spell.attackRange;
-
-        Ray ray = new Ray(transform.position, transform.forward);
-
-        RaycastHit[] hitEnemies = Physics.RaycastAll(ray);
-
-        foreach (RaycastHit enemy in hitEnemies)
-        {
-
-            // Inflige des dégâts à l'ennemi
-            EnemyHealth enemyHealth = enemy.collider.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(attackDamage);
-
-            }
-        }
-
-    }
-
-    public void BallAttack(SpellScriptableObject spell)
-    {
-       
-        
-        attackRange = spell.attackRange;
-
-        GameObject areaEffect = Instantiate(ballSpell, transform.position, Quaternion.identity);
-        //areaEffect.GetComponent<AreaEffect>().SetUp(spell.attackDamage, spell.spellTime);
-
-    }
-
-
+    
     IEnumerator ButtonColorCoroutine(Button button) // Coroutine pour changement couleur bouton
 
     {
