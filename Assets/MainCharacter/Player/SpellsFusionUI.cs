@@ -61,7 +61,6 @@ public class SpellsFusionUI : MonoBehaviour
 
     public void ResetSpellBar()
     {
-        Debug.Log("destr");
         foreach (Transform child in spellsFusionBarRect) // destroy les spell dans le BGFusion
         {
             GameObject.Destroy(child.gameObject);

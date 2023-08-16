@@ -10,6 +10,8 @@ public class SpellEffect : MonoBehaviour
 
 
     public List<Collider> listTouchedEnemies = new List<Collider>();
+
+    //---------------------Définition des effets-------------
     
     //---------------------Dommages-------------------
     public void DammageEffect(SpellScriptableObject spell, Collider enemy)
@@ -40,7 +42,25 @@ public class SpellEffect : MonoBehaviour
         PlayerDeplacement playerDeplacement = GameManager.instance.prefabPlayer.GetComponent<PlayerDeplacement>();
         playerDeplacement.Blink(spell.spellTime, endPoint);
 
+        //Blink marche sur le player uniquement ici => Il faut le faire fonctionner sur le spell également
 
+    }
+
+    //---------Définition des combinaisons d'effets--------------
+
+    public void SetSpellActiveEffect(SpellScriptableObject spell, Collider enemy)
+    {
+        if (spell.spellEffect == "Dommage")
+        {
+            // Inflige des dégâts à l'ennemi
+            DammageEffect(spell, enemy);
+
+        }
+        else if (spell.spellEffect == "Slow")
+        {
+            // Ralenti la cible
+            SlowEffect(spell, enemy);
+        }
     }
 
 

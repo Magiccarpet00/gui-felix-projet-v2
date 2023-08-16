@@ -24,11 +24,15 @@ public class PlayerAttack : MonoBehaviour
     private SpellsFusionUI displaySpell;
     public GameObject prefabSpell;
 
+    public SpellScriptableObject megaSpell;
+
     public List<float> spellTime;
     public List<string> spellZone;
     public List<string> spellEffect;
     public List<float> attackRange;
-    public List<float> spellValue; 
+    public List<float> spellValue;
+
+   
 
 
 
@@ -129,8 +133,50 @@ public class PlayerAttack : MonoBehaviour
             anim5.SetActive(false);
         }
 
+        //-----------Construction du MegaSpell
 
+        //spellTime : valeur la plus elevée des spells lancés
 
+        megaSpell.spellTime = Mathf.Max(spellTime.ToArray());
+
+        //spellZone : La première zone lancée
+
+        if (spellZone.Count > 0)
+        {
+            megaSpell.spellZone = spellZone[0];
+        }
+
+        //spellEffect : récupère la séquence lancée pour analyse
+
+        megaSpell.spellEffect = string.Join("-", spellEffect.ToArray());
+
+        //attackRange : Prendre la moyenne des sorts lancés 
+
+        if (attackRange.Count > 0)
+        {
+            float sum = 0;
+
+            foreach (float number in attackRange)
+            {
+                sum += number;
+            }
+
+            megaSpell.attackRange = sum / attackRange.Count;    
+        }
+
+        //spellValue
+
+        if (spellValue.Count > 0)
+        {
+            float sum = 0;
+
+            foreach (float number in attackRange)
+            {
+                sum += number;
+            }
+
+            megaSpell.spellValue = sum / attackRange.Count;
+        }
 
     }
 

@@ -44,6 +44,11 @@ public class SpellZone : SpellEffect
 
         StartCoroutine(SphereDetectColisionInTime(spell));
 
+        if (spell.spellEffect == "Blink")
+        {
+            BlinkEffect(spell, interpolatePos);
+        }
+
     }
 
     public void Cone(SpellScriptableObject spell)
@@ -59,6 +64,11 @@ public class SpellZone : SpellEffect
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
 
         StartCoroutine(ConeDetectColisionInTime(spell));
+
+        if (spell.spellEffect == "Blink")
+        {
+            BlinkEffect(spell, interpolatePos);
+        }
 
 
     }
@@ -76,10 +86,14 @@ public class SpellZone : SpellEffect
         interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
         StartCoroutine(RayDetectColisionInTime(spell));
-       
+
+        if (spell.spellEffect == "Blink")
+        {
+            BlinkEffect(spell, interpolatePos);
+        }
+
     }
 
-    
 
     IEnumerator SphereDetectColisionInTime(SpellScriptableObject spell)
     {
@@ -147,27 +161,8 @@ public class SpellZone : SpellEffect
                 }
 
             }
-            if (spell.spellEffect == "Blink")
-            {
-                BlinkEffect(spell, interpolatePos);
-            }
-
+            
             yield return null;
-        }
-    }
-
-    public void SetSpellActiveEffect(SpellScriptableObject spell, Collider enemy)
-    {
-        if (spell.spellEffect == "Dommage")
-        {
-            // Inflige des dégâts à l'ennemi
-            DammageEffect(spell, enemy);
-
-        }
-        else if (spell.spellEffect == "Slow")
-        {
-            // Ralenti la cible
-            SlowEffect(spell, enemy);
         }
     }
 

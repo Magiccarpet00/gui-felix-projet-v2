@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c90cae169865324e9493a8713f9b549, type: 3}
-  m_Name: Magie
+  m_Name: MegaSpell
   m_EditorClassIdentifier: 
-  spellIcon: {fileID: 21300000, guid: 9fbb28421021d034991dd9bda68d2854, type: 3}
-  spellTime: 5
-  spellZone: Cone
-  spellEffect: Dommage
-  attackRange: 10
-  spellValue: 3
+  spellIcon: {fileID: 0}
+  spellTime: 0
+  spellZone: 
+  spellEffect: 
+  attackRange: 0
+  spellValue: 0

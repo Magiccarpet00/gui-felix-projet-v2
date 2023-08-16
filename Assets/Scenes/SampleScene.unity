@@ -426,7 +426,6 @@ MonoBehaviour:
   yOffset: 0.08
   duration: 1
   spellSpeed: 5
-  buildManagerScript: {fileID: 1570255847}
 --- !u!1 &332103714
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,7 +521,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &387221069
 GameObject:
@@ -4095,66 +4094,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537049368}
   m_CullTransparentMesh: 1
---- !u!1 &1570255845
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1570255846}
-  - component: {fileID: 1570255847}
-  m_Layer: 0
-  m_Name: BuildManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1570255846
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570255845}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 449.0039, y: 283.90714, z: 0.33904102}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1570255847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570255845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eea4e03baf924e49aa31029d60648a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texteTableau: {fileID: 1073637141}
-  buildOne:
-  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
-  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
-  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
-  - {fileID: 11400000, guid: 3e2e2a15e861a8f44921e651b2c31701, type: 2}
-  buildDeux:
-  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
-  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
-  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
-  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
-  buildTrois:
-  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
-  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
-  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
-  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
 --- !u!1001 &1643389854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4860,7 +4799,7 @@ MonoBehaviour:
   targetImage3: {fileID: 608265206}
   targetImage4: {fileID: 395456562}
   targetImage5: {fileID: 1745872922}
-  buildManager: {fileID: 1570255845}
+  buildManager: {fileID: 0}
   spellBuildActif: []
   buildOne:
   - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
@@ -5482,13 +5421,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+      propertyPath: megaSpell
+      value: 
+      objectReference: {fileID: 11400000, guid: 8825db30ee08efd4a93d8f9a7b7df30d, type: 2}
+    - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: prefabSpell
       value: 
       objectReference: {fileID: 1031005814799997785, guid: 2cc1c878f070a0d4baae385a70ee35bb, type: 3}
     - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: buildManager
       value: 
-      objectReference: {fileID: 1570255845}
+      objectReference: {fileID: 0}
     - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: spellFusionUI
       value: 
@@ -5496,7 +5439,7 @@ PrefabInstance:
     - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: buildManagerScript
       value: 
-      objectReference: {fileID: 1570255847}
+      objectReference: {fileID: 0}
     - target: {fileID: 7754545435712982401, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: m_RootOrder
       value: 0
