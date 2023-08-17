@@ -12,16 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c90cae169865324e9493a8713f9b549, type: 3}
   m_Name: Blink
   m_EditorClassIdentifier: 
-  spellName: Blink
-  spellID: 1
   spellIcon: {fileID: 21300000, guid: 8835a15468858364181ad68b0ded8925, type: 3}
-  spellTime: 0.2
-  spellType: 
+  spellTime: 0.5
   spellZone: Ray
   spellEffect: Blink
   attackRange: 5
   spellValue: 0.5
-  spellIDButton: 0
-  spellUI: {fileID: 0}
-  spellFusionUI: {fileID: 0}
-  buildManagerScript: {fileID: 0}

@@ -6,9 +6,13 @@ public class SpellZone : SpellEffect
 {
 
 
-    bool gizmoSphere = false;
-    bool gizmoCone = false;
-    bool gizmoRay = false;
+    bool gizmoSphereSpell = false;
+    bool gizmoConeSpell = false;
+    bool gizmoRaySpell = false;
+
+    bool gizmoSphereMegaSpell = false;
+    bool gizmoConeMegaSpell = false;
+    bool gizmoRayMegaSpell = false;
 
     float attackRange;
 
@@ -34,50 +38,76 @@ public class SpellZone : SpellEffect
 
     public void Sphere(SpellScriptableObject spell)
     {
-        gizmoSphere = true;
-        gizmoCone = false;
-        gizmoRay = false;
+        if(GameManager.instance.isCastingMegaSpell == false)
+        {
+            gizmoSphereSpell = true;
+            gizmoConeSpell = false;
+            gizmoRaySpell = false;
+        }
+        else if (GameManager.instance.isCastingMegaSpell == true)
+        {
+            gizmoSphereMegaSpell = true;
+            gizmoConeMegaSpell = false;
+            gizmoRayMegaSpell = false;
+        }
+        
 
         attackRange = spell.attackRange;
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
+        mousPosworld = GameManager.instance.GetMousePosWorld(transform);
+        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
         StartCoroutine(SphereDetectColisionInTime(spell));
+        SetSpellNoColliderEffect(spell, interpolatePos);
 
-        if (spell.spellEffect == "Blink")
-        {
-            BlinkEffect(spell, interpolatePos);
-        }
 
     }
 
     public void Cone(SpellScriptableObject spell)
     {
-        
-
-        gizmoSphere = false;
-        gizmoCone = true;
-        gizmoRay = false;
+        if (GameManager.instance.isCastingMegaSpell == false)
+        {
+            gizmoSphereSpell = false;
+            gizmoConeSpell = true;
+            gizmoRaySpell = false;
+        }
+        else if (GameManager.instance.isCastingMegaSpell == true)
+        {
+            gizmoSphereMegaSpell = false;
+            gizmoConeMegaSpell = true;
+            gizmoRayMegaSpell = false;
+        }
 
         attackRange = spell.attackRange;
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
+        mousPosworld = GameManager.instance.GetMousePosWorld(transform);
+        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
         StartCoroutine(ConeDetectColisionInTime(spell));
+        SetSpellNoColliderEffect(spell, interpolatePos);
 
-        if (spell.spellEffect == "Blink")
-        {
-            BlinkEffect(spell, interpolatePos);
-        }
+
 
 
     }
 
     public void Ray(SpellScriptableObject spell)
     {
-        gizmoSphere = false;
-        gizmoCone = false;
-        gizmoRay = true;
+
+        if (GameManager.instance.isCastingMegaSpell == false)
+        {
+            gizmoSphereSpell = false;
+            gizmoConeSpell = false;
+            gizmoRaySpell = true;
+        }
+        else if (GameManager.instance.isCastingMegaSpell == true)
+        {
+            gizmoSphereMegaSpell = false;
+            gizmoConeMegaSpell = false;
+            gizmoRayMegaSpell = true;
+        }
 
         attackRange = spell.attackRange;
 
@@ -86,11 +116,8 @@ public class SpellZone : SpellEffect
         interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
         StartCoroutine(RayDetectColisionInTime(spell));
+        SetSpellNoColliderEffect(spell, interpolatePos);
 
-        if (spell.spellEffect == "Blink")
-        {
-            BlinkEffect(spell, interpolatePos);
-        }
 
     }
 
@@ -104,10 +131,12 @@ public class SpellZone : SpellEffect
 
             foreach (Collider enemy in hitEnemies)
             {
-                SetSpellActiveEffect(spell, enemy);
+                SetSpellColliderEffect(spell, enemy);
             }
 
-        yield return null; 
+
+
+            yield return null; 
         }
     }
 
@@ -128,10 +157,11 @@ public class SpellZone : SpellEffect
 
                 if (angleToCollider < coneAngle)
                 {
-                    SetSpellActiveEffect(spell, enemy);
+                    SetSpellColliderEffect(spell, enemy);
                 }
 
             }
+
 
             yield return null;
         }
@@ -144,24 +174,20 @@ public class SpellZone : SpellEffect
         {
             Ray ray = new Ray(transform.position, Vector3.Normalize(mousPosLocalPlayer));
 
-            RaycastHit[] hitEnemies = Physics.RaycastAll(ray, attackRange);
+            RaycastHit[] hitRayEnemies = Physics.RaycastAll(ray, attackRange);
+            Collider[] hitEnemies = new Collider[hitRayEnemies.Length];
 
-            foreach (RaycastHit enemy in hitEnemies)
+            for (int i = 0; i < hitRayEnemies.Length; i++)
             {
-                if (spell.spellEffect == "Dommage")
-                {
-                    // Inflige des dégâts à l'ennemi
-                    DammageEffect(spell, enemy.collider);
-
-                }
-                else if (spell.spellEffect == "Slow")
-                {
-                    // Ralenti la cible
-                    SlowEffect(spell, enemy.collider);
-                }
-
+                hitEnemies[i] = hitRayEnemies[i].collider;
             }
-            
+
+            foreach (Collider enemy in hitEnemies)
+            {
+                SetSpellColliderEffect(spell, enemy);
+            }
+
+
             yield return null;
         }
     }
@@ -170,22 +196,27 @@ public class SpellZone : SpellEffect
         private void OnDrawGizmos()
     {
 
-        if (gizmoSphere == true)
+        if (gizmoSphereSpell == true)
         {// Dessine une sphère pour représenter la portée d'attaque dans l'éditeur
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackRange);
         }
-        else if (gizmoCone == true)
+        else if (gizmoSphereMegaSpell == true)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
+        else if (gizmoConeSpell == true)
         {
             //Gizmo cone parameter
             float angle = 45f;
             float halfFOV = angle / 2.0f;
-            
+
 
             Quaternion leftRayRotation = Quaternion.AngleAxis(-halfFOV, transform.up);
             Quaternion rightRayRotation = Quaternion.AngleAxis(halfFOV, transform.up);
 
-            Vector3 leftRayDirection = leftRayRotation *  Vector3.Normalize(mousPosLocalPlayer) * attackRange;
+            Vector3 leftRayDirection = leftRayRotation * Vector3.Normalize(mousPosLocalPlayer) * attackRange;
             Vector3 rightRayDirection = rightRayRotation * Vector3.Normalize(mousPosLocalPlayer) * attackRange;
 
             Gizmos.color = Color.red;
@@ -194,11 +225,35 @@ public class SpellZone : SpellEffect
             Gizmos.DrawLine(transform.position + leftRayDirection, transform.position + rightRayDirection);
 
         }
-        else if (gizmoRay == true)
+        else if (gizmoConeMegaSpell == true)
+        {//Gizmo cone parameter
+            float angle = 45f;
+            float halfFOV = angle / 2.0f;
+
+
+            Quaternion leftRayRotation = Quaternion.AngleAxis(-halfFOV, transform.up);
+            Quaternion rightRayRotation = Quaternion.AngleAxis(halfFOV, transform.up);
+
+            Vector3 leftRayDirection = leftRayRotation * Vector3.Normalize(mousPosLocalPlayer) * attackRange;
+            Vector3 rightRayDirection = rightRayRotation * Vector3.Normalize(mousPosLocalPlayer) * attackRange;
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, leftRayDirection);
+            Gizmos.DrawRay(transform.position, rightRayDirection);
+            Gizmos.DrawLine(transform.position + leftRayDirection, transform.position + rightRayDirection);
+        }
+        else if (gizmoRaySpell == true)
         {
             Ray ray = new Ray(transform.position, mousPosLocalPlayer);
             Gizmos.color = Color.red;
             Gizmos.DrawRay(ray.origin, ray.direction * attackRange);
+        }
+        else if(gizmoRayMegaSpell == true)
+        {
+            Ray ray = new Ray(transform.position, mousPosLocalPlayer);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(ray.origin, ray.direction * attackRange);
+
         }
 
     }

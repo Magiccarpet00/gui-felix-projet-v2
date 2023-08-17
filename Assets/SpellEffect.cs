@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class SpellEffect : MonoBehaviour
 {
+    PlayerAttack playerAttack;
 
 
     public List<Collider> listTouchedEnemies = new List<Collider>();
@@ -37,19 +38,32 @@ public class SpellEffect : MonoBehaviour
     }
 
     //---------------------Blink-------------------
-    public void BlinkEffect(SpellScriptableObject spell, Vector3 endPoint)
+    public virtual void BlinkEffect(SpellScriptableObject spell, Vector3 endPoint)
     {
-        PlayerDeplacement playerDeplacement = GameManager.instance.prefabPlayer.GetComponent<PlayerDeplacement>();
-        playerDeplacement.Blink(spell.spellTime, endPoint);
+        if(GameManager.instance.isCastingMegaSpell == false)
+        {
+            PlayerDeplacement playerDeplacement = GameManager.instance.prefabPlayer.GetComponent<PlayerDeplacement>();
+            playerDeplacement.BlinkPlayer(spell.spellTime, endPoint);
+
+        }
+        else if(GameManager.instance.isCastingMegaSpell == true)
+        {
+           
+            BlinkSpell(spell.spellTime, endPoint);
+        }
+       
 
         //Blink marche sur le player uniquement ici => Il faut le faire fonctionner sur le spell également
 
     }
 
+    
+
     //---------Définition des combinaisons d'effets--------------
 
-    public void SetSpellActiveEffect(SpellScriptableObject spell, Collider enemy)
+    public void SetSpellColliderEffect(SpellScriptableObject spell, Collider enemy) //Blink n'est pas dans cette méthode 
     {
+    
         if (spell.spellEffect == "Dommage")
         {
             // Inflige des dégâts à l'ennemi
@@ -61,7 +75,32 @@ public class SpellEffect : MonoBehaviour
             // Ralenti la cible
             SlowEffect(spell, enemy);
         }
+
     }
+
+    public void SetSpellNoColliderEffect(SpellScriptableObject spell, Vector3 interpolatePos)
+    {
+        if (spell.spellEffect == "Blink")
+        {
+            BlinkEffect(spell, interpolatePos);
+        }
+    }
+
+    // ----------- blink le spell-----------
+    public void BlinkSpell(float blinkTime, Vector3 newPos)
+    {
+        StartCoroutine(BlinkSpellCoroutine(blinkTime, newPos));
+    }
+
+    public IEnumerator BlinkSpellCoroutine(float blinkTime, Vector3 newPos)
+    {
+        transform.position = newPos;
+        yield return new WaitForSeconds(blinkTime);
+    }
+
+
+
+
 
 
 

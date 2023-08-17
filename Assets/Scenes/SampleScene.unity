@@ -1991,7 +1991,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -2176,7 +2176,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -2795,7 +2795,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -4175,7 +4175,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -4233,6 +4233,7 @@ MonoBehaviour:
   prefabElements:
   - {fileID: 4716932150152681594, guid: b1b5a0153af571d439228658e4161f0a, type: 3}
   prefabPlayer: {fileID: 1648720700}
+  isCastingMegaSpell: 0
 --- !u!4 &1696754208
 Transform:
   m_ObjectHideFlags: 0

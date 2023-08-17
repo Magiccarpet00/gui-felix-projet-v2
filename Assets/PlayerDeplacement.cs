@@ -108,7 +108,7 @@ public class PlayerDeplacement : MonoBehaviour
         bumped = false;
     }
 
-    public void Blink(float blinkTime, Vector3 newPos)
+    public void BlinkPlayer(float blinkTime, Vector3 newPos)
     {
         StartCoroutine(BlinkCoroutine(blinkTime, newPos));
     }

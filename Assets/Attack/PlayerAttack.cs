@@ -32,6 +32,7 @@ public class PlayerAttack : MonoBehaviour
     public List<float> attackRange;
     public List<float> spellValue;
 
+    
    
 
 
@@ -118,22 +119,23 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.S)) // attaque 4 
+        if (Input.GetKeyDown(KeyCode.S)) // Megaspell 
         {
-
-            anim5.SetActive(true);
+            GameManager.instance.isCastingMegaSpell = true;
             ResetLists();
             spellFusionUI.ResetSpellBar();
-            //CastSpell(spellUI.spellBuildActif[3]);
+            CastMegaSpell(megaSpell); 
 
         }
 
         if (Input.GetKeyUp(KeyCode.S))
         {
             anim5.SetActive(false);
+            GameManager.instance.isCastingMegaSpell = false;
+
         }
 
-        //-----------Construction du MegaSpell
+        //-----------Construction du MegaSpell-------------
 
         //spellTime : valeur la plus elevée des spells lancés
 
@@ -164,33 +166,30 @@ public class PlayerAttack : MonoBehaviour
             megaSpell.attackRange = sum / attackRange.Count;    
         }
 
-        //spellValue
+        //spellValue : Prendre la moyenne des sorts lancés 
 
         if (spellValue.Count > 0)
         {
             float sum = 0;
 
-            foreach (float number in attackRange)
+            foreach (float number in spellValue)
             {
                 sum += number;
             }
 
-            megaSpell.spellValue = sum / attackRange.Count;
+            megaSpell.spellValue = sum / spellValue.Count;
         }
 
     }
 
     public void CastSpell (SpellScriptableObject spell)
     {
-        
 
         GameObject newSpell = Instantiate(prefabSpell, transform.position, Quaternion.identity);
         SpellLifeTime lifeTime = newSpell.AddComponent<SpellLifeTime>();
         lifeTime.SpellDie(spell.spellTime);
-        SpellEffect spellEffect = newSpell.AddComponent<SpellEffect>();
 
         RegisterSpellCasted(spell);
-
 
         if (spell.spellZone == "Sphere")
         {
@@ -207,9 +206,17 @@ public class PlayerAttack : MonoBehaviour
             SpellZone spellZone = newSpell.AddComponent<SpellZone>();
             spellZone.Ray(spell);
         }
-
-
+       
     }
+
+    public void CastMegaSpell(SpellScriptableObject megaSpell)
+    {
+
+        CastSpell(megaSpell);
+    }
+
+    
+
     public void DisplaySpellCast(GameObject g)
     {
         displaySpell.DisplaySpell(g); //DisplaySpell déclarée dans SpellsFusionUI.cs
@@ -217,11 +224,15 @@ public class PlayerAttack : MonoBehaviour
 
     public void RegisterSpellCasted(SpellScriptableObject spell)
     {
-        spellZone.Add(spell.spellZone);
-        spellEffect.Add(spell.spellEffect);
-        attackRange.Add(spell.attackRange);
-        spellTime.Add(spell.spellTime);
-        spellValue.Add(spell.spellValue);
+        if (GameManager.instance.isCastingMegaSpell == false)
+        {
+            spellZone.Add(spell.spellZone);
+            spellEffect.Add(spell.spellEffect);
+            attackRange.Add(spell.attackRange);
+            spellTime.Add(spell.spellTime);
+            spellValue.Add(spell.spellValue);
+        }
+        
     }
 
     public void ResetLists()

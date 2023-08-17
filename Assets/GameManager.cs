@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     public Camera cam;
     public GameObject[] prefabElements;
     public GameObject prefabPlayer;
-   
+    public bool isCastingMegaSpell = false;
+
 
     private void Awake()
     {
