@@ -64,13 +64,14 @@ public class SpellEffect : MonoBehaviour
     public void SetSpellColliderEffect(SpellScriptableObject spell, Collider enemy) //Blink n'est pas dans cette méthode 
     {
     
-        if (spell.spellEffect == "Dommage")
+        if (spell.spellEffect[0] == "Dommage")
         {
             // Inflige des dégâts à l'ennemi
             DammageEffect(spell, enemy);
+            
 
         }
-        else if (spell.spellEffect == "Slow")
+        else if (spell.spellEffect[0] == "Slow")
         {
             // Ralenti la cible
             SlowEffect(spell, enemy);
@@ -80,7 +81,8 @@ public class SpellEffect : MonoBehaviour
 
     public void SetSpellNoColliderEffect(SpellScriptableObject spell, Vector3 interpolatePos)
     {
-        if (spell.spellEffect == "Blink")
+
+        if (spell.spellEffect[0] == "Blink")
         {
             BlinkEffect(spell, interpolatePos);
         }

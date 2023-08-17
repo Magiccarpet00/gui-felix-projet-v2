@@ -16,13 +16,6 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    private void Update()
-    {
-
-       
-    }
-
-
     public Vector3 GetMousePosWorld(Transform transform)
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);

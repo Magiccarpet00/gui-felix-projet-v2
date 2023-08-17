@@ -15,6 +15,7 @@ MonoBehaviour:
   spellIcon: {fileID: 21300000, guid: 9fbb28421021d034991dd9bda68d2854, type: 3}
   spellTime: 5
   spellZone: Cone
-  spellEffect: Dommage
+  spellEffect:
+  - Dommage
   attackRange: 10
   spellValue: 3

@@ -15,6 +15,7 @@ MonoBehaviour:
   spellIcon: {fileID: 21300000, guid: 8835a15468858364181ad68b0ded8925, type: 3}
   spellTime: 0.5
   spellZone: Ray
-  spellEffect: Blink
+  spellEffect:
+  - Blink
   attackRange: 5
   spellValue: 0.5

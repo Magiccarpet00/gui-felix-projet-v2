@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 0}
   spellTime: 0
-  spellZone: Cone
-  spellEffect: 
-  attackRange: 9
-  spellValue: 3
+  spellZone: 
+  spellEffect: []
+  attackRange: 0
+  spellValue: 0

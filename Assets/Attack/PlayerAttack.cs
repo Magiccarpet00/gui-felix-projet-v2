@@ -40,6 +40,7 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         displaySpell = GameObject.Find("SpellsFusionBG").GetComponent<SpellsFusionUI>();
+        ResetLists();
 
     }
 
@@ -55,7 +56,6 @@ public class PlayerAttack : MonoBehaviour
 
                 anim1.SetActive(true);
                 PressButtonColorChange(button1);
-
 
                 CastSpell(spellUI.spellBuildActif[0]);
                 DisplaySpellCast(targetImage1);
@@ -122,9 +122,10 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S)) // Megaspell 
         {
             GameManager.instance.isCastingMegaSpell = true;
-            ResetLists();
             spellFusionUI.ResetSpellBar();
-            CastMegaSpell(megaSpell); 
+            CastMegaSpell(megaSpell);
+            ResetLists();
+
 
         }
 
@@ -135,50 +136,55 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        //-----------Construction du MegaSpell-------------
+        ////-----------Construction du MegaSpell-------------
 
-        //spellTime : valeur la plus elevée des spells lancés
+        ////spellTime : valeur la plus elevée des spells lancés
 
-        megaSpell.spellTime = Mathf.Max(spellTime.ToArray());
+        //megaSpell.spellTime = Mathf.Max(spellTime.ToArray());
 
-        //spellZone : La première zone lancée
+        ////spellZone : La première zone lancée
 
-        if (spellZone.Count > 0)
-        {
-            megaSpell.spellZone = spellZone[0];
-        }
+        //if (spellZone.Count > 0)
+        //{
+        //    megaSpell.spellZone = spellZone[0];
+        //}
 
-        //spellEffect : récupère la séquence lancée pour analyse
+        ////spellEffect : récupère la séquence lancée pour analyse
 
-        megaSpell.spellEffect = string.Join("-", spellEffect.ToArray());
+        //for (int i = 0; i <= spellEffect.Count; i++)
+        //{
+        //    megaSpell.spellEffect.Add(spellEffect[i]);
 
-        //attackRange : Prendre la moyenne des sorts lancés 
+        //}
+        ////megaSpell.spellEffect [0] = string.Join("-", spellEffect.ToArray()); 
 
-        if (attackRange.Count > 0)
-        {
-            float sum = 0;
+        ////attackRange : Prendre la moyenne des sorts lancés 
 
-            foreach (float number in attackRange)
-            {
-                sum += number;
-            }
+        //if (attackRange.Count > 0)
+        //{
+        //    float sum = 0;
 
-            megaSpell.attackRange = sum / attackRange.Count;    
-        }
+        //    foreach (float number in attackRange)
+        //    {
+        //        sum += number;
+        //    }
 
-        //spellValue : Prendre la moyenne des sorts lancés 
+        //    megaSpell.attackRange = sum / attackRange.Count;    
+        //}
 
-        if (spellValue.Count > 0)
-        {
-            float sum = 0;
+        ////spellValue : Prendre la moyenne des sorts lancés 
 
-            foreach (float number in spellValue)
-            {
-                sum += number;
-            }
+        //if (spellValue.Count > 0)
+        //{
+        //    float sum = 0;
 
-            megaSpell.spellValue = sum / spellValue.Count;
-        }
+        //    foreach (float number in spellValue)
+        //    {
+        //        sum += number;
+        //    }
+
+        //    megaSpell.spellValue = sum / spellValue.Count;
+        //}
 
     }
 
@@ -212,7 +218,10 @@ public class PlayerAttack : MonoBehaviour
     public void CastMegaSpell(SpellScriptableObject megaSpell)
     {
 
-        CastSpell(megaSpell);
+
+       CastSpell(megaSpell);
+
+
     }
 
     
@@ -227,10 +236,51 @@ public class PlayerAttack : MonoBehaviour
         if (GameManager.instance.isCastingMegaSpell == false)
         {
             spellZone.Add(spell.spellZone);
-            spellEffect.Add(spell.spellEffect);
             attackRange.Add(spell.attackRange);
             spellTime.Add(spell.spellTime);
             spellValue.Add(spell.spellValue);
+
+            //-----------Construction du MegaSpell-------------
+
+            //spellTime : valeur la plus elevée des spells lancés
+
+            megaSpell.spellTime = Mathf.Max(spellTime.ToArray());
+
+            //spellZone : La première zone lancée
+
+            megaSpell.spellZone = spellZone[0];
+
+            //spellEffect : récupère la séquence lancée dans un llste pour analyse
+
+            megaSpell.spellEffect.Add(spell.spellEffect[0]);
+
+            //attackRange : Prendre la moyenne des sorts lancés 
+
+            if (attackRange.Count > 0)
+            {
+                float sum = 0;
+
+                foreach (float number in attackRange)
+                {
+                    sum += number;
+                }
+
+                megaSpell.attackRange = sum / attackRange.Count;
+            }
+
+            //spellValue : Prendre la moyenne des sorts lancés 
+
+            if (spellValue.Count > 0)
+            {
+                float sum = 0;
+
+                foreach (float number in spellValue)
+                {
+                    sum += number;
+                }
+
+                megaSpell.spellValue = sum / spellValue.Count;
+            }
         }
         
     }
@@ -242,6 +292,12 @@ public class PlayerAttack : MonoBehaviour
         attackRange.Clear();
         spellTime.Clear();
         spellValue.Clear();
+
+        megaSpell.spellZone = "";
+        megaSpell.spellEffect.Clear();
+        megaSpell.attackRange = 0f;
+        megaSpell.spellTime = 0f;
+        megaSpell.spellValue = 0f;
     }
 
 

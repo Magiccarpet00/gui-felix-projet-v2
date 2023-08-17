@@ -22,24 +22,11 @@ public class SpellZone : SpellEffect
     Vector3 interpolatePos;
 
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Sphere(SpellScriptableObject spell)
     {
         if(GameManager.instance.isCastingMegaSpell == false)
         {
+
             gizmoSphereSpell = true;
             gizmoConeSpell = false;
             gizmoRaySpell = false;

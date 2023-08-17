@@ -4210,6 +4210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1696754208}
   - component: {fileID: 1696754207}
+  - component: {fileID: 1696754209}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4249,6 +4250,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1696754209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696754206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b431e64ba8c90e4c8bd9582e1513ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAttack: {fileID: 0}
+  listTouchedEnemies: []
+  megaSpellEffectToCombine: []
 --- !u!1 &1734154647
 GameObject:
   m_ObjectHideFlags: 0
@@ -5437,6 +5453,10 @@ PrefabInstance:
       propertyPath: spellFusionUI
       value: 
       objectReference: {fileID: 311758135}
+    - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+      propertyPath: combinaisonCore
+      value: 
+      objectReference: {fileID: 1696754209}
     - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: buildManagerScript
       value: 
