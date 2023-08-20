@@ -1991,7 +1991,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -2007,7 +2007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952636, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
@@ -2176,7 +2176,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -2192,7 +2192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952636, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
@@ -2795,7 +2795,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -2811,7 +2811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952636, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
@@ -4175,7 +4175,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -4191,7 +4191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952636, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
@@ -4210,7 +4210,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1696754208}
   - component: {fileID: 1696754207}
+  - component: {fileID: 1696754210}
   - component: {fileID: 1696754209}
+  - component: {fileID: 1696754211}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4234,7 +4236,28 @@ MonoBehaviour:
   prefabElements:
   - {fileID: 4716932150152681594, guid: b1b5a0153af571d439228658e4161f0a, type: 3}
   prefabPlayer: {fileID: 1648720700}
+  prefabSpell: {fileID: 1031005814799997785, guid: 2cc1c878f070a0d4baae385a70ee35bb, type: 3}
   isCastingMegaSpell: 0
+  spellBuildActif: []
+  buildOne:
+  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
+  - {fileID: 11400000, guid: 3e2e2a15e861a8f44921e651b2c31701, type: 2}
+  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
+  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
+  buildDeux:
+  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
+  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
+  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
+  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
+  buildTrois:
+  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
+  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
+  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
+  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
+  newSpell: {fileID: 0}
+  dammageEffectScript: {fileID: 1696754210}
+  slowEffectScript: {fileID: 1696754209}
+  blinkEffectScript: {fileID: 1696754211}
 --- !u!4 &1696754208
 Transform:
   m_ObjectHideFlags: 0
@@ -4259,12 +4282,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1696754206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b431e64ba8c90e4c8bd9582e1513ed1, type: 3}
+  m_Script: {fileID: 11500000, guid: 77348be4d87be1a41b4ae0a79277daed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttack: {fileID: 0}
-  listTouchedEnemies: []
-  megaSpellEffectToCombine: []
+--- !u!114 &1696754210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696754206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6950649ed6bc6745a98fe4b1523a2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1696754211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696754206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a68e3b23d56bdc4694133c93e9b014b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1734154647
 GameObject:
   m_ObjectHideFlags: 0
@@ -4816,23 +4860,6 @@ MonoBehaviour:
   targetImage3: {fileID: 608265206}
   targetImage4: {fileID: 395456562}
   targetImage5: {fileID: 1745872922}
-  buildManager: {fileID: 0}
-  spellBuildActif: []
-  buildOne:
-  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
-  - {fileID: 11400000, guid: 89ccad8fffdcb114d8317a82489db9ca, type: 2}
-  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
-  - {fileID: 11400000, guid: 3e2e2a15e861a8f44921e651b2c31701, type: 2}
-  buildDeux:
-  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
-  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
-  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
-  - {fileID: 11400000, guid: bd1e01b9ed0e0a346a676ce87cc4fafe, type: 2}
-  buildTrois:
-  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
-  - {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
-  - {fileID: 11400000, guid: 6da4eb9b6c8b09d439eb2fb7df970015, type: 2}
-  - {fileID: 11400000, guid: 6da4eb9b6c8b09d439eb2fb7df970015, type: 2}
 --- !u!1001 &2016682734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5446,6 +5473,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1031005814799997785, guid: 2cc1c878f070a0d4baae385a70ee35bb, type: 3}
     - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+      propertyPath: SpellBuffer1
+      value: 
+      objectReference: {fileID: 11400000, guid: 44160b53cb89d9b47a162d089dd2b90a, type: 2}
+    - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+      propertyPath: SpellBuffer2
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e4826943306ce548a2fecf54982d7cd, type: 2}
+    - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+      propertyPath: SpellBuffer3
+      value: 
+      objectReference: {fileID: 11400000, guid: b4f8cccddb71ab9478824d1d3d5a51e0, type: 2}
+    - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
+      propertyPath: SpellBuffer4
+      value: 
+      objectReference: {fileID: 11400000, guid: 228966af52705a344b1f0393c27e8ba7, type: 2}
+    - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: buildManager
       value: 
       objectReference: {fileID: 0}
@@ -5456,7 +5499,7 @@ PrefabInstance:
     - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: combinaisonCore
       value: 
-      objectReference: {fileID: 1696754209}
+      objectReference: {fileID: 0}
     - target: {fileID: 3801220734181014142, guid: a7e5399111452414e8484cb1775ea089, type: 3}
       propertyPath: buildManagerScript
       value: 

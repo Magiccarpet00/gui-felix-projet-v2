@@ -45,8 +45,23 @@ public class SpellZone : SpellEffect
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
         interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
-        StartCoroutine(SphereDetectColisionInTime(spell));
-        SetSpellNoColliderEffect(spell, interpolatePos);
+        SetSpellNoColliderEffect(spell, mousPosworld);
+
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
+
+        foreach (Collider enemy in hitEnemies)
+        {
+           
+            if(enemy.tag == "Enemy")
+            {
+                SetSpellColliderEffect(spell, enemy);
+            }
+            
+        }
+        
+
+
+
 
 
     }
@@ -72,8 +87,24 @@ public class SpellZone : SpellEffect
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
         interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
-        StartCoroutine(ConeDetectColisionInTime(spell));
-        SetSpellNoColliderEffect(spell, interpolatePos);
+        SetSpellNoColliderEffect(spell, mousPosworld);
+
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
+
+        float coneAngle = 45f;
+        foreach (Collider enemy in hitEnemies)
+        {
+
+            // Check si le collider est dans le cone angle
+            Vector3 directionToCollider = enemy.transform.position - transform.position;
+            float angleToCollider = Vector3.Angle(mousPosLocalPlayer, directionToCollider);
+
+
+            if (angleToCollider < coneAngle && enemy.tag == "Enemy")
+            {
+                SetSpellColliderEffect(spell, enemy);
+            }
+        }
 
 
 
@@ -102,81 +133,28 @@ public class SpellZone : SpellEffect
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
         interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
-        StartCoroutine(RayDetectColisionInTime(spell));
         SetSpellNoColliderEffect(spell, interpolatePos);
 
 
-    }
+        Ray ray = new Ray(transform.position, Vector3.Normalize(mousPosLocalPlayer));
 
+        RaycastHit[] hitRayEnemies = Physics.RaycastAll(ray, attackRange);
+        Collider[] hitEnemies = new Collider[hitRayEnemies.Length];
 
-    IEnumerator SphereDetectColisionInTime(SpellScriptableObject spell)
-    {
-
-        while (true)
+        for (int i = 0; i < hitRayEnemies.Length; i++)
         {
-            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
+            hitEnemies[i] = hitRayEnemies[i].collider;
+        }
 
-            foreach (Collider enemy in hitEnemies)
+        foreach (Collider enemy in hitEnemies)
+        {
+            if (enemy.tag == "Enemy")
             {
                 SetSpellColliderEffect(spell, enemy);
             }
 
-
-
-            yield return null; 
         }
-    }
 
-    IEnumerator ConeDetectColisionInTime(SpellScriptableObject spell)
-    {
-
-        while (true)
-        {
-            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
-            float coneAngle = 45f;
-            foreach (Collider enemy in hitEnemies)
-            {
-
-                // Check si le collider est dans le cone angle
-                Vector3 directionToCollider = enemy.transform.position - transform.position;
-                float angleToCollider = Vector3.Angle(mousPosLocalPlayer, directionToCollider);
-
-
-                if (angleToCollider < coneAngle)
-                {
-                    SetSpellColliderEffect(spell, enemy);
-                }
-
-            }
-
-
-            yield return null;
-        }
-    }
-
-    IEnumerator RayDetectColisionInTime(SpellScriptableObject spell)
-    {
-
-        while (true)
-        {
-            Ray ray = new Ray(transform.position, Vector3.Normalize(mousPosLocalPlayer));
-
-            RaycastHit[] hitRayEnemies = Physics.RaycastAll(ray, attackRange);
-            Collider[] hitEnemies = new Collider[hitRayEnemies.Length];
-
-            for (int i = 0; i < hitRayEnemies.Length; i++)
-            {
-                hitEnemies[i] = hitRayEnemies[i].collider;
-            }
-
-            foreach (Collider enemy in hitEnemies)
-            {
-                SetSpellColliderEffect(spell, enemy);
-            }
-
-
-            yield return null;
-        }
     }
 
 

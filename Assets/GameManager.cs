@@ -8,7 +8,21 @@ public class GameManager : MonoBehaviour
     public Camera cam;
     public GameObject[] prefabElements;
     public GameObject prefabPlayer;
+    public GameObject prefabSpell;
     public bool isCastingMegaSpell = false;
+
+
+    public SpellScriptableObject[] spellBuildActif;
+
+    public SpellScriptableObject[] buildOne;
+    public SpellScriptableObject[] buildDeux;
+    public SpellScriptableObject[] buildTrois;
+
+    public GameObject newSpell;
+
+    public DammageEffectScript dammageEffectScript;
+    public SlowEffectScript slowEffectScript;
+    public BlinkEffectScript blinkEffectScript;
 
 
     private void Awake()
@@ -56,6 +70,13 @@ public class GameManager : MonoBehaviour
 
 
     }
+
+    public void InstantiateNewSpell(Transform transform)
+    {
+        newSpell = Instantiate(prefabSpell, transform.position, Quaternion.identity);
+
+    }
+
 
 
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c90cae169865324e9493a8713f9b549, type: 3}
   m_Name: Blink
   m_EditorClassIdentifier: 
-  spellIcon: {fileID: 21300000, guid: 8835a15468858364181ad68b0ded8925, type: 3}
+  spellIcon: {fileID: 21300000, guid: 754513e7ccdd28a469ede86fc54eb2c3, type: 3}
   spellTime: 0.5
-  spellZone: Ray
+  spellZone: Sphere
   spellEffect:
   - Blink
   attackRange: 5

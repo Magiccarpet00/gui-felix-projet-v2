@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Attaque
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 21300000, guid: c6fea52dbe997324e9067c5b0bfb7c5d, type: 3}
-  spellTime: 3
+  spellTime: 10
   spellZone: Sphere
   spellEffect:
   - Dommage
