@@ -17,5 +17,5 @@ MonoBehaviour:
   spellZone: Sphere
   spellEffect:
   - Blink
-  attackRange: 5
+  attackRange: 3
   spellValue: 0.5

@@ -22,6 +22,11 @@ public class SpellEffect : MonoBehaviour
             {
                 GameManager.instance.slowEffectScript.SlowEffect(spell, enemy);
             }
+            if (spellEffect == "Dot")
+            {
+                GameManager.instance.dotEffectScript.DotEffect(spell, enemy);
+
+            }
 
         }
     
@@ -29,11 +34,16 @@ public class SpellEffect : MonoBehaviour
 
     public void SetSpellNoColliderEffect(SpellScriptableObject spell, Vector3 interpolatePos)
     {
-        for (int i = 0; i < spell.spellEffect.Count; i++)
+        foreach (string spellEffect in spell.spellEffect)
         {
-            if (spell.spellEffect[i] == "Blink")
+            if (spellEffect == "Blink")
             {
                 GameManager.instance.blinkEffectScript.BlinkEffect(spell, interpolatePos);
+            }
+            if (spellEffect == "Hot")
+            {
+                GameManager.instance.hotEffectScript.HotEffect(spell);
+
             }
         }
            

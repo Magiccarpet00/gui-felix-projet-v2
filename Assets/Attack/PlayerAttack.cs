@@ -268,14 +268,14 @@ public class PlayerAttack : MonoBehaviour
 
             if (attackRange.Count > 0)
             {
-                float sum = 0;
+                //float sum = 0;
 
-                foreach (float number in attackRange)
-                {
-                    sum += number;
-                }
+                //foreach (float number in attackRange)
+                //{
+                //    sum += number;
+                //}
 
-                megaSpell.attackRange = sum / attackRange.Count;
+                megaSpell.attackRange = attackRange[0] * attackRange.Count;
             }
 
             //spellValue : Prendre la moyenne des sorts lancés 

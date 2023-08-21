@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public Camera cam;
     public GameObject[] prefabElements;
     public GameObject prefabPlayer;
+    public GameObject prefabEnemmy;
     public GameObject prefabSpell;
     public bool isCastingMegaSpell = false;
 
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     public DammageEffectScript dammageEffectScript;
     public SlowEffectScript slowEffectScript;
     public BlinkEffectScript blinkEffectScript;
+    public DotEffectScript dotEffectScript;
+    public HotEffectScript hotEffectScript;
 
 
     private void Awake()
