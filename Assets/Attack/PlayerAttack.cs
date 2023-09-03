@@ -62,7 +62,6 @@ public class PlayerAttack : MonoBehaviour
 
                 anim1.SetActive(true);
                 PressButtonColorChange(button1);
-                //Debug.Log("cast le spell" + GameManager.instance.spellBuildActif[0] + "avec l'effet" + GameManager.instance.spellBuildActif[0].spellEffect[0]);
                 CastSpell(GameManager.instance.spellBuildActif[0]);
                 DisplaySpellCast(targetImage1);
 
@@ -148,8 +147,14 @@ public class PlayerAttack : MonoBehaviour
     {
 
         GameManager.instance.InstantiateNewSpell(transform);
+
         SpellLifeTime lifeTime = GameManager.instance.newSpell.AddComponent<SpellLifeTime>();
-        lifeTime.SpellDie(spell.spellTime);
+        lifeTime.SpellDie(10f);
+
+        if (spell.spellTime !=0)
+        {
+            GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+        }
 
         RegisterSpellCasted(spell);
 
@@ -171,17 +176,48 @@ public class PlayerAttack : MonoBehaviour
             SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
             spellZone.Ray(spell);
         }
-       
     }
 
     public void CastMegaSpell(SpellScriptableObject megaSpell)
-    {       
-        CastSpell(megaSpell);
+    {
+       
         
-        ResetLists();
 
+        GameManager.instance.InstantiateNewSpell(transform);
+
+        if (!spellTime.Contains(0))
+        {
+            GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+        }
+
+        SpellLifeTime lifeTime = GameManager.instance.newSpell.AddComponent<SpellLifeTime>();
+        lifeTime.SpellDie(10f);
+
+        RegisterSpellCasted(megaSpell);
+
+        if (megaSpell.spellZone == "Sphere")
+        {
+
+            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
+            spellZone.Sphere(megaSpell);
+        }
+        else if (megaSpell.spellZone == "Cone")
+        {
+
+            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
+            spellZone.Cone(megaSpell);
+        }
+        else if (megaSpell.spellZone == "Ray")
+        {
+
+            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
+            spellZone.Ray(megaSpell);
+        }
+
+        ResetLists();
     }
 
+    
     
 
     public void DisplaySpellCast(GameObject g)
@@ -274,8 +310,12 @@ public class PlayerAttack : MonoBehaviour
                 //{
                 //    sum += number;
                 //}
+                if(spell.spellTime != 0)
+                {
+                    megaSpell.attackRange = attackRange[0] * attackRange.Count;
+                }
 
-                megaSpell.attackRange = attackRange[0] * attackRange.Count;
+               
             }
 
             //spellValue : Prendre la moyenne des sorts lancés 

@@ -20,7 +20,19 @@ public class SpellZone : SpellEffect
     Vector3 mousPosLocalPlayer;
     Vector3 mousPosworld;
     Vector3 interpolatePos;
+    Vector3 spellDirection;
 
+    private Collider[] coliidersInCone;
+
+    private void Start()
+    {
+        
+    }
+
+    public void Update()
+    {
+        spellDirection = GameManager.instance.prefabPlayer.transform.forward;
+    }
 
     public void Sphere(SpellScriptableObject spell)
     {
@@ -58,10 +70,6 @@ public class SpellZone : SpellEffect
             }
             
         }
-        
-
-
-
 
 
     }
@@ -181,8 +189,8 @@ public class SpellZone : SpellEffect
             Quaternion leftRayRotation = Quaternion.AngleAxis(-halfFOV, transform.up);
             Quaternion rightRayRotation = Quaternion.AngleAxis(halfFOV, transform.up);
 
-            Vector3 leftRayDirection = leftRayRotation * Vector3.Normalize(mousPosLocalPlayer) * attackRange;
-            Vector3 rightRayDirection = rightRayRotation * Vector3.Normalize(mousPosLocalPlayer) * attackRange;
+            Vector3 leftRayDirection = leftRayRotation * Vector3.Normalize(spellDirection) * attackRange;
+            Vector3 rightRayDirection = rightRayRotation * Vector3.Normalize(spellDirection) * attackRange;
 
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, leftRayDirection);

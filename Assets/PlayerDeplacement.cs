@@ -29,8 +29,7 @@ public class PlayerDeplacement : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(1))
-        {
+        
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -43,10 +42,17 @@ public class PlayerDeplacement : MonoBehaviour
                 else
                 {
                     agent.transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+
+                if (Input.GetMouseButton(0))
+                {
                     agent.SetDestination(hit.point);
+
                 }
-            }
-        }
+
+                 
+              }
+         }
+        
 
         //float width = cam.pixelWidth;
         //float height = cam.pixelHeight;

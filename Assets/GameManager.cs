@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject prefabEnemmy;
     public GameObject prefabSpell;
     public bool isCastingMegaSpell = false;
+    public bool hasASpellTime;
 
 
     public SpellScriptableObject[] spellBuildActif;
@@ -27,9 +28,12 @@ public class GameManager : MonoBehaviour
     public DotEffectScript dotEffectScript;
     public HotEffectScript hotEffectScript;
 
+   
+
 
     private void Awake()
     {
+        hasASpellTime = true;
         instance = this;
     }
 

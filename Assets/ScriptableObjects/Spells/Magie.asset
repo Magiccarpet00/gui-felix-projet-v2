@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Magie
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 21300000, guid: 9fbb28421021d034991dd9bda68d2854, type: 3}
-  spellTime: 5
+  spellTime: 0.1
   spellZone: Cone
   spellEffect:
   - Dommage
