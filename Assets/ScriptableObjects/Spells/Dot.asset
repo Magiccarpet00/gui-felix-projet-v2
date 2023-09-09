@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Dot
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 21300000, guid: 69684982838e47c499a0bae17b8c19e1, type: 3}
-  spellTime: 5
-  spellZone: Cone
+  spellEffectTime: 3
+  spellLifeTime: 10
+  refreshSpellLifeTime: 0.1
+  spellZone: Sphere
   spellEffect:
   - Dot
   attackRange: 5

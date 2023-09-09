@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: MegaSpell
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 0}
-  spellTime: 0
+  spellEffectTime: 0
+  spellLifeTime: 0
+  refreshSpellLifeTime: 0
   spellZone: 
   spellEffect: []
   attackRange: 0

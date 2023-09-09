@@ -15,7 +15,7 @@ public class HotEffectScript : MonoBehaviour
             
             Image image = hot.GetComponentInChildren<Image>();
 
-            StartCoroutine(HotActiveTime(image, spell.spellTime));
+            StartCoroutine(HotActiveTime(image, spell.spellEffectTime));
 
         }
     }

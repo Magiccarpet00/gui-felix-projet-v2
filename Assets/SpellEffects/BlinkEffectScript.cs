@@ -10,12 +10,12 @@ public class BlinkEffectScript : MonoBehaviour
         {
 
             PlayerDeplacement playerDeplacement = GameManager.instance.prefabPlayer.GetComponent<PlayerDeplacement>();
-            playerDeplacement.BlinkPlayer(spell.spellTime, endPoint);
+            playerDeplacement.BlinkPlayer(spell.spellEffectTime, endPoint);
 
         }
         else if (GameManager.instance.isCastingMegaSpell == true)
         {
-            BlinkSpell(spell.spellTime, endPoint);
+            BlinkSpell(spell.spellEffectTime, endPoint);
         }
 
 }

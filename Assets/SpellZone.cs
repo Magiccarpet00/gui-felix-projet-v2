@@ -22,16 +22,18 @@ public class SpellZone : SpellEffect
     Vector3 interpolatePos;
     Vector3 spellDirection;
 
-    private Collider[] coliidersInCone;
+    private Collider[] coliidersInZone;
 
-    private void Start()
+    private void Awake()
     {
-        
+        spellDirection = GameManager.instance.prefabPlayer.transform.forward;
+
     }
 
     public void Update()
     {
         spellDirection = GameManager.instance.prefabPlayer.transform.forward;
+
     }
 
     public void Sphere(SpellScriptableObject spell)
@@ -59,19 +61,31 @@ public class SpellZone : SpellEffect
 
         SetSpellNoColliderEffect(spell, mousPosworld);
 
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
+        StartCoroutine(DetectEnnemiesInSphere(spell));
+        
 
-        foreach (Collider enemy in hitEnemies)
+
+    }
+
+    IEnumerator DetectEnnemiesInSphere(SpellScriptableObject spell)
+    {
+        while (true)
         {
-           
-            if(enemy.tag == "Enemy")
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
+
+            foreach (Collider enemy in hitEnemies)
             {
-                SetSpellColliderEffect(spell, enemy);
+
+                if (enemy.tag == "Enemy")
+                {
+                    SetSpellColliderEffect(spell, enemy);
+                }
+
             }
-            
+
+            yield return new WaitForSeconds(spell.refreshSpellLifeTime);
+
         }
-
-
     }
 
     public void Cone(SpellScriptableObject spell)
@@ -97,26 +111,38 @@ public class SpellZone : SpellEffect
 
         SetSpellNoColliderEffect(spell, mousPosworld);
 
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
+        StartCoroutine(DetectEnnemiesInCone(spell));
+       
 
-        float coneAngle = 45f;
-        foreach (Collider enemy in hitEnemies)
+
+    }
+
+    IEnumerator DetectEnnemiesInCone(SpellScriptableObject spell)
+    {      
+
+        while (true)
         {
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
 
-            // Check si le collider est dans le cone angle
-            Vector3 directionToCollider = enemy.transform.position - transform.position;
-            float angleToCollider = Vector3.Angle(mousPosLocalPlayer, directionToCollider);
+            float coneAngle = 45f;
 
-
-            if (angleToCollider < coneAngle && enemy.tag == "Enemy")
+            foreach (Collider enemy in hitEnemies)
             {
-                SetSpellColliderEffect(spell, enemy);
+                // Check si le collider est dans le cone angle
+                Vector3 directionToCollider = enemy.transform.position - transform.position;
+                
+                float angleToCollider = Vector3.Angle(spellDirection, directionToCollider);
+
+
+                if (angleToCollider < coneAngle && directionToCollider.magnitude < spell.attackRange && enemy.tag == "Enemy")
+                {
+                    SetSpellColliderEffect(spell, enemy);
+                }
             }
+
+            yield return new WaitForSeconds(spell.refreshSpellLifeTime);
+
         }
-
-
-
-
     }
 
     public void Ray(SpellScriptableObject spell)
@@ -144,29 +170,38 @@ public class SpellZone : SpellEffect
         SetSpellNoColliderEffect(spell, interpolatePos);
 
 
-        Ray ray = new Ray(transform.position, Vector3.Normalize(mousPosLocalPlayer));
-
-        RaycastHit[] hitRayEnemies = Physics.RaycastAll(ray, attackRange);
-        Collider[] hitEnemies = new Collider[hitRayEnemies.Length];
-
-        for (int i = 0; i < hitRayEnemies.Length; i++)
-        {
-            hitEnemies[i] = hitRayEnemies[i].collider;
-        }
-
-        foreach (Collider enemy in hitEnemies)
-        {
-            if (enemy.tag == "Enemy")
-            {
-                SetSpellColliderEffect(spell, enemy);
-            }
-
-        }
+        
 
     }
 
+    IEnumerator DetectEnnemiesInRay(SpellScriptableObject spell)
+    {
+        while (true)
+        {
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
 
-        private void OnDrawGizmos()
+            float coneAngle = 45f;
+            foreach (Collider enemy in hitEnemies)
+            {
+
+                // Check si le collider est dans le cone angle
+                Vector3 directionToCollider = enemy.transform.position - transform.position;
+                float angleToCollider = Vector3.Angle(spellDirection, directionToCollider);
+
+
+                if (angleToCollider < coneAngle && enemy.tag == "Enemy")
+                {
+                    SetSpellColliderEffect(spell, enemy);
+                }
+            }
+
+            yield return new WaitForSeconds(spell.refreshSpellLifeTime);
+
+        }
+    }
+
+
+    private void OnDrawGizmos()
     {
 
         if (gizmoSphereSpell == true)
@@ -207,8 +242,8 @@ public class SpellZone : SpellEffect
             Quaternion leftRayRotation = Quaternion.AngleAxis(-halfFOV, transform.up);
             Quaternion rightRayRotation = Quaternion.AngleAxis(halfFOV, transform.up);
 
-            Vector3 leftRayDirection = leftRayRotation * Vector3.Normalize(mousPosLocalPlayer) * attackRange;
-            Vector3 rightRayDirection = rightRayRotation * Vector3.Normalize(mousPosLocalPlayer) * attackRange;
+            Vector3 leftRayDirection = leftRayRotation * Vector3.Normalize(spellDirection) * attackRange;
+            Vector3 rightRayDirection = rightRayRotation * Vector3.Normalize(spellDirection) * attackRange;
 
             Gizmos.color = Color.blue;
             Gizmos.DrawRay(transform.position, leftRayDirection);

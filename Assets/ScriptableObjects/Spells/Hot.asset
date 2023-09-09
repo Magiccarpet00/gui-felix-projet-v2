@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Hot
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 21300000, guid: 3069fdfad499bc94a8da73fa096a8b6d, type: 3}
-  spellTime: 3
+  spellEffectTime: 3
+  spellLifeTime: 10
+  refreshSpellLifeTime: 0.1
   spellZone: Sphere
   spellEffect:
   - Hot

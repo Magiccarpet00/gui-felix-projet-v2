@@ -31,11 +31,16 @@ public class PlayerAttack : MonoBehaviour
 
 
 
-    public List<float> spellTime;
+    public List<float> spellEffectTime;
+    public List<float> spellLifeTime;
     public List<string> spellZone;
     public List<string> spellEffect;
     public List<float> attackRange;
-    public List<float> spellValue;
+    public List<float> spellDommageValue;
+    public List<float> spellDotValue;
+    public List<float> spellHotValue;
+    public List<float> spellSlowValue;
+    public List<float> refreshSpellLifeTime;
 
     //public string[] spellEffectToCombineList = new string[GameManager.instance.spellBuildActif.Length];
 
@@ -149,9 +154,9 @@ public class PlayerAttack : MonoBehaviour
         GameManager.instance.InstantiateNewSpell(transform);
 
         SpellLifeTime lifeTime = GameManager.instance.newSpell.AddComponent<SpellLifeTime>();
-        lifeTime.SpellDie(10f);
+        lifeTime.SpellDie(spell.spellLifeTime);
 
-        if (spell.spellTime !=0)
+        if (spell.spellLifeTime != 0)
         {
             GameManager.instance.newSpell.AddComponent<SpellPlacement>();
         }
@@ -159,8 +164,7 @@ public class PlayerAttack : MonoBehaviour
         RegisterSpellCasted(spell);
 
         if (spell.spellZone == "Sphere")
-        {
-          
+        {          
             SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
             spellZone.Sphere(spell);
         }
@@ -180,18 +184,16 @@ public class PlayerAttack : MonoBehaviour
 
     public void CastMegaSpell(SpellScriptableObject megaSpell)
     {
-       
-        
 
         GameManager.instance.InstantiateNewSpell(transform);
 
-        if (!spellTime.Contains(0))
+        SpellLifeTime lifeTime = GameManager.instance.newSpell.AddComponent<SpellLifeTime>();
+        lifeTime.SpellDie(megaSpell.spellLifeTime);
+
+        if (!spellLifeTime.Contains(0))
         {
             GameManager.instance.newSpell.AddComponent<SpellPlacement>();
         }
-
-        SpellLifeTime lifeTime = GameManager.instance.newSpell.AddComponent<SpellLifeTime>();
-        lifeTime.SpellDie(10f);
 
         RegisterSpellCasted(megaSpell);
 
@@ -214,7 +216,7 @@ public class PlayerAttack : MonoBehaviour
             spellZone.Ray(megaSpell);
         }
 
-        ResetLists();
+        //ResetLists();
     }
 
     
@@ -232,10 +234,15 @@ public class PlayerAttack : MonoBehaviour
             spellZone.Add(spell.spellZone);
             attackRange.Add(spell.attackRange);
             spellEffect.Add(spell.spellEffect[0]);
-            spellTime.Add(spell.spellTime);
-            spellValue.Add(spell.spellValue);
+            spellEffectTime.Add(spell.spellEffectTime);
+            spellLifeTime.Add(spell.spellLifeTime);
+            spellDommageValue.Add(spell.spellDommageValue);
+            spellDotValue.Add(spell.spellDotValue);
+            spellHotValue.Add(spell.spellHotValue);
+            spellSlowValue.Add(spell.spellSlowValue);
+            refreshSpellLifeTime.Add(spell.refreshSpellLifeTime);
 
-            MegaSpellBuild(spell);
+    MegaSpellBuild(spell);
         }
         
     }
@@ -245,16 +252,25 @@ public class PlayerAttack : MonoBehaviour
         spellZone.Clear();
         spellEffect.Clear();
         attackRange.Clear();
-        spellTime.Clear();
-        spellValue.Clear();
+        spellEffectTime.Clear();
+        spellLifeTime.Clear();
+        spellDommageValue.Clear();
+        spellDotValue.Clear();
+        spellHotValue.Clear();
+        spellSlowValue.Clear();
+        refreshSpellLifeTime.Clear();
 
         megaSpell.spellZone = "";
         megaSpell.spellEffect.Clear();
         megaSpell.attackRange = 0f;
-        megaSpell.spellTime = 0f;
-        megaSpell.spellValue = 0f;
+        megaSpell.spellEffectTime = 0f;
+        megaSpell.spellDommageValue = 0f;
+        megaSpell.spellDotValue = 0f;
+        megaSpell.spellHotValue = 0f;
+        megaSpell.spellSlowValue = 0f;
+        megaSpell.spellLifeTime = 0f;
+        megaSpell.refreshSpellLifeTime = 0f;
 
-        
     }
 
 
@@ -290,7 +306,7 @@ public class PlayerAttack : MonoBehaviour
 
             //spellTime : valeur la plus elevée des spells lancés
 
-            megaSpell.spellTime = Mathf.Max(spellTime.ToArray());
+            megaSpell.spellLifeTime = Mathf.Max(spellLifeTime.ToArray());
 
             //spellZone : La première zone lancée
 
@@ -300,37 +316,83 @@ public class PlayerAttack : MonoBehaviour
 
             megaSpell.spellEffect.Add(spell.spellEffect[0]);
 
-            //attackRange : Prendre la moyenne des sorts lancés 
+            //attackRange : multiplie par le nombre de spell lancés
 
             if (attackRange.Count > 0)
             {
-                //float sum = 0;
-
-                //foreach (float number in attackRange)
-                //{
-                //    sum += number;
-                //}
-                if(spell.spellTime != 0)
+                if(spell.spellLifeTime != 0)
                 {
                     megaSpell.attackRange = attackRange[0] * attackRange.Count;
                 }
 
-               
             }
 
-            //spellValue : Prendre la moyenne des sorts lancés 
+            //spellValue (toutes les values) : Prendre la moyenne des sorts lancés 
 
-            if (spellValue.Count > 0)
+            if (spellDommageValue.Count > 0)
             {
                 float sum = 0;
 
-                foreach (float number in spellValue)
+                foreach (float number in spellDommageValue)
                 {
                     sum += number;
                 }
 
-                megaSpell.spellValue = sum / spellValue.Count;
+                megaSpell.spellDommageValue = sum / spellDommageValue.Count;
             }
+
+            if (spellDotValue.Count > 0)
+            {
+                float sum = 0;
+
+                foreach (float number in spellDotValue)
+                {
+                    sum += number;
+                }
+
+                megaSpell.spellDotValue = sum / spellDotValue.Count;
+            }
+            if (spellHotValue.Count > 0)
+            {
+                float sum = 0;
+
+                foreach (float number in spellHotValue)
+                {
+                    sum += number;
+                }
+
+                megaSpell.spellHotValue = sum / spellHotValue.Count;
+            }
+            if (spellSlowValue.Count > 0)
+            {
+                float sum = 0;
+
+                foreach (float number in spellSlowValue)
+                {
+                    sum += number;
+                }
+
+                megaSpell.spellSlowValue = sum / spellSlowValue.Count;
+            }
+
+        // spellEffectTime  : valeur la plus elevée des spells lancés
+        megaSpell.spellEffectTime = Mathf.Max(spellEffectTime.ToArray());
+
+        //refresh Spell Life Time : Prendre la moyenne des sorts lancés 
+
+        if (refreshSpellLifeTime.Count > 0)
+        {
+            float sum = 0;
+
+            foreach (float number in refreshSpellLifeTime)
+            {
+                sum += number;
+            }
+
+            megaSpell.refreshSpellLifeTime = sum / refreshSpellLifeTime.Count;
+        }
+
+
 
     }
 }

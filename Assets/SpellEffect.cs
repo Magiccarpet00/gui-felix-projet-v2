@@ -34,11 +34,13 @@ public class SpellEffect : MonoBehaviour
 
     public void SetSpellNoColliderEffect(SpellScriptableObject spell, Vector3 interpolatePos)
     {
+        
         foreach (string spellEffect in spell.spellEffect)
         {
             if (spellEffect == "Blink")
             {
                 GameManager.instance.blinkEffectScript.BlinkEffect(spell, interpolatePos);
+
             }
             if (spellEffect == "Hot")
             {

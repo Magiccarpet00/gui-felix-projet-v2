@@ -7,20 +7,11 @@ public class DammageEffectScript : MonoBehaviour
         
     public void DammageEffect(SpellScriptableObject spell, Collider enemy)
     {
-       
+        Debug.Log("Dammage");
         EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-        StartCoroutine(DammageTic(spell.spellTime, enemyHealth, enemy, spell));
+        enemyHealth.TakeDamage(spell.spellValue);
 
     }
 
-    IEnumerator DammageTic(float time, EnemyHealth enemyHealth, Collider enemy, SpellScriptableObject spell)
-    {
-        while(enemyHealth != null)
-        {
-                enemyHealth.TakeDamage(spell.spellValue);
-
-            yield return new WaitForSeconds(time);
-        }
-       
-    }
+    
 }

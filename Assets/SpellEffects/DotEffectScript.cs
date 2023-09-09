@@ -12,7 +12,7 @@ public class DotEffectScript : MonoBehaviour
         if (enemyHealth != null)
         {
          
-            StartCoroutine(HotActiveTime(tmp, spell.spellTime));
+            StartCoroutine(HotActiveTime(tmp, spell.spellEffectTime));
            
         }
     }
