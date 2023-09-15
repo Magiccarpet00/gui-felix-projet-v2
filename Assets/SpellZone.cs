@@ -57,7 +57,7 @@ public class SpellZone : SpellEffect
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
-        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
+        //interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
         SetSpellNoColliderEffect(spell, mousPosworld);
 
@@ -83,7 +83,7 @@ public class SpellZone : SpellEffect
 
             }
 
-            yield return new WaitForSeconds(spell.refreshSpellLifeTime);
+            yield return new WaitForSeconds(spell.refreshSpellZoneTime);
 
         }
     }
@@ -107,7 +107,7 @@ public class SpellZone : SpellEffect
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
-        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
+        //interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
         SetSpellNoColliderEffect(spell, mousPosworld);
 
@@ -140,7 +140,7 @@ public class SpellZone : SpellEffect
                 }
             }
 
-            yield return new WaitForSeconds(spell.refreshSpellLifeTime);
+            yield return new WaitForSeconds(spell.refreshSpellZoneTime);
 
         }
     }
@@ -165,7 +165,7 @@ public class SpellZone : SpellEffect
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
-        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
+        //interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
         SetSpellNoColliderEffect(spell, interpolatePos);
 
@@ -195,7 +195,7 @@ public class SpellZone : SpellEffect
                 }
             }
 
-            yield return new WaitForSeconds(spell.refreshSpellLifeTime);
+            yield return new WaitForSeconds(spell.refreshSpellZoneTime);
 
         }
     }

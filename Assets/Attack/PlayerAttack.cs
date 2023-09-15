@@ -240,7 +240,7 @@ public class PlayerAttack : MonoBehaviour
             spellDotValue.Add(spell.spellDotValue);
             spellHotValue.Add(spell.spellHotValue);
             spellSlowValue.Add(spell.spellSlowValue);
-            refreshSpellLifeTime.Add(spell.refreshSpellLifeTime);
+            refreshSpellLifeTime.Add(spell.refreshSpellZoneTime);
 
     MegaSpellBuild(spell);
         }
@@ -269,7 +269,7 @@ public class PlayerAttack : MonoBehaviour
         megaSpell.spellHotValue = 0f;
         megaSpell.spellSlowValue = 0f;
         megaSpell.spellLifeTime = 0f;
-        megaSpell.refreshSpellLifeTime = 0f;
+        megaSpell.refreshSpellZoneTime = 0f;
 
     }
 
@@ -389,7 +389,7 @@ public class PlayerAttack : MonoBehaviour
                 sum += number;
             }
 
-            megaSpell.refreshSpellLifeTime = sum / refreshSpellLifeTime.Count;
+            megaSpell.refreshSpellZoneTime = sum / refreshSpellLifeTime.Count;
         }
 
 

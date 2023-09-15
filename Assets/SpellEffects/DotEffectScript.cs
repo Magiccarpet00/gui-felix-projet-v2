@@ -9,11 +9,14 @@ public class DotEffectScript : MonoBehaviour
     {
         EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
         TextMeshProUGUI tmp = enemy.GetComponentInChildren<TextMeshProUGUI>();
+
         if (enemyHealth != null)
         {
-         
-            StartCoroutine(HotActiveTime(tmp, spell.spellEffectTime));
-           
+            
+            enemyHealth.TakeDamageOnTime(spell.spellDotValue, spell.spellDotLifeTime, spell.spellEffectTime, spell.spellID);
+
+            //StartCoroutine(HotActiveTime(tmp, spell.spellEffectTime));
+
         }
     }
 

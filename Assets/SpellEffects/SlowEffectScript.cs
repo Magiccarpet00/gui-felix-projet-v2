@@ -10,7 +10,7 @@ public class SlowEffectScript : MonoBehaviour
         DeplacementEnnemy enemyDeplacement = enemy.GetComponent<DeplacementEnnemy>();
         if (enemyDeplacement != null)
         {
-            enemyDeplacement.slowDeplacement(spell.spellValue, spell.spellEffectTime);
+            enemyDeplacement.slowDeplacement(spell.spellSlowValue, spell.spellEffectTime);
         }
     }
 }
