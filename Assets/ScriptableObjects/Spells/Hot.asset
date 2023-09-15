@@ -20,4 +20,9 @@ MonoBehaviour:
   spellEffect:
   - Hot
   attackRange: 5
-  spellValue: 5
+  spellDommageValue: 0
+  spellDotValue: 0
+  spellHotValue: 5
+  spellSlowValue: 0
+  spellDefenseValue: 0
+  spellHealValue: 0

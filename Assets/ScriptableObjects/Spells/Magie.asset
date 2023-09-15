@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Magie
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 21300000, guid: 9fbb28421021d034991dd9bda68d2854, type: 3}
-  spellEffectTime: 0
+  spellEffectTime: 3
   spellLifeTime: 3
   refreshSpellLifeTime: 0.5
-  spellZone: Cone
+  spellZone: Sphere
   spellEffect:
   - Dommage
   attackRange: 10
-  spellValue: 3
+  spellDommageValue: 3
+  spellDotValue: 0
+  spellHotValue: 0
+  spellSlowValue: 3
+  spellDefenseValue: 0
+  spellHealValue: 0

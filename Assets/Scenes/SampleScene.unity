@@ -2186,7 +2186,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952636, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: m_Name
@@ -2359,7 +2359,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -2958,7 +2958,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952636, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: m_Name
@@ -4326,7 +4326,7 @@ PrefabInstance:
       objectReference: {fileID: 2106366675}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: walkingSpeed
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8369173806147952518, guid: bfd2bacf9d8572c42a129f46c1d6fbc8, type: 3}
       propertyPath: ennemyAgentWlakingSpeed
@@ -4415,6 +4415,7 @@ MonoBehaviour:
   blinkEffectScript: {fileID: 1696754211}
   dotEffectScript: {fileID: 1696754212}
   hotEffectScript: {fileID: 1696754213}
+  spellEffectScript: {fileID: 0}
 --- !u!4 &1696754208
 Transform:
   m_ObjectHideFlags: 0

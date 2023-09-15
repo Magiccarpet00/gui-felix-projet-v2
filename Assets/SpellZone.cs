@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellZone : SpellEffect
+public class SpellZone : MonoBehaviour
 {
 
 
@@ -22,17 +22,21 @@ public class SpellZone : SpellEffect
     Vector3 interpolatePos;
     Vector3 spellDirection;
 
-    private Collider[] coliidersInZone;
+    public List <Collider> collidersInZone;
+
+    SpellEffect spellEffect;
 
     private void Awake()
     {
         spellDirection = GameManager.instance.prefabPlayer.transform.forward;
+        spellEffect = GameManager.instance.spellEffectScript;
 
     }
 
     public void Update()
     {
         spellDirection = GameManager.instance.prefabPlayer.transform.forward;
+        Debug.Log(spellEffect);
 
     }
 
@@ -57,9 +61,9 @@ public class SpellZone : SpellEffect
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
-        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
+        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.attackRange);
 
-        SetSpellNoColliderEffect(spell, mousPosworld);
+        spellEffect.SetSpellNoColliderEffect(spell, mousPosworld);
 
         StartCoroutine(DetectEnnemiesInSphere(spell));
         
@@ -73,12 +77,14 @@ public class SpellZone : SpellEffect
         {
             Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
 
+             
             foreach (Collider enemy in hitEnemies)
             {
-
                 if (enemy.tag == "Enemy")
                 {
-                    SetSpellColliderEffect(spell, enemy);
+                    collidersInZone.Add(enemy);
+
+                    spellEffect.SetSpellColliderEffect(spell, enemy);
                 }
 
             }
@@ -107,9 +113,9 @@ public class SpellZone : SpellEffect
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
-        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
+        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.attackRange);
 
-        SetSpellNoColliderEffect(spell, mousPosworld);
+        spellEffect.SetSpellNoColliderEffect(spell, mousPosworld);
 
         StartCoroutine(DetectEnnemiesInCone(spell));
        
@@ -136,7 +142,7 @@ public class SpellZone : SpellEffect
 
                 if (angleToCollider < coneAngle && directionToCollider.magnitude < spell.attackRange && enemy.tag == "Enemy")
                 {
-                    SetSpellColliderEffect(spell, enemy);
+                    spellEffect.SetSpellColliderEffect(spell, enemy);
                 }
             }
 
@@ -165,9 +171,9 @@ public class SpellZone : SpellEffect
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
-        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
+        interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.attackRange);
 
-        SetSpellNoColliderEffect(spell, interpolatePos);
+        spellEffect.SetSpellNoColliderEffect(spell, interpolatePos);
 
 
         
@@ -191,7 +197,7 @@ public class SpellZone : SpellEffect
 
                 if (angleToCollider < coneAngle && enemy.tag == "Enemy")
                 {
-                    SetSpellColliderEffect(spell, enemy);
+                    spellEffect.SetSpellColliderEffect(spell, enemy);
                 }
             }
 

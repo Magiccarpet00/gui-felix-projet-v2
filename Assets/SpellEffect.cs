@@ -5,9 +5,11 @@ using UnityEngine;
 
 
 
-public class SpellEffect : MonoBehaviour
+public class SpellEffect : SpellZone
 {
-    
+
+ 
+
     //---------Définition des combinaisons d'effets--------------
 
     public void SetSpellColliderEffect(SpellScriptableObject spell, Collider enemy) //Blink n'est pas dans cette méthode 
@@ -24,7 +26,13 @@ public class SpellEffect : MonoBehaviour
             }
             if (spellEffect == "Dot")
             {
-                GameManager.instance.dotEffectScript.DotEffect(spell, enemy);
+                foreach (Collider hitEnemies in collidersInZone)
+                {
+                    Debug.Log(collidersInZone.Count);
+                    GameManager.instance.dotEffectScript.DotEffect(spell, enemy);
+
+
+                }
 
             }
 

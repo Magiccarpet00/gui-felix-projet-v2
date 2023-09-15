@@ -216,7 +216,6 @@ public class PlayerAttack : MonoBehaviour
             spellZone.Ray(megaSpell);
         }
 
-        //ResetLists();
     }
 
     
@@ -327,53 +326,12 @@ public class PlayerAttack : MonoBehaviour
 
             }
 
-            //spellValue (toutes les values) : Prendre la moyenne des sorts lancés 
+        //spellValue (toutes les values) : Prendre la moyenne des sorts lancés 
 
-            if (spellDommageValue.Count > 0)
-            {
-                float sum = 0;
-
-                foreach (float number in spellDommageValue)
-                {
-                    sum += number;
-                }
-
-                megaSpell.spellDommageValue = sum / spellDommageValue.Count;
-            }
-
-            if (spellDotValue.Count > 0)
-            {
-                float sum = 0;
-
-                foreach (float number in spellDotValue)
-                {
-                    sum += number;
-                }
-
-                megaSpell.spellDotValue = sum / spellDotValue.Count;
-            }
-            if (spellHotValue.Count > 0)
-            {
-                float sum = 0;
-
-                foreach (float number in spellHotValue)
-                {
-                    sum += number;
-                }
-
-                megaSpell.spellHotValue = sum / spellHotValue.Count;
-            }
-            if (spellSlowValue.Count > 0)
-            {
-                float sum = 0;
-
-                foreach (float number in spellSlowValue)
-                {
-                    sum += number;
-                }
-
-                megaSpell.spellSlowValue = sum / spellSlowValue.Count;
-            }
+        megaSpell.spellDommageValue = CalculateSpellValue(spellDommageValue, spell);
+        megaSpell.spellDotValue = CalculateSpellValue(spellDotValue, spell);
+        megaSpell.spellHotValue = CalculateSpellValue(spellHotValue, spell);
+        megaSpell.spellSlowValue = CalculateSpellValue(spellSlowValue, spell);
 
         // spellEffectTime  : valeur la plus elevée des spells lancés
         megaSpell.spellEffectTime = Mathf.Max(spellEffectTime.ToArray());
@@ -383,16 +341,51 @@ public class PlayerAttack : MonoBehaviour
         if (refreshSpellLifeTime.Count > 0)
         {
             float sum = 0;
+            float divider = 0;
+
 
             foreach (float number in refreshSpellLifeTime)
             {
                 sum += number;
+
+                if (number != 0)
+                {
+                    divider += 1;
+                }
             }
 
-            megaSpell.refreshSpellLifeTime = sum / refreshSpellLifeTime.Count;
+            megaSpell.refreshSpellLifeTime = sum / divider;
         }
 
 
+
+    }
+
+    private float CalculateSpellValue ( List <float> spellValueList, SpellScriptableObject spell)
+    {
+        float spellValue = 0;
+
+        if (spellValueList.Count > 0)
+        {
+            float sum = 0;
+            float divider = 0;
+            
+
+            foreach (float number in spellValueList)
+            {
+                sum += number;
+
+                if (number != 0)
+                {
+                    divider += 1;
+                }
+
+            }
+
+            spellValue = sum / divider;
+        }
+
+        return spellValue;
 
     }
 }

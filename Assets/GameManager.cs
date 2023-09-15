@@ -27,8 +27,10 @@ public class GameManager : MonoBehaviour
     public BlinkEffectScript blinkEffectScript;
     public DotEffectScript dotEffectScript;
     public HotEffectScript hotEffectScript;
+    public SpellEffect spellEffectScript;
 
-   
+
+
 
 
     private void Awake()

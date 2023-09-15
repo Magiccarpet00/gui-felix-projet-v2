@@ -16,6 +16,8 @@ public class SpellScriptableObject : ScriptableObject
     public float spellDotValue;
     public float spellHotValue;
     public float spellSlowValue;
+    public float spellDefenseValue;
+    public float spellHealValue;
  
 
 

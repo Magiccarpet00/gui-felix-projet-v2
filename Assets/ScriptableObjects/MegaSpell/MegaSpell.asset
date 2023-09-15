@@ -19,4 +19,9 @@ MonoBehaviour:
   spellZone: 
   spellEffect: []
   attackRange: 0
-  spellValue: 0
+  spellDommageValue: 0
+  spellDotValue: 0
+  spellHotValue: 0
+  spellSlowValue: 0
+  spellDefenseValue: 0
+  spellHealValue: 3
