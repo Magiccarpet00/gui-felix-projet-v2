@@ -382,40 +382,64 @@ public class PlayerAttack : MonoBehaviour
 
         //refresh Spell Life Time : Prendre la moyenne des sorts lancés 
 
+        megaSpell.spellDommageValue = CalculateSpellValue(spellDommageValue, spell);
+        megaSpell.spellDotValue = CalculateSpellValue(spellDotValue, spell);
+        megaSpell.spellHotValue = CalculateSpellValue(spellHotValue, spell);
+        megaSpell.spellSlowValue = CalculateSpellValue(spellSlowValue, spell);
+
+        // spellEffectTime  : valeur la plus elevée des spells lancés
+        megaSpell.spellEffectTime = Mathf.Max(spellEffectTime.ToArray());
+
+        //refresh Spell Life Time : Prendre la moyenne des sorts lancés 
+
         if (refreshSpellLifeTime.Count > 0)
         {
             float sum = 0;
+            float divider = 0;
+
 
             foreach (float number in refreshSpellLifeTime)
             {
                 sum += number;
+
+                if (number != 0)
+                {
+                    divider += 1;
+                }
             }
 
-            megaSpell.refreshSpellZoneTime = sum / refreshSpellLifeTime.Count;
+            megaSpell.refreshSpellZoneTime = sum / divider;
         }
+
+
 
     }
 
-    public float SpellValue (List <float> spellValue )
+    private float CalculateSpellValue(List<float> spellValueList, SpellScriptableObject spell)
     {
+        float spellValue = 0;
 
-
-        if (spellValue.Count > 0)
+        if (spellValueList.Count > 0)
         {
             float sum = 0;
+            float divider = 0;
 
-            foreach (float number in spellValue)
+
+            foreach (float number in spellValueList)
             {
                 sum += number;
+
+                if (number != 0)
+                {
+                    divider += 1;
+                }
+
             }
 
-            average = sum / spellValue.Count;
+            spellValue = sum / divider;
         }
-        value = average;
 
-        return average;
-
-
+        return spellValue;
 
     }
 }
