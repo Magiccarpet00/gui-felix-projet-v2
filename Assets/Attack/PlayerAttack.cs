@@ -143,9 +143,11 @@ public class PlayerAttack : MonoBehaviour
         {
             anim5.SetActive(false);
             GameManager.instance.isCastingMegaSpell = false;
+            
+
 
         }
- 
+
     }
 
     public void CastSpell(SpellScriptableObject spell)
@@ -216,7 +218,6 @@ public class PlayerAttack : MonoBehaviour
             spellZone.Ray(megaSpell);
         }
 
-        //ResetLists();
     }
 
     
@@ -243,6 +244,7 @@ public class PlayerAttack : MonoBehaviour
             refreshSpellLifeTime.Add(spell.refreshSpellZoneTime);
 
     MegaSpellBuild(spell);
+
         }
         
     }
@@ -391,6 +393,27 @@ public class PlayerAttack : MonoBehaviour
 
             megaSpell.refreshSpellZoneTime = sum / refreshSpellLifeTime.Count;
         }
+
+    }
+
+    public float SpellValue (List <float> spellValue )
+    {
+
+
+        if (spellValue.Count > 0)
+        {
+            float sum = 0;
+
+            foreach (float number in spellValue)
+            {
+                sum += number;
+            }
+
+            average = sum / spellValue.Count;
+        }
+        value = average;
+
+        return average;
 
 
 

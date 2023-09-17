@@ -40,7 +40,7 @@ public class EnemyHealth : MonoBehaviour
         {
             currentDotSpell.Add(spellID);
 
-            StartCoroutine(DotCoroutine(spellEffectTime, spellTime, damage, spellID));
+            StartCoroutine(DotCoroutine(damage, spellTime, spellEffectTime, spellID));
 
 
             if (currentHealth <= 0)
@@ -53,6 +53,7 @@ public class EnemyHealth : MonoBehaviour
 
     IEnumerator DotCoroutine (float damage, float duredevie, float frequence, int spellID)
     {
+
       
 
         if(duredevie<0)

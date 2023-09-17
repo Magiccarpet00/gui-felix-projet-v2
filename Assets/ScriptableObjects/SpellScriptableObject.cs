@@ -6,22 +6,24 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NouveauSpell", menuName = "Gui Felix Project/SpellScriptableObject", order = 1)]
 public class SpellScriptableObject : ScriptableObject
 {
-   
+    [Header("General Settings")]
     public Sprite spellIcon;
+    public List<string> spellEffect = new List<string>();
     public float spellEffectTime;
     public float spellLifeTime;
     public float refreshSpellZoneTime;
-    public float dotLifeTime;
     public string spellZone;
-    [Header("General Settings")]
-    public List<string> spellEffect = new List<string>();
     public float attackRange;
+    public int spellID;
+    [Header("Dommage")]
     public float spellDommageValue;
+    [Header("Dot")]
     public float spellDotValue;
     public float spellDotLifeTime;
+    [Header("Hot")]
     public float spellHotValue;
+    [Header("Slow")]
     public float spellSlowValue;
-    public int spellID;
  
 
 
