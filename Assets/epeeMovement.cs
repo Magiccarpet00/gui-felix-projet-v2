@@ -42,7 +42,6 @@ public class epeeMovement : MonoBehaviour
 
         if (!idledroitRunning && !idlegaucheRunning) //&& epeeBlinked == false)
         {
-            Debug.Log("coucou");
             playerDeplacement.enabled = false;
             epeeCollider.enabled = true;
             playerDeplacement.agent.SetDestination(GameManager.instance.prefabPlayer.transform.position);
@@ -58,13 +57,11 @@ public class epeeMovement : MonoBehaviour
         if (epeeBlinked == true)
         {
             epeeCollider.enabled = true;
-            Debug.Log("coucou");
-            Debug.Log(GameManager.instance.elapsedTime);
-
+    
             //transform.rotation = new Quaternion(transform.rotation.x, Mathf.LerpAngle(0, 1080, GameManager.instance.elapsedTime * epeeSpeed),transform.rotation.z,transform.rotation.w);
             Quaternion rotation = Quaternion.AngleAxis(GameManager.instance.elapsedTime * epeeSpeed, Vector3.left);
             transform.rotation *= rotation;
-            ;
+            
 
         }
 

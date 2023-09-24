@@ -5,15 +5,33 @@ using UnityEngine;
 public class epeeDetection : SpellEffect
 {
     public SpellScriptableObject spell;
+    private bool collisionDetected = false; // Variable pour contrôler la détection de collision.
 
     private void OnTriggerEnter(Collider enemy)
     {
-        if (enemy.tag == "Enemy")
+
+        if (!collisionDetected)
         {
-            SetSpellColliderEffect(spell, enemy);
+            if (enemy.tag == "Enemy")
+            {
+                Debug.Log("coucou");
+                SetSpellColliderEffect(spell, enemy);
+            }
+            collisionDetected = true;
+            StartCoroutine(OneMiliSecond());
         }
 
     }
+
+    IEnumerator OneMiliSecond()
+    {
+        yield return new WaitForSeconds(0.2f);
+        collisionDetected = false;
+
+
+    }
+
+
 }
 
-   
+ 
