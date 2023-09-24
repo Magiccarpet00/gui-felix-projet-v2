@@ -22,6 +22,7 @@ public class SpellScriptableObject : ScriptableObject
     public float spellDotLifeTime;
     [Header("Hot")]
     public float spellHotValue;
+    public float spellHotLifeTime;
     [Header("Slow")]
     public float spellSlowValue;
  

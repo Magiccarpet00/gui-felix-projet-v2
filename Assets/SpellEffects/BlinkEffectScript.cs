@@ -15,6 +15,8 @@ public class BlinkEffectScript : MonoBehaviour
         }
         else if (GameManager.instance.isCastingMegaSpell == true)
         {
+            epeeMovement epeeMovement = GameManager.instance.prefabPlayer.GetComponentInChildren<epeeMovement>();
+            epeeMovement.BlinkEpee(endPoint);
             BlinkSpell(spell.spellEffectTime, endPoint);
         }
 

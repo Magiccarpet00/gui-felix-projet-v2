@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject prefabPlayer;
     public GameObject prefabEnemmy;
     public GameObject prefabSpell;
+    public GameObject prefabEpee;
     public bool isCastingMegaSpell = false;
     public bool hasASpellTime;
 
@@ -28,13 +29,40 @@ public class GameManager : MonoBehaviour
     public DotEffectScript dotEffectScript;
     public HotEffectScript hotEffectScript;
 
-   
+    public float elapsedTime;
+
+
+    public epeeDetection epeeDetection;
+
+    public Animator epeeAnimator;
+    public bool epeecoup;
 
 
     private void Awake()
     {
         hasASpellTime = true;
         instance = this;
+
+    }
+
+    private void Update()
+    {
+        elapsedTime += Time.deltaTime;
+    }
+
+    private void Start()
+    {
+        epeeAnimator = prefabEpee.GetComponent<Animator>();
+        epeecoup = epeeAnimator.GetBool("epeecoup");
+    }
+
+    public Vector3 GetMousePos(Transform transform)
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit);
+        Vector3 mousePos = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+        return mousePos;
     }
 
     public Vector3 GetMousePosWorld(Transform transform)
@@ -82,6 +110,11 @@ public class GameManager : MonoBehaviour
     {
         newSpell = Instantiate(prefabSpell, transform.position, Quaternion.identity);
 
+    }
+
+    public void ResetElapsedTime ()
+    {
+        elapsedTime = 0f;
     }
 
 

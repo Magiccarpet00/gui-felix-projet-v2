@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: "D\xE9fense"
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 21300000, guid: 8835a15468858364181ad68b0ded8925, type: 3}
-  spellTime: 3
-  spellLifeTime: 3
-  refreshSpellLifeTime: 0.1
-  spellZone: Ray
   spellEffect:
-  - Slow
-  attackRange: 8
-  spellValue: 3
+  - Dommage
+  spellEffectTime: 0
+  spellLifeTime: 3
+  refreshSpellZoneTime: 0
+  spellZone: Allonge
+  attackRange: 0
+  spellID: 0
+  spellDommageValue: 2
+  spellDotValue: 0
+  spellDotLifeTime: 0
+  spellHotValue: 0
+  spellHotLifeTime: 0
+  spellSlowValue: 0

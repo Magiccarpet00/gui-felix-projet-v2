@@ -16,7 +16,7 @@ MonoBehaviour:
   spellEffect:
   - Dot
   spellEffectTime: 2
-  spellLifeTime: 10
+  spellLifeTime: 3
   refreshSpellZoneTime: 0.1
   spellZone: Sphere
   attackRange: 5
@@ -25,4 +25,5 @@ MonoBehaviour:
   spellDotValue: 2
   spellDotLifeTime: 10
   spellHotValue: 0
+  spellHotLifeTime: 0
   spellSlowValue: 0

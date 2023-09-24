@@ -9,24 +9,37 @@ public class SpellZone : SpellEffect
     bool gizmoSphereSpell = false;
     bool gizmoConeSpell = false;
     bool gizmoRaySpell = false;
+    bool gizmoAllongeSpell = false;
+
 
     bool gizmoSphereMegaSpell = false;
     bool gizmoConeMegaSpell = false;
     bool gizmoRayMegaSpell = false;
+    bool gizmoAllongeMegaSpell = false;
+
 
     float attackRange;
 
 
     Vector3 mousPosLocalPlayer;
     Vector3 mousPosworld;
+    Vector3 mousPos;
     Vector3 interpolatePos;
     Vector3 spellDirection;
 
-    private Collider[] coliidersInZone;
+   
+
+   
+    public float lerpSpeed = 0.5f;
+
+    private float t = 0.0f;
 
     private void Awake()
     {
+
         spellDirection = GameManager.instance.prefabPlayer.transform.forward;
+        
+      
 
     }
 
@@ -34,11 +47,13 @@ public class SpellZone : SpellEffect
     {
         spellDirection = GameManager.instance.prefabPlayer.transform.forward;
 
+        t += lerpSpeed * Time.deltaTime;
+        t = Mathf.Clamp01(t);
     }
 
     public void Sphere(SpellScriptableObject spell)
     {
-        if(GameManager.instance.isCastingMegaSpell == false)
+        if (GameManager.instance.isCastingMegaSpell == false)
         {
 
             gizmoSphereSpell = true;
@@ -51,7 +66,7 @@ public class SpellZone : SpellEffect
             gizmoConeMegaSpell = false;
             gizmoRayMegaSpell = false;
         }
-        
+
 
         attackRange = spell.attackRange;
 
@@ -62,7 +77,7 @@ public class SpellZone : SpellEffect
         SetSpellNoColliderEffect(spell, mousPosworld);
 
         StartCoroutine(DetectEnnemiesInSphere(spell));
-        
+
 
 
     }
@@ -112,13 +127,13 @@ public class SpellZone : SpellEffect
         SetSpellNoColliderEffect(spell, mousPosworld);
 
         StartCoroutine(DetectEnnemiesInCone(spell));
-       
+
 
 
     }
 
     IEnumerator DetectEnnemiesInCone(SpellScriptableObject spell)
-    {      
+    {
 
         while (true)
         {
@@ -130,7 +145,7 @@ public class SpellZone : SpellEffect
             {
                 // Check si le collider est dans le cone angle
                 Vector3 directionToCollider = enemy.transform.position - transform.position;
-                
+
                 float angleToCollider = Vector3.Angle(spellDirection, directionToCollider);
 
 
@@ -165,12 +180,9 @@ public class SpellZone : SpellEffect
 
         mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
         mousPosworld = GameManager.instance.GetMousePosWorld(transform);
-        //interpolatePos = GameManager.instance.InterpolatePoints(transform.position, mousPosworld, spell.spellValue);
 
-        SetSpellNoColliderEffect(spell, interpolatePos);
-
-
-        
+        SetSpellNoColliderEffect(spell, mousPosworld);
+        StartCoroutine(DetectEnnemiesInRay(spell));
 
     }
 
@@ -178,18 +190,14 @@ public class SpellZone : SpellEffect
     {
         while (true)
         {
-            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, spell.attackRange);
-
-            float coneAngle = 45f;
-            foreach (Collider enemy in hitEnemies)
+            Ray ray = new Ray(transform.position, spellDirection);
+            RaycastHit[] hits = Physics.RaycastAll(ray);
+          
+            foreach (RaycastHit hit in hits)
             {
+                Collider enemy = hit.collider;
 
-                // Check si le collider est dans le cone angle
-                Vector3 directionToCollider = enemy.transform.position - transform.position;
-                float angleToCollider = Vector3.Angle(spellDirection, directionToCollider);
-
-
-                if (angleToCollider < coneAngle && enemy.tag == "Enemy")
+                if (enemy.tag == "Enemy")
                 {
                     SetSpellColliderEffect(spell, enemy);
                 }
@@ -198,6 +206,22 @@ public class SpellZone : SpellEffect
             yield return new WaitForSeconds(spell.refreshSpellZoneTime);
 
         }
+    }
+
+    public void Allonge(SpellScriptableObject spell)
+    {
+        if(!spell.spellEffect.Contains("Blink"))
+        {
+            GameManager.instance.epeeDetection.spell = spell;
+            GameManager.instance.epeeAnimator.SetBool("epeecoup", !GameManager.instance.epeecoup);
+            GameManager.instance.epeecoup = !GameManager.instance.epeecoup;
+        }
+        mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
+        mousPosworld = GameManager.instance.GetMousePosWorld(transform);
+        
+
+        SetSpellNoColliderEffect(spell, mousPosworld);
+
     }
 
 
@@ -252,17 +276,42 @@ public class SpellZone : SpellEffect
         }
         else if (gizmoRaySpell == true)
         {
-            Ray ray = new Ray(transform.position, mousPosLocalPlayer);
+            Ray ray = new Ray(transform.position, spellDirection);
             Gizmos.color = Color.red;
             Gizmos.DrawRay(ray.origin, ray.direction * attackRange);
         }
-        else if(gizmoRayMegaSpell == true)
+        else if (gizmoRayMegaSpell == true)
         {
-            Ray ray = new Ray(transform.position, mousPosLocalPlayer);
+            Ray ray = new Ray(transform.position, spellDirection);
             Gizmos.color = Color.blue;
             Gizmos.DrawRay(ray.origin, ray.direction * attackRange);
+
+        }
+        else if (gizmoAllongeSpell == true)
+        {
+            float angle = 45f;
+            float halfFOV = angle / 2.0f;
+
+
+            Quaternion leftRayRotation = Quaternion.AngleAxis(-halfFOV, transform.up);
+            Quaternion rightRayRotation = Quaternion.AngleAxis(halfFOV, transform.up);
+
+            Vector3 leftRayDirection = leftRayRotation * Vector3.Normalize(spellDirection) * attackRange;
+            Vector3 rightRayDirection = rightRayRotation * Vector3.Normalize(spellDirection) * attackRange;
+
+            Vector3 lerpedVector = Vector3.Lerp(leftRayDirection, rightRayDirection, t);
+
+            Ray ray = new Ray(transform.position, lerpedVector);
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(ray.origin, ray.direction * attackRange);
+
+        }
+        else if (gizmoAllongeMegaSpell == true)
+        {
 
         }
 
     }
 }
+
+    

@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: Blink
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 21300000, guid: 754513e7ccdd28a469ede86fc54eb2c3, type: 3}
-  spellTime: 0
-  spellLifeTime: 3
-  refreshSpellLifeTime: 0.1
-  spellZone: Sphere
   spellEffect:
   - Blink
-  attackRange: 5
-  spellValue: 0
+  spellEffectTime: 0
+  spellLifeTime: 0
+  refreshSpellZoneTime: 0.1
+  spellZone: Sphere
+  attackRange: 0
+  spellID: 0
+  spellDommageValue: 0
+  spellDotValue: 0
+  spellDotLifeTime: 0
+  spellHotValue: 0
+  spellHotLifeTime: 0
+  spellSlowValue: 0

@@ -17,6 +17,8 @@ public class PlayerAttack : MonoBehaviour
     public GameObject anim4;
     public GameObject anim5;
 
+   
+
 
     public int spellIDButton;
     [SerializeField] SpellsUI spellUI;
@@ -35,16 +37,20 @@ public class PlayerAttack : MonoBehaviour
     public List<float> spellLifeTime;
     public List<string> spellZone;
     public List<string> spellEffect;
+    public List<string> spellEffectUnique;
     public List<float> attackRange;
     public List<float> spellDommageValue;
     public List<float> spellDotValue;
+    public List<float> spellDotLifeTime;
     public List<float> spellHotValue;
+    public List<float> spellHotLifeTime;
     public List<float> spellSlowValue;
-    public List<float> refreshSpellLifeTime;
+    public List<float> refreshSpellZoneTime;
+
 
     //public string[] spellEffectToCombineList = new string[GameManager.instance.spellBuildActif.Length];
 
-
+    
 
 
 
@@ -69,6 +75,7 @@ public class PlayerAttack : MonoBehaviour
                 PressButtonColorChange(button1);
                 CastSpell(GameManager.instance.spellBuildActif[0]);
                 DisplaySpellCast(targetImage1);
+                
 
             }
 
@@ -108,6 +115,7 @@ public class PlayerAttack : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.E))
             {
                 anim3.SetActive(false);
+                
             }
 
             if (Input.GetKeyDown(KeyCode.R)) // attaque 4 
@@ -131,7 +139,6 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S)) // Megaspell 
         {
-            GameManager.instance.isCastingMegaSpell = true;
             spellFusionUI.ResetSpellBar();
             CastMegaSpell(megaSpell);
             
@@ -143,8 +150,6 @@ public class PlayerAttack : MonoBehaviour
         {
             anim5.SetActive(false);
             GameManager.instance.isCastingMegaSpell = false;
-            
-
 
         }
 
@@ -182,11 +187,17 @@ public class PlayerAttack : MonoBehaviour
             SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
             spellZone.Ray(spell);
         }
+        else if (spell.spellZone == "Allonge")
+        {
+
+            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
+            spellZone.Allonge(spell);
+        }
     }
 
     public void CastMegaSpell(SpellScriptableObject megaSpell)
     {
-
+        GameManager.instance.isCastingMegaSpell = true;
         GameManager.instance.InstantiateNewSpell(transform);
 
         SpellLifeTime lifeTime = GameManager.instance.newSpell.AddComponent<SpellLifeTime>();
@@ -217,10 +228,16 @@ public class PlayerAttack : MonoBehaviour
             SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
             spellZone.Ray(megaSpell);
         }
+        else if (megaSpell.spellZone == "Allonge")
+        {
+
+            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
+            spellZone.Allonge(megaSpell);
+        }
+
 
     }
 
-    
     
 
     public void DisplaySpellCast(GameObject g)
@@ -239,11 +256,15 @@ public class PlayerAttack : MonoBehaviour
             spellLifeTime.Add(spell.spellLifeTime);
             spellDommageValue.Add(spell.spellDommageValue);
             spellDotValue.Add(spell.spellDotValue);
+            spellDotLifeTime.Add(spell.spellDotLifeTime);
             spellHotValue.Add(spell.spellHotValue);
+            spellHotLifeTime.Add(spell.spellHotLifeTime);
             spellSlowValue.Add(spell.spellSlowValue);
-            refreshSpellLifeTime.Add(spell.refreshSpellZoneTime);
+            refreshSpellZoneTime.Add(spell.refreshSpellZoneTime);
 
-    MegaSpellBuild(spell);
+            spellEffectUnique = RemoveDuplicates(spellEffect);
+
+            MegaSpellBuild(spell);
 
         }
         
@@ -260,7 +281,7 @@ public class PlayerAttack : MonoBehaviour
         spellDotValue.Clear();
         spellHotValue.Clear();
         spellSlowValue.Clear();
-        refreshSpellLifeTime.Clear();
+        refreshSpellZoneTime.Clear();
 
         megaSpell.spellZone = "";
         megaSpell.spellEffect.Clear();
@@ -314,9 +335,9 @@ public class PlayerAttack : MonoBehaviour
 
             megaSpell.spellZone = spellZone[0];
 
-            //spellEffect : récupère la séquence lancée dans un llste pour analyse
+        //spellEffect : récupère la séquence lancée dans un llste pour analyse
 
-            megaSpell.spellEffect.Add(spell.spellEffect[0]);
+        megaSpell.spellEffect = spellEffectUnique;
 
             //attackRange : multiplie par le nombre de spell lancés
 
@@ -329,58 +350,7 @@ public class PlayerAttack : MonoBehaviour
 
             }
 
-            //spellValue (toutes les values) : Prendre la moyenne des sorts lancés 
-
-            if (spellDommageValue.Count > 0)
-            {
-                float sum = 0;
-
-                foreach (float number in spellDommageValue)
-                {
-                    sum += number;
-                }
-
-                megaSpell.spellDommageValue = sum / spellDommageValue.Count;
-            }
-
-            if (spellDotValue.Count > 0)
-            {
-                float sum = 0;
-
-                foreach (float number in spellDotValue)
-                {
-                    sum += number;
-                }
-
-                megaSpell.spellDotValue = sum / spellDotValue.Count;
-            }
-            if (spellHotValue.Count > 0)
-            {
-                float sum = 0;
-
-                foreach (float number in spellHotValue)
-                {
-                    sum += number;
-                }
-
-                megaSpell.spellHotValue = sum / spellHotValue.Count;
-            }
-            if (spellSlowValue.Count > 0)
-            {
-                float sum = 0;
-
-                foreach (float number in spellSlowValue)
-                {
-                    sum += number;
-                }
-
-                megaSpell.spellSlowValue = sum / spellSlowValue.Count;
-            }
-
-        // spellEffectTime  : valeur la plus elevée des spells lancés
-        megaSpell.spellEffectTime = Mathf.Max(spellEffectTime.ToArray());
-
-        //refresh Spell Life Time : Prendre la moyenne des sorts lancés 
+        //spellValue (toutes les values) : Prendre la moyenne des sorts lancés 
 
         megaSpell.spellDommageValue = CalculateSpellValue(spellDommageValue, spell);
         megaSpell.spellDotValue = CalculateSpellValue(spellDotValue, spell);
@@ -390,15 +360,22 @@ public class PlayerAttack : MonoBehaviour
         // spellEffectTime  : valeur la plus elevée des spells lancés
         megaSpell.spellEffectTime = Mathf.Max(spellEffectTime.ToArray());
 
+       
+
+        // spellEffectTime  : valeur la plus elevée des spells lancés
+        megaSpell.spellEffectTime = Mathf.Max(spellEffectTime.ToArray());
+        megaSpell.spellDotLifeTime = Mathf.Max(spellDotLifeTime.ToArray());
+        megaSpell.spellHotLifeTime = Mathf.Max(spellHotLifeTime.ToArray());
+
         //refresh Spell Life Time : Prendre la moyenne des sorts lancés 
 
-        if (refreshSpellLifeTime.Count > 0)
+        if (refreshSpellZoneTime.Count > 0)
         {
             float sum = 0;
             float divider = 0;
 
 
-            foreach (float number in refreshSpellLifeTime)
+            foreach (float number in refreshSpellZoneTime)
             {
                 sum += number;
 
@@ -436,10 +413,30 @@ public class PlayerAttack : MonoBehaviour
 
             }
 
-            spellValue = sum / divider;
+            spellValue = spellValueList.Count + sum / divider;
         }
 
         return spellValue;
 
+    }
+
+    private List<string> RemoveDuplicates(List<string> inputList)
+    {
+        // Créez un HashSet pour stocker les valeurs uniques
+        HashSet<string> uniqueValues = new HashSet<string>();
+
+        // Créez une nouvelle liste pour stocker les valeurs uniques
+        List<string> uniqueList = new List<string>();
+
+        foreach (string value in inputList)
+        {
+            // Si la valeur n'est pas déjà dans le HashSet, ajoutez-la au HashSet et à la liste des valeurs uniques
+            if (uniqueValues.Add(value))
+            {
+                uniqueList.Add(value);
+            }
+        }
+
+        return uniqueList;
     }
 }
