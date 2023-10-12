@@ -9,6 +9,7 @@ public class DeplacementEnnemy : MonoBehaviour
     public Transform target;
     public float walkingSpeed =1f;
     public bool isSlowed = false;
+    public bool hasDetectedPlayer;
 
     [SerializeField] float walkDistance = 7f, attackDistance = 1f; // ajouter une variable idleDistance = 10f pour l'animation d'idle
 
@@ -31,10 +32,12 @@ public class DeplacementEnnemy : MonoBehaviour
         if (ennemyAgent.remainingDistance > walkDistance || ennemyAgent.remainingDistance < attackDistance)
         {
             ennemyAgent.speed = 0;
+            hasDetectedPlayer = false;
         }
         else
         {
             ennemyAgent.speed = walkingSpeed;
+            hasDetectedPlayer = true;
         }
 
     }

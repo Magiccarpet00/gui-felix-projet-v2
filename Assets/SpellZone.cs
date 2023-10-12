@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SpellZone : SpellEffect
 {
-
-
     bool gizmoSphereSpell = false;
     bool gizmoConeSpell = false;
     bool gizmoRaySpell = false;
@@ -27,8 +26,9 @@ public class SpellZone : SpellEffect
     Vector3 interpolatePos;
     Vector3 spellDirection;
 
-   
+    public bool isCastedByEnnemy = false;
 
+    public Transform ownerSpellZone;
    
     public float lerpSpeed = 0.5f;
 
@@ -37,15 +37,21 @@ public class SpellZone : SpellEffect
     private void Awake()
     {
 
-        spellDirection = GameManager.instance.prefabPlayer.transform.forward;
-        
-      
+
+       
+
+    }
+
+    private void Start()
+    {
+
+        spellDirection = ownerSpellZone.forward;
 
     }
 
     public void Update()
     {
-        spellDirection = GameManager.instance.prefabPlayer.transform.forward;
+        spellDirection = ownerSpellZone.forward;
 
         t += lerpSpeed * Time.deltaTime;
         t = Mathf.Clamp01(t);
@@ -91,7 +97,11 @@ public class SpellZone : SpellEffect
             foreach (Collider enemy in hitEnemies)
             {
 
-                if (enemy.tag == "Enemy")
+                if (enemy.tag == "Enemy" && ownerSpellZone.tag != "Enemy")
+                {
+                    SetSpellColliderEffect(spell, enemy);
+                }
+                if (enemy.tag == "Player" && ownerSpellZone.tag != "Player")
                 {
                     SetSpellColliderEffect(spell, enemy);
                 }
@@ -149,7 +159,11 @@ public class SpellZone : SpellEffect
                 float angleToCollider = Vector3.Angle(spellDirection, directionToCollider);
 
 
-                if (angleToCollider < coneAngle && directionToCollider.magnitude < spell.attackRange && enemy.tag == "Enemy")
+                if (angleToCollider < coneAngle && directionToCollider.magnitude < spell.attackRange && enemy.tag == "Enemy" && ownerSpellZone.tag != "Enemy")
+                {
+                    SetSpellColliderEffect(spell, enemy);
+                }
+                if (angleToCollider < coneAngle && directionToCollider.magnitude < spell.attackRange && enemy.tag == "Player" && ownerSpellZone.tag != "Player")
                 {
                     SetSpellColliderEffect(spell, enemy);
                 }
@@ -197,22 +211,29 @@ public class SpellZone : SpellEffect
             {
                 Collider enemy = hit.collider;
 
-                if (enemy.tag == "Enemy")
+                if (enemy.tag == "Enemy" && ownerSpellZone.tag != "Enemy")
                 {
+                    SetSpellColliderEffect(spell, enemy);
+                }
+                if (enemy.tag == "Player" && ownerSpellZone.tag != "Player")
+                {
+                    
                     SetSpellColliderEffect(spell, enemy);
                 }
             }
 
             yield return new WaitForSeconds(spell.refreshSpellZoneTime);
 
+            
         }
     }
 
     public void Allonge(SpellScriptableObject spell)
     {
-        if(!spell.spellEffect.Contains("Blink"))
+        GameManager.instance.epeeDetection.spell = spell;
+
+        if (!spell.spellEffect.Any(v => v == "Blink" || v == "Dash") && ownerSpellZone.tag != "Enemy")
         {
-            GameManager.instance.epeeDetection.spell = spell;
             GameManager.instance.epeeAnimator.SetBool("epeecoup", !GameManager.instance.epeecoup);
             GameManager.instance.epeecoup = !GameManager.instance.epeecoup;
         }
@@ -221,6 +242,20 @@ public class SpellZone : SpellEffect
         
 
         SetSpellNoColliderEffect(spell, mousPosworld);
+
+    }
+
+    public void NoZone(SpellScriptableObject spell)
+    {
+
+        attackRange = spell.attackRange;
+
+        mousPosLocalPlayer = GameManager.instance.GetMousePosLocal(transform);
+        mousPosworld = GameManager.instance.GetMousePosWorld(transform);
+
+        SetSpellNoColliderEffect(spell, mousPosworld);
+
+        StartCoroutine(DetectEnnemiesInSphere(spell));
 
     }
 

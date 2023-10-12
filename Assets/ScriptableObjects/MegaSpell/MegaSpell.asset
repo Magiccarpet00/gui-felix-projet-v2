@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: MegaSpell
   m_EditorClassIdentifier: 
   spellIcon: {fileID: 0}
+  spellEffect: []
   spellEffectTime: 0
   spellLifeTime: 0
-  refreshSpellLifeTime: 0
+  refreshSpellZoneTime: 0
   spellZone: 
-  spellEffect: []
   attackRange: 0
-  spellValue: 0
+  spellID: 0
+  spellDommageValue: 0
+  spellDotValue: 0
+  spellDotLifeTime: 0
+  spellHotValue: 0
+  spellHotLifeTime: 0
+  spellSlowValue: 0

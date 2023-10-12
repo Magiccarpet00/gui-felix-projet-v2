@@ -22,12 +22,14 @@ public class GameManager : MonoBehaviour
     public SpellScriptableObject[] buildTrois;
 
     public GameObject newSpell;
+    public Vector3 prefabPLayerForward;
 
     public DammageEffectScript dammageEffectScript;
     public SlowEffectScript slowEffectScript;
     public BlinkEffectScript blinkEffectScript;
     public DotEffectScript dotEffectScript;
     public HotEffectScript hotEffectScript;
+    public DashEffectScript dashEffectScript;
 
     public float elapsedTime;
 
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        elapsedTime += Time.deltaTime;
+        elapsedTime = Time.deltaTime;
     }
 
     private void Start()

@@ -10,11 +10,12 @@ public class EnemyHealth : MonoBehaviour
     public float maxHealth = 100f; // Points de vie maximum de l'ennemi
     private float currentHealth; // Points de vie actuels de l'ennemi
     public Image healthBar;
+    public Color healthBarColor;
 
     private void Start()
     {
         currentHealth = maxHealth;
-
+        healthBarColor = healthBar.color;
     }
 
     public void TakeDamage(float damage)
@@ -39,7 +40,7 @@ public class EnemyHealth : MonoBehaviour
         else
         {
             currentDotSpell.Add(spellID);
-
+            healthBar.color = Color.yellow;
             StartCoroutine(DotCoroutine(damage, spellTime, spellEffectTime, spellID));
 
 
@@ -54,12 +55,11 @@ public class EnemyHealth : MonoBehaviour
     IEnumerator DotCoroutine (float damage, float duredevie, float frequence, int spellID)
     {
 
-      
 
-        if(duredevie<0)
+        if (duredevie<0)
         {
             currentDotSpell.Remove(spellID);
-            Debug.Log("dot est fini");
+            healthBar.color = healthBarColor;
             yield return new WaitForSeconds(0);
         }
         else

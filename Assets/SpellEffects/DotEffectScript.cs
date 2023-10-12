@@ -8,6 +8,7 @@ public class DotEffectScript : MonoBehaviour
     public void DotEffect(SpellScriptableObject spell, Collider enemy)
     {
         EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+        PlayerHealth playerHealth = enemy.GetComponent<PlayerHealth>();
         TextMeshProUGUI tmp = enemy.GetComponentInChildren<TextMeshProUGUI>();
 
         if (enemyHealth != null)
@@ -17,6 +18,10 @@ public class DotEffectScript : MonoBehaviour
 
             //StartCoroutine(HotActiveTime(tmp, spell.spellEffectTime));
 
+        }
+        if(playerHealth != null)
+        {
+            playerHealth.TakeDamageOnTime(spell.spellDotValue, spell.spellDotLifeTime, spell.spellEffectTime, spell.spellID);
         }
     }
 

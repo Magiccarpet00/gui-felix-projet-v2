@@ -12,8 +12,10 @@ public class SpellEffect : MonoBehaviour
 
     public void SetSpellColliderEffect(SpellScriptableObject spell, Collider enemy) //Blink n'est pas dans cette méthode 
     {
+
         foreach (string spellEffect in spell.spellEffect)
         {
+
             if (spellEffect == "Dommage")
             {
                 GameManager.instance.dammageEffectScript.DammageEffect(spell,enemy);
@@ -40,6 +42,11 @@ public class SpellEffect : MonoBehaviour
             if (spellEffect == "Blink")
             {
                 GameManager.instance.blinkEffectScript.BlinkEffect(spell, interpolatePos);
+
+            }
+            if(spellEffect == "Dash")
+            {
+                GameManager.instance.dashEffectScript.DashEffect(spell, interpolatePos);
 
             }
             if (spellEffect == "Hot")

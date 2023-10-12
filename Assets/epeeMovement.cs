@@ -14,6 +14,9 @@ public class epeeMovement : MonoBehaviour
 
     public bool blink;
     public bool epeeBlinked;
+    public bool eppeDashed;
+    public Rigidbody rb;
+    private Vector3 forceToCancel;
 
     public Animator epeeAnimator;
     
@@ -29,7 +32,7 @@ public class epeeMovement : MonoBehaviour
         epeeCollider = GetComponent<CapsuleCollider>();
         epeeCollider.enabled = false;
         playerDeplacement = GameManager.instance.prefabPlayer.GetComponent<PlayerDeplacement>();
-
+        rb = GetComponent<Rigidbody>();
 
     }
 
@@ -40,29 +43,25 @@ public class epeeMovement : MonoBehaviour
         idlegaucheRunning = epeeAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idlegauche");
 
 
-        if (!idledroitRunning && !idlegaucheRunning) //&& epeeBlinked == false)
+        if (!idledroitRunning && !idlegaucheRunning)
         {
             playerDeplacement.enabled = false;
-            epeeCollider.enabled = true;
             playerDeplacement.agent.SetDestination(GameManager.instance.prefabPlayer.transform.position);
             
         }
 
         if (idledroitRunning || idlegaucheRunning)
         {
-            epeeCollider.enabled = false;
             playerDeplacement.enabled = true;
         }
 
-        if (epeeBlinked == true)
+        if (epeeBlinked == true || eppeDashed == true)
         {
+
             epeeCollider.enabled = true;
-    
             //transform.rotation = new Quaternion(transform.rotation.x, Mathf.LerpAngle(0, 1080, GameManager.instance.elapsedTime * epeeSpeed),transform.rotation.z,transform.rotation.w);
             Quaternion rotation = Quaternion.AngleAxis(GameManager.instance.elapsedTime * epeeSpeed, Vector3.left);
             transform.rotation *= rotation;
-            
-
         }
 
     }
@@ -78,7 +77,6 @@ public class epeeMovement : MonoBehaviour
         GameManager.instance.ResetElapsedTime();
         epeeBlinked = true;
         transform.SetParent(null);
-        epeeCollider.enabled = true;
         //GameManager.instance.epeeAnimator.SetTrigger("epeerotationblink");
         GameManager.instance.epeeAnimator.enabled = false;
         transform.position = newPos;
@@ -89,6 +87,33 @@ public class epeeMovement : MonoBehaviour
         transform.SetParent(GameManager.instance.prefabPlayer.transform);
         epeeBlinked = false;
         //epeeCollider.enabled = false;
+    }
+
+    public void DashEpee(float dashTime, float spellLifeTime, float dashForce)
+    {
+        StartCoroutine(DashCoroutine(dashTime, spellLifeTime, dashForce));
+    }
+
+    public IEnumerator DashCoroutine(float dashTime, float spellLifeTime, float dashForce)
+    {
+        GameManager.instance.ResetElapsedTime();
+        eppeDashed = true;
+        GameManager.instance.epeeAnimator.enabled = false;
+        rb.AddForce(GameManager.instance.prefabPlayer.transform.forward.normalized * dashForce, ForceMode.Impulse);
+        transform.SetParent(null);
+        yield return new WaitForSeconds(dashTime);
+        StartCoroutine(SpellLifeTimeCoroutine(spellLifeTime));
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+    }
+
+    public IEnumerator SpellLifeTimeCoroutine (float lifetime)
+    {
+        yield return new WaitForSeconds(lifetime);
+        GameManager.instance.epeeAnimator.enabled = true;
+        transform.SetParent(GameManager.instance.prefabPlayer.transform);
+        eppeDashed = false;
+
     }
 
 }

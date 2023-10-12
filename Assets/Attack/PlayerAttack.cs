@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject anim4;
     public GameObject anim5;
 
-   
+    public SpellPlacement instantiateSpellPlacement;
 
 
     public int spellIDButton;
@@ -26,11 +26,7 @@ public class PlayerAttack : MonoBehaviour
     private SpellsFusionUI displaySpell;
 
     public SpellScriptableObject megaSpell;
-    //public SpellScriptableObject SpellBuffer1;
-    //public SpellScriptableObject SpellBuffer2;
-    //public SpellScriptableObject SpellBuffer3;
-    //public SpellScriptableObject SpellBuffer4;
-
+    public SpellZoneDisplay spellZoneDisplay;
 
 
     public List<float> spellEffectTime;
@@ -47,18 +43,20 @@ public class PlayerAttack : MonoBehaviour
     public List<float> spellSlowValue;
     public List<float> refreshSpellZoneTime;
 
+    public SpellZone instantiateSpellZone;
+
 
     //public string[] spellEffectToCombineList = new string[GameManager.instance.spellBuildActif.Length];
 
-    
+
 
 
 
     private void Start()
     {
         displaySpell = GameObject.Find("SpellsFusionBG").GetComponent<SpellsFusionUI>();
+        spellZoneDisplay = GameObject.Find("SpellZoneImage").GetComponent<SpellZoneDisplay>();
         ResetLists();
-        //ResetBufferLists();
     }
 
     private void Update()
@@ -157,41 +155,40 @@ public class PlayerAttack : MonoBehaviour
 
     public void CastSpell(SpellScriptableObject spell)
     {
-
         GameManager.instance.InstantiateNewSpell(transform);
 
         SpellLifeTime lifeTime = GameManager.instance.newSpell.AddComponent<SpellLifeTime>();
         lifeTime.SpellDie(spell.spellLifeTime);
+        instantiateSpellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
+        instantiateSpellZone.ownerSpellZone = transform;
 
         if (spell.spellLifeTime != 0)
         {
-            GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+            instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
         }
 
         RegisterSpellCasted(spell);
 
         if (spell.spellZone == "Sphere")
-        {          
-            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
-            spellZone.Sphere(spell);
+        {
+            instantiateSpellZone.Sphere(spell);
         }
         else if (spell.spellZone == "Cone")
         {
-           
-            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
-            spellZone.Cone(spell);
+            instantiateSpellZone.Cone(spell);
         }
         else if (spell.spellZone == "Ray")
         {
-           
-            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
-            spellZone.Ray(spell);
+            instantiateSpellZone.Ray(spell);
         }
         else if (spell.spellZone == "Allonge")
         {
 
-            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
-            spellZone.Allonge(spell);
+            instantiateSpellZone.Allonge(spell);
+        }
+        else if (spell.spellZone == "")
+        {
+            instantiateSpellZone.NoZone(spell);
         }
     }
 
@@ -203,9 +200,12 @@ public class PlayerAttack : MonoBehaviour
         SpellLifeTime lifeTime = GameManager.instance.newSpell.AddComponent<SpellLifeTime>();
         lifeTime.SpellDie(megaSpell.spellLifeTime);
 
+        instantiateSpellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
+        instantiateSpellZone.ownerSpellZone = transform;
+
         if (!spellLifeTime.Contains(0))
         {
-            GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+            instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
         }
 
         RegisterSpellCasted(megaSpell);
@@ -213,26 +213,21 @@ public class PlayerAttack : MonoBehaviour
         if (megaSpell.spellZone == "Sphere")
         {
 
-            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
-            spellZone.Sphere(megaSpell);
+            instantiateSpellZone.Sphere(megaSpell);
         }
         else if (megaSpell.spellZone == "Cone")
         {
 
-            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
-            spellZone.Cone(megaSpell);
+            instantiateSpellZone.Cone(megaSpell);
         }
         else if (megaSpell.spellZone == "Ray")
         {
 
-            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
-            spellZone.Ray(megaSpell);
+            instantiateSpellZone.Ray(megaSpell);
         }
         else if (megaSpell.spellZone == "Allonge")
         {
-
-            SpellZone spellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
-            spellZone.Allonge(megaSpell);
+            instantiateSpellZone.Allonge(megaSpell);
         }
 
 
@@ -250,18 +245,42 @@ public class PlayerAttack : MonoBehaviour
         if (GameManager.instance.isCastingMegaSpell == false)
         {
             spellZone.Add(spell.spellZone);
-            attackRange.Add(spell.attackRange);
+           
+            if(spell.attackRange != 0)
+            {
+                attackRange.Add(spell.attackRange);
+            }
             spellEffect.Add(spell.spellEffect[0]);
             spellEffectTime.Add(spell.spellEffectTime);
             spellLifeTime.Add(spell.spellLifeTime);
-            spellDommageValue.Add(spell.spellDommageValue);
-            spellDotValue.Add(spell.spellDotValue);
-            spellDotLifeTime.Add(spell.spellDotLifeTime);
-            spellHotValue.Add(spell.spellHotValue);
-            spellHotLifeTime.Add(spell.spellHotLifeTime);
-            spellSlowValue.Add(spell.spellSlowValue);
-            refreshSpellZoneTime.Add(spell.refreshSpellZoneTime);
-
+            if (spell.spellDommageValue != 0)
+            {
+                spellDommageValue.Add(spell.spellDommageValue);
+            }
+            if (spell.spellDotValue != 0)
+            {
+                spellDotValue.Add(spell.spellDotValue);
+            }
+            if (spell.spellDotLifeTime != 0)
+            {
+                spellDotLifeTime.Add(spell.spellDotLifeTime);
+            }
+            if (spell.spellHotValue != 0)
+            {
+                spellHotValue.Add(spell.spellHotValue);
+            }
+            if (spell.spellHotLifeTime != 0)
+            {
+                spellHotLifeTime.Add(spell.spellHotLifeTime);
+            }
+            if (spell.spellSlowValue != 0)
+            {
+                spellSlowValue.Add(spell.spellSlowValue);
+            }
+            if (spell.refreshSpellZoneTime != 0)
+            {
+                refreshSpellZoneTime.Add(spell.refreshSpellZoneTime);
+            }
             spellEffectUnique = RemoveDuplicates(spellEffect);
 
             MegaSpellBuild(spell);
@@ -331,9 +350,18 @@ public class PlayerAttack : MonoBehaviour
 
             megaSpell.spellLifeTime = Mathf.Max(spellLifeTime.ToArray());
 
-            //spellZone : La première zone lancée
+        //spellZone : La première zone lancée
 
-            megaSpell.spellZone = spellZone[0];
+        foreach (string spellzone in spellZone)
+        {
+            if(!string.IsNullOrEmpty(spellzone))
+            {
+                megaSpell.spellZone = spellzone;
+                spellZoneDisplay.spellZone = megaSpell.spellZone;
+                break;
+            }
+
+        }   
 
         //spellEffect : récupère la séquence lancée dans un llste pour analyse
 
@@ -345,8 +373,16 @@ public class PlayerAttack : MonoBehaviour
             {
                 if(spell.spellLifeTime != 0)
                 {
+                    if( attackRange[0] == 0 && spellZone.Count > 1)
+                    {
+                     megaSpell.attackRange = attackRange[1] * attackRange.Count;
+                    }
+                    else
+                    {
                     megaSpell.attackRange = attackRange[0] * attackRange.Count;
-                }
+                    }
+
+            }
 
             }
 
@@ -404,10 +440,10 @@ public class PlayerAttack : MonoBehaviour
 
             foreach (float number in spellValueList)
             {
-                sum += number;
 
                 if (number != 0)
                 {
+                    sum += number;
                     divider += 1;
                 }
 

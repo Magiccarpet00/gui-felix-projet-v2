@@ -18,11 +18,12 @@ MonoBehaviour:
   spellEffectTime: 3
   spellLifeTime: 3
   refreshSpellZoneTime: 0.1
-  spellZone: Cone
+  spellZone: Ray
   attackRange: 10
   spellID: 0
   spellDommageValue: 3
   spellDotValue: 0
   spellDotLifeTime: 0
   spellHotValue: 0
+  spellHotLifeTime: 0
   spellSlowValue: 0
