@@ -118,7 +118,8 @@ public class PlayerDeplacement : MonoBehaviour
     public IEnumerator BlinkCoroutine(float blinkTime, Vector3 newPos)
     {
         blink = true;
-        agent.ResetPath();       
+        agent.ResetPath();
+        PLayerAction.Stay();
         character.model.SetActive(false);
         character.capsuleCollider.enabled = false;
         transform.position = newPos;

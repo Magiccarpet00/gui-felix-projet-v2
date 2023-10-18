@@ -21,6 +21,7 @@ public class Character : MonoBehaviour
     private void Start()
     {
         SetUp();
+
     }
 
     public void SetUp() 

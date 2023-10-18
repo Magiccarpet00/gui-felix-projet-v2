@@ -146,7 +146,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.S))
         {
-            anim5.SetActive(false);
+            //anim5.SetActive(false);
             GameManager.instance.isCastingMegaSpell = false;
 
         }

@@ -18,7 +18,7 @@ MonoBehaviour:
   spellEffectTime: 1
   spellLifeTime: 3
   refreshSpellZoneTime: 0
-  spellZone: Sphere
+  spellZone: Allonge
   attackRange: 3
   spellID: 0
   spellDommageValue: 2
