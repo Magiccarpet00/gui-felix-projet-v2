@@ -158,6 +158,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6519894475138394146, guid: 7bf2e5266e0b87d4bb37760e1c6694ff, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6519894475138394147, guid: 7bf2e5266e0b87d4bb37760e1c6694ff, type: 3}
       propertyPath: playerAttack
       value: 
@@ -205,6 +209,10 @@ PrefabInstance:
     - target: {fileID: 6519894475138394149, guid: 7bf2e5266e0b87d4bb37760e1c6694ff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6519894475138394157, guid: 7bf2e5266e0b87d4bb37760e1c6694ff, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bf2e5266e0b87d4bb37760e1c6694ff, type: 3}

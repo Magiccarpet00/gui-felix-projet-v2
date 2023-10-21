@@ -233,8 +233,6 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    
-
     public void DisplaySpellCast(GameObject g)
     {
         displaySpell.DisplaySpell(g); //DisplaySpell déclarée dans SpellsFusionUI.cs
