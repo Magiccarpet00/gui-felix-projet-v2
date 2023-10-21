@@ -7,11 +7,11 @@ public class EnemyAttack : MonoBehaviour
     public PlayerHealth playerHealth;
     
 
-    public GameObject anim1;
-    public GameObject anim2;
-    public GameObject anim3;
-    public GameObject anim4;
-    public GameObject anim5;
+    //public GameObject anim1;
+    //public GameObject anim2;
+    //public GameObject anim3;
+    //public GameObject anim4;
+    //public GameObject anim5;
 
     public EnnemySpellPlacement instantiateEnnemySpellPlacement;
     public SpellZone instantiateSpellZone;
