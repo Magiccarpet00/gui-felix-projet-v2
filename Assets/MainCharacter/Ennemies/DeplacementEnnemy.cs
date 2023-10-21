@@ -7,11 +7,11 @@ public class DeplacementEnnemy : MonoBehaviour
 {
     public NavMeshAgent ennemyAgent;
     public Transform target;
-    public float walkingSpeed =1f;
+    [SerializeField] float walkingSpeed;
     public bool isSlowed = false;
     public bool hasDetectedPlayer;
 
-    [SerializeField] float walkDistance = 7f, attackDistance = 1f; // ajouter une variable idleDistance = 10f pour l'animation d'idle
+    [SerializeField] float walkDistance , attackDistance; // ajouter une variable idleDistance = 10f pour l'animation d'idle
 
     void Start()
     {
@@ -29,16 +29,23 @@ public class DeplacementEnnemy : MonoBehaviour
 
     void Update()
     {
-        if (ennemyAgent.remainingDistance > walkDistance || ennemyAgent.remainingDistance < attackDistance)
+        if (ennemyAgent.remainingDistance > walkDistance)
         {
             ennemyAgent.speed = 0;
             hasDetectedPlayer = false;
         }
-        else
+        if (ennemyAgent.remainingDistance < walkDistance)
         {
             ennemyAgent.speed = walkingSpeed;
             hasDetectedPlayer = true;
         }
+
+        if (ennemyAgent.remainingDistance < attackDistance)
+        {
+            ennemyAgent.speed = 0;
+            hasDetectedPlayer = true;
+        }
+       
 
     }
 
