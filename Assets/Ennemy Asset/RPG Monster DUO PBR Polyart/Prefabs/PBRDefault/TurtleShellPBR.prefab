@@ -516,8 +516,10 @@ GameObject:
   - component: {fileID: 4544219117696442}
   - component: {fileID: 95706204029656638}
   - component: {fileID: 145570556}
-  - component: {fileID: 145570559}
   - component: {fileID: 145570560}
+  - component: {fileID: 3463041954977404472}
+  - component: {fileID: 145570559}
+  - component: {fileID: 6498983514061243327}
   m_Layer: 0
   m_Name: TurtleShellPBR
   m_TagString: Untagged
@@ -581,6 +583,43 @@ MonoBehaviour:
   spellToCast: {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
   isCasting: 0
   timeBetweenCasts: 1
+--- !u!114 &145570560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524411113276028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df2df81f2c0b13469111e7ee59b7835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ennemyAgent: {fileID: 0}
+  target: {fileID: 0}
+  walkingSpeed: 8
+  isSlowed: 0
+  hasDetectedPlayer: 0
+  walkDistance: 30
+  attackDistance: 8
+--- !u!114 &3463041954977404472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524411113276028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1171ca13f46c34545b85e6790bc192c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 0}
+  instantiateEnnemySpellPlacement: {fileID: 0}
+  instantiateSpellZone: {fileID: 0}
+  spellToCast: {fileID: 11400000, guid: dcb322d2e56791d42a926817a653db59, type: 2}
+  isCasting: 0
+  timeBetweenCasts: 1
 --- !u!195 &145570559
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -591,7 +630,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 50
+  m_Speed: 0
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -603,7 +642,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &145570560
+--- !u!114 &6498983514061243327
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
