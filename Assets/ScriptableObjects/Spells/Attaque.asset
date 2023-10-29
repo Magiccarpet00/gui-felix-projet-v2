@@ -18,9 +18,10 @@ MonoBehaviour:
   spellEffectTime: 0
   spellLifeTime: 3
   refreshSpellZoneTime: 0.1
-  spellZone: Ray
+  spellZone: Sphere
   attackRange: 20
   spellID: 0
+  spellBody: {fileID: 5544498127794046043, guid: c89e2371494234741936126bfd5e3c89, type: 3}
   spellDommageValue: 3
   spellDotValue: 0
   spellDotLifeTime: 0

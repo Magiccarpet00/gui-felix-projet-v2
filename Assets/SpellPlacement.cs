@@ -17,6 +17,7 @@ public class SpellPlacement : MonoBehaviour
         if (dash == false && blink == false)
         {
             transform.position = GameManager.instance.prefabPlayer.transform.position;
+            transform.rotation = GameManager.instance.prefabPlayer.transform.rotation;
         }
     }
 

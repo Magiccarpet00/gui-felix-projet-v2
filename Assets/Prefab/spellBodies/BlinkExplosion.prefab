@@ -9770,7 +9770,7 @@ GameObject:
   - component: {fileID: 5124798224688220131}
   - component: {fileID: 3478248205728185864}
   m_Layer: 0
-  m_Name: Attack1
+  m_Name: BlinkExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

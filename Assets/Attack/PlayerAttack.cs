@@ -11,12 +11,7 @@ public class PlayerAttack : MonoBehaviour
     public Button button4;
     public Button button5;
 
-    public GameObject anim1;
-    public GameObject anim2;
-    public GameObject anim3;
-    public GameObject anim4;
-    public GameObject anim5;
-
+    
     public SpellPlacement instantiateSpellPlacement;
 
 
@@ -27,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
 
     public SpellScriptableObject megaSpell;
     public SpellZoneDisplay spellZoneDisplay;
+
 
 
     public List<float> spellEffectTime;
@@ -42,8 +38,12 @@ public class PlayerAttack : MonoBehaviour
     public List<float> spellHotLifeTime;
     public List<float> spellSlowValue;
     public List<float> refreshSpellZoneTime;
+    public List<GameObject> spellBody;
 
     public SpellZone instantiateSpellZone;
+    public SpellBody instantiateSpellBody;
+
+
 
 
     //public string[] spellEffectToCombineList = new string[GameManager.instance.spellBuildActif.Length];
@@ -69,7 +69,6 @@ public class PlayerAttack : MonoBehaviour
                 GameObject targetImage1;
                 targetImage1 = GameObject.Find("TargetImage1");
 
-                anim1.SetActive(true);
                 PressButtonColorChange(button1);
                 CastSpell(GameManager.instance.spellBuildActif[0]);
                 DisplaySpellCast(targetImage1);
@@ -79,7 +78,6 @@ public class PlayerAttack : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.A))
             {
-                anim1.SetActive(false);
             }
 
             if (Input.GetKeyDown(KeyCode.Z)) // attaque 2 
@@ -87,7 +85,6 @@ public class PlayerAttack : MonoBehaviour
                 GameObject targetImage2;
                 targetImage2 = GameObject.Find("TargetImage2");
 
-                anim2.SetActive(true);
                 PressButtonColorChange(button2);
                 CastSpell(GameManager.instance.spellBuildActif[1]);
                 DisplaySpellCast(targetImage2);
@@ -95,7 +92,6 @@ public class PlayerAttack : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.Z))
             {
-                anim2.SetActive(false);
             }
 
             if (Input.GetKeyDown(KeyCode.E)) // attaque 3 
@@ -103,7 +99,6 @@ public class PlayerAttack : MonoBehaviour
                 GameObject targetImage3;
                 targetImage3 = GameObject.Find("TargetImage3");
 
-                anim3.SetActive(true);
                 PressButtonColorChange(button3);
                 CastSpell(GameManager.instance.spellBuildActif[2]);
                 DisplaySpellCast(targetImage3);
@@ -112,7 +107,6 @@ public class PlayerAttack : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.E))
             {
-                anim3.SetActive(false);
                 
             }
 
@@ -121,7 +115,6 @@ public class PlayerAttack : MonoBehaviour
                 GameObject targetImage4;
                 targetImage4 = GameObject.Find("TargetImage4");
 
-                anim4.SetActive(true);
                 PressButtonColorChange(button4);
                 CastSpell(GameManager.instance.spellBuildActif[3]);
                 DisplaySpellCast(targetImage4);
@@ -130,7 +123,6 @@ public class PlayerAttack : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.R))
             {
-                anim4.SetActive(false);
             }
 
         }
@@ -159,13 +151,23 @@ public class PlayerAttack : MonoBehaviour
 
         SpellLifeTime lifeTime = GameManager.instance.newSpell.AddComponent<SpellLifeTime>();
         lifeTime.SpellDie(spell.spellLifeTime);
+
         instantiateSpellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
         instantiateSpellZone.ownerSpellZone = transform;
 
-        if (spell.spellLifeTime != 0)
+        instantiateSpellBody = GameManager.instance.newSpell.AddComponent<SpellBody>();
+        if(spell.spellBody != null)
         {
-            instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+            instantiateSpellBody.SpellBodyDisplay(spell);
         }
+        instantiateSpellBody.ownerSpellZone = transform;
+
+
+        instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+
+        //if (spell.spellLifeTime != 0)
+        //{
+        //}
 
         RegisterSpellCasted(spell);
 
@@ -203,10 +205,19 @@ public class PlayerAttack : MonoBehaviour
         instantiateSpellZone = GameManager.instance.newSpell.AddComponent<SpellZone>();
         instantiateSpellZone.ownerSpellZone = transform;
 
-        if (!spellLifeTime.Contains(0))
+        instantiateSpellBody = GameManager.instance.newSpell.AddComponent<SpellBody>();
+        if (megaSpell.spellBody != null)
         {
-            instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+            instantiateSpellBody.SpellBodyDisplay(megaSpell);
         }
+        instantiateSpellBody.ownerSpellZone = transform;
+
+        instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+
+        //if (!spellLifeTime.Contains(0))
+        //{
+          
+        //}
 
         RegisterSpellCasted(megaSpell);
 
@@ -243,6 +254,7 @@ public class PlayerAttack : MonoBehaviour
         if (GameManager.instance.isCastingMegaSpell == false)
         {
             spellZone.Add(spell.spellZone);
+            spellBody.Add(spell.spellBody);
            
             if(spell.attackRange != 0)
             {
@@ -290,6 +302,7 @@ public class PlayerAttack : MonoBehaviour
     public void ResetLists()
     {
         spellZone.Clear();
+        spellBody.Clear();
         spellEffect.Clear();
         attackRange.Clear();
         spellEffectTime.Clear();
@@ -301,6 +314,7 @@ public class PlayerAttack : MonoBehaviour
         refreshSpellZoneTime.Clear();
 
         megaSpell.spellZone = "";
+        megaSpell.spellBody = null;
         megaSpell.spellEffect.Clear();
         megaSpell.attackRange = 0f;
         megaSpell.spellEffectTime = 0f;
@@ -359,7 +373,19 @@ public class PlayerAttack : MonoBehaviour
                 break;
             }
 
-        }   
+        }
+
+        //spellBody : La première zone lancée
+
+        foreach (GameObject spellbody in spellBody)
+        {
+            if (spellbody != null)
+            {
+                megaSpell.spellBody = spellbody;
+                break;
+            }
+
+        }
 
         //spellEffect : récupère la séquence lancée dans un llste pour analyse
 

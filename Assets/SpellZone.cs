@@ -34,13 +34,6 @@ public class SpellZone : SpellEffect
 
     private float t = 0.0f;
 
-    private void Awake()
-    {
-
-
-       
-
-    }
 
     private void Start()
     {
@@ -51,7 +44,10 @@ public class SpellZone : SpellEffect
 
     public void Update()
     {
-        spellDirection = ownerSpellZone.forward;
+        if (ownerSpellZone != null)
+        {
+            spellDirection = ownerSpellZone.forward;
+        }
 
         t += lerpSpeed * Time.deltaTime;
         t = Mathf.Clamp01(t);
@@ -96,16 +92,19 @@ public class SpellZone : SpellEffect
 
             foreach (Collider enemy in hitEnemies)
             {
-
-                if (enemy.tag == "Enemy" && ownerSpellZone.tag != "Enemy")
+                if (enemy != null && ownerSpellZone != null)
                 {
-                    SetSpellColliderEffect(spell, enemy);
-                }
-                if (enemy.tag == "Player" && ownerSpellZone.tag != "Player")
-                {
-                    SetSpellColliderEffect(spell, enemy);
-                }
+                    if (enemy.tag == "Enemy" && ownerSpellZone.tag != "Enemy")
+                    {
+                        SetSpellColliderEffect(spell, enemy);
+                    }
+                    if (enemy.tag == "Player" && ownerSpellZone.tag != "Player")
+                    {
+                        SetSpellColliderEffect(spell, enemy);
+                    }
 
+                }
+                
             }
 
             yield return new WaitForSeconds(spell.refreshSpellZoneTime);
@@ -153,19 +152,22 @@ public class SpellZone : SpellEffect
 
             foreach (Collider enemy in hitEnemies)
             {
-                // Check si le collider est dans le cone angle
-                Vector3 directionToCollider = enemy.transform.position - transform.position;
-
-                float angleToCollider = Vector3.Angle(spellDirection, directionToCollider);
-
-
-                if (angleToCollider < coneAngle && directionToCollider.magnitude < spell.attackRange && enemy.tag == "Enemy" && ownerSpellZone.tag != "Enemy")
+                if (enemy != null && ownerSpellZone != null)
                 {
-                    SetSpellColliderEffect(spell, enemy);
-                }
-                if (angleToCollider < coneAngle && directionToCollider.magnitude < spell.attackRange && enemy.tag == "Player" && ownerSpellZone.tag != "Player")
-                {
-                    SetSpellColliderEffect(spell, enemy);
+                    // Check si le collider est dans le cone angle
+                    Vector3 directionToCollider = enemy.transform.position - transform.position;
+
+                    float angleToCollider = Vector3.Angle(spellDirection, directionToCollider);
+
+
+                    if (angleToCollider < coneAngle && directionToCollider.magnitude < spell.attackRange && enemy.tag == "Enemy" && ownerSpellZone.tag != "Enemy")
+                    {
+                        SetSpellColliderEffect(spell, enemy);
+                    }
+                    if (angleToCollider < coneAngle && directionToCollider.magnitude < spell.attackRange && enemy.tag == "Player" && ownerSpellZone.tag != "Player")
+                    {
+                        SetSpellColliderEffect(spell, enemy);
+                    }
                 }
             }
 
@@ -211,15 +213,21 @@ public class SpellZone : SpellEffect
             {
                 Collider enemy = hit.collider;
 
-                if (enemy.tag == "Enemy" && ownerSpellZone.tag != "Enemy")
+                if(enemy != null && ownerSpellZone != null)
                 {
-                    SetSpellColliderEffect(spell, enemy);
+                    if (enemy.tag == "Enemy" && ownerSpellZone.tag != "Enemy")
+                    {
+
+                        SetSpellColliderEffect(spell, enemy);
+                    }
+                    if (enemy.tag == "Player" && ownerSpellZone.tag != "Player")
+                    {
+
+                        SetSpellColliderEffect(spell, enemy);
+                    }
+
                 }
-                if (enemy.tag == "Player" && ownerSpellZone.tag != "Player")
-                {
-                    
-                    SetSpellColliderEffect(spell, enemy);
-                }
+                
             }
 
             yield return new WaitForSeconds(spell.refreshSpellZoneTime);

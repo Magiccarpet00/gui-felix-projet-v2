@@ -16,11 +16,12 @@ MonoBehaviour:
   spellEffect:
   - Blink
   spellEffectTime: 0.1
-  spellLifeTime: 0
+  spellLifeTime: 0.1
   refreshSpellZoneTime: 0.1
   spellZone: 
   attackRange: 0
   spellID: 0
+  spellBody: {fileID: 6467583427764669537, guid: acaeed693107cb346afe787c6d6f47b0, type: 3}
   spellDommageValue: 0
   spellDotValue: 0
   spellDotLifeTime: 0

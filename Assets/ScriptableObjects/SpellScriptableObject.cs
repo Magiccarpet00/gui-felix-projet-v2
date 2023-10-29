@@ -15,6 +15,7 @@ public class SpellScriptableObject : ScriptableObject
     public string spellZone;
     public float attackRange;
     public int spellID;
+    public GameObject spellBody;
     [Header("Dommage")]
     public float spellDommageValue;
     [Header("Dot")]

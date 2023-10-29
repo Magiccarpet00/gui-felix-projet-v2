@@ -37,16 +37,16 @@ public class CameraFollow : MonoBehaviour
             Vector3 pos = cam.transform.position;
 
             if (Input.mousePosition.y >= Screen.height - panBorder)
-                pos.x += panSpeed * Time.deltaTime;
-
-            if (Input.mousePosition.y <= panBorder)
-                pos.x -= panSpeed * Time.deltaTime;
-
-            if (Input.mousePosition.x >= Screen.width - panBorder)
                 pos.z += panSpeed * Time.deltaTime;
 
-            if (Input.mousePosition.x <= panBorder)
+            if (Input.mousePosition.y <= panBorder)
                 pos.z -= panSpeed * Time.deltaTime;
+
+            if (Input.mousePosition.x >= Screen.width - panBorder)
+                pos.x += panSpeed * Time.deltaTime;
+
+            if (Input.mousePosition.x <= panBorder)
+                pos.x -= panSpeed * Time.deltaTime;
             
             cam.transform.position = pos;
         }

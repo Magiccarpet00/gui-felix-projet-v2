@@ -12,6 +12,7 @@ public class epeeDetection : SpellEffect
     {
         if (other.CompareTag("Enemy"))
         {
+            Debug.Log("couco");
             SetSpellColliderEffect(spell, other);
         }
 

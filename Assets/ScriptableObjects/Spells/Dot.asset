@@ -19,10 +19,10 @@ MonoBehaviour:
   spellLifeTime: 3
   refreshSpellZoneTime: 0.1
   spellZone: Sphere
-  attackRange: 5
+  attackRange: 10
   spellID: 0
   spellDommageValue: 0
-  spellDotValue: 2
+  spellDotValue: 10
   spellDotLifeTime: 10
   spellHotValue: 0
   spellHotLifeTime: 0
