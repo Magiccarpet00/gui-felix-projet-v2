@@ -16,6 +16,7 @@ public class SpellScriptableObject : ScriptableObject
     public float attackRange;
     public int spellID;
     public GameObject spellBody;
+    public Color spellBodyColor;
     [Header("Dommage")]
     public float spellDommageValue;
     [Header("Dot")]
@@ -26,10 +27,9 @@ public class SpellScriptableObject : ScriptableObject
     public float spellHotLifeTime;
     [Header("Slow")]
     public float spellSlowValue;
- 
 
-
-
+    private PlayerAttack playerAttack;
 
    
+    
 }

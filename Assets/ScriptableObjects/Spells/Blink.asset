@@ -16,7 +16,7 @@ MonoBehaviour:
   spellEffect:
   - Blink
   spellEffectTime: 0.1
-  spellLifeTime: 0.1
+  spellLifeTime: 0
   refreshSpellZoneTime: 0.1
   spellZone: 
   attackRange: 0

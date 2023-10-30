@@ -9,6 +9,12 @@ public class SpellBody : MonoBehaviour
     public Transform ownerSpellZone;
 
 
+    private void Update()
+    {
+        transform.rotation = GameManager.instance.prefabPlayer.transform.rotation;
+
+    }
+
     public void SpellBodyDisplay(SpellScriptableObject spell)
     {
         instantiatedSpellBody = Instantiate(spell.spellBody,transform);

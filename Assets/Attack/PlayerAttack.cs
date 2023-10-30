@@ -39,10 +39,12 @@ public class PlayerAttack : MonoBehaviour
     public List<float> spellSlowValue;
     public List<float> refreshSpellZoneTime;
     public List<GameObject> spellBody;
+    public List<color>
 
     public SpellZone instantiateSpellZone;
     public SpellBody instantiateSpellBody;
 
+    public GameObject spellBodyBlink;
 
 
 
@@ -57,6 +59,23 @@ public class PlayerAttack : MonoBehaviour
         displaySpell = GameObject.Find("SpellsFusionBG").GetComponent<SpellsFusionUI>();
         spellZoneDisplay = GameObject.Find("SpellZoneImage").GetComponent<SpellZoneDisplay>();
         ResetLists();
+        SpellScriptableObject[] spellScriptableObject = Resources.FindObjectsOfTypeAll<SpellScriptableObject>();
+        
+        SpellScriptableObject scriptableObjectTrouve = null;
+
+        foreach (SpellScriptableObject SO in spellScriptableObject)
+        {
+            if (SO.name == "Blink")
+            {
+                scriptableObjectTrouve = SO;
+                break;
+            }
+        }
+
+        if (scriptableObjectTrouve != null)
+        {
+            spellBodyBlink = scriptableObjectTrouve.spellBody;
+        }
     }
 
     private void Update()
@@ -163,11 +182,12 @@ public class PlayerAttack : MonoBehaviour
         instantiateSpellBody.ownerSpellZone = transform;
 
 
-        instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
 
-        //if (spell.spellLifeTime != 0)
-        //{
-        //}
+        if (spell.spellLifeTime != 0)
+        {
+            instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+
+        }
 
         RegisterSpellCasted(spell);
 
@@ -206,18 +226,18 @@ public class PlayerAttack : MonoBehaviour
         instantiateSpellZone.ownerSpellZone = transform;
 
         instantiateSpellBody = GameManager.instance.newSpell.AddComponent<SpellBody>();
+
         if (megaSpell.spellBody != null)
         {
             instantiateSpellBody.SpellBodyDisplay(megaSpell);
         }
         instantiateSpellBody.ownerSpellZone = transform;
 
-        instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
 
-        //if (!spellLifeTime.Contains(0))
-        //{
-          
-        //}
+        if (!spellLifeTime.Contains(0))
+        {
+            instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
+        }
 
         RegisterSpellCasted(megaSpell);
 
@@ -254,9 +274,13 @@ public class PlayerAttack : MonoBehaviour
         if (GameManager.instance.isCastingMegaSpell == false)
         {
             spellZone.Add(spell.spellZone);
-            spellBody.Add(spell.spellBody);
-           
-            if(spell.attackRange != 0)
+
+            if (spell.spellBody != spellBodyBlink)
+            {
+                spellBody.Add(spell.spellBody);
+            }
+
+            if (spell.attackRange != 0)
             {
                 attackRange.Add(spell.attackRange);
             }
