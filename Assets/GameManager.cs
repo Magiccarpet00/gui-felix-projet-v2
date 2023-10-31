@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
     public Animator epeeAnimator;
     public bool epeecoup;
 
+    public GameObject sphereMegaSpellBody;
+    public GameObject rayMegaSpellBody;
+    public GameObject coneMegaSpellBody;
+
 
     private void Awake()
     {

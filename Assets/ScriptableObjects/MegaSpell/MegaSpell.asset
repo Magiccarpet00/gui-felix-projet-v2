@@ -20,6 +20,8 @@ MonoBehaviour:
   spellZone: 
   attackRange: 0
   spellID: 0
+  spellBody: {fileID: 0}
+  spellBodyColor: {r: 1, g: 0.027450979, b: 0.82768995, a: 1}
   spellDommageValue: 0
   spellDotValue: 0
   spellDotLifeTime: 0

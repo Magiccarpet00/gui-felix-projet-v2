@@ -22,6 +22,7 @@ MonoBehaviour:
   attackRange: 50
   spellID: 0
   spellBody: {fileID: 5451668274891720197, guid: eeea9aa4501d7794eaff13468704870a, type: 3}
+  spellBodyColor: {r: 0.02963687, g: 0.6981132, b: 0.038675148, a: 0}
   spellDommageValue: 3
   spellDotValue: 0
   spellDotLifeTime: 0

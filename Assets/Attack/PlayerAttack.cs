@@ -39,12 +39,15 @@ public class PlayerAttack : MonoBehaviour
     public List<float> spellSlowValue;
     public List<float> refreshSpellZoneTime;
     public List<GameObject> spellBody;
-    public List<color>
+    public List<Color> spellBodyColor;  
 
     public SpellZone instantiateSpellZone;
     public SpellBody instantiateSpellBody;
 
     public GameObject spellBodyBlink;
+   
+
+
 
 
 
@@ -68,14 +71,16 @@ public class PlayerAttack : MonoBehaviour
             if (SO.name == "Blink")
             {
                 scriptableObjectTrouve = SO;
+
+                if (scriptableObjectTrouve != null)
+                {
+                    spellBodyBlink = scriptableObjectTrouve.spellBody;
+                }
                 break;
             }
         }
 
-        if (scriptableObjectTrouve != null)
-        {
-            spellBodyBlink = scriptableObjectTrouve.spellBody;
-        }
+        
     }
 
     private void Update()
@@ -227,13 +232,6 @@ public class PlayerAttack : MonoBehaviour
 
         instantiateSpellBody = GameManager.instance.newSpell.AddComponent<SpellBody>();
 
-        if (megaSpell.spellBody != null)
-        {
-            instantiateSpellBody.SpellBodyDisplay(megaSpell);
-        }
-        instantiateSpellBody.ownerSpellZone = transform;
-
-
         if (!spellLifeTime.Contains(0))
         {
             instantiateSpellPlacement = GameManager.instance.newSpell.AddComponent<SpellPlacement>();
@@ -243,23 +241,33 @@ public class PlayerAttack : MonoBehaviour
 
         if (megaSpell.spellZone == "Sphere")
         {
-
             instantiateSpellZone.Sphere(megaSpell);
+            megaSpell.spellBody = GameManager.instance.sphereMegaSpellBody;
         }
         else if (megaSpell.spellZone == "Cone")
         {
 
             instantiateSpellZone.Cone(megaSpell);
+            megaSpell.spellBody = GameManager.instance.coneMegaSpellBody;
+
         }
         else if (megaSpell.spellZone == "Ray")
         {
 
             instantiateSpellZone.Ray(megaSpell);
+            megaSpell.spellBody = GameManager.instance.rayMegaSpellBody;
+
         }
         else if (megaSpell.spellZone == "Allonge")
         {
             instantiateSpellZone.Allonge(megaSpell);
         }
+
+        if (megaSpell.spellBody != null)
+        {
+            instantiateSpellBody.SpellBodyDisplay(megaSpell);
+        }
+        instantiateSpellBody.ownerSpellZone = transform;
 
 
     }
@@ -278,6 +286,11 @@ public class PlayerAttack : MonoBehaviour
             if (spell.spellBody != spellBodyBlink)
             {
                 spellBody.Add(spell.spellBody);
+            }
+
+            if(spell.spellBodyColor != new Color(0f, 0f, 0f, 0f))
+            {
+                spellBodyColor.Add(spell.spellBodyColor);
             }
 
             if (spell.attackRange != 0)
@@ -327,6 +340,7 @@ public class PlayerAttack : MonoBehaviour
     {
         spellZone.Clear();
         spellBody.Clear();
+        spellBodyColor.Clear();
         spellEffect.Clear();
         attackRange.Clear();
         spellEffectTime.Clear();
@@ -399,17 +413,19 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        //spellBody : La première zone lancée
+        ////spellBody : La première zone lancée
 
-        foreach (GameObject spellbody in spellBody)
-        {
-            if (spellbody != null)
-            {
-                megaSpell.spellBody = spellbody;
-                break;
-            }
+        //foreach (GameObject spellbody in spellBody)
+        //{
+        //    if (spellbody != null)
+        //    {
+        //        megaSpell.spellBody = spellbody;
+        //        break;
+        //    }
 
-        }
+        //}
+
+        //spellBodyColor
 
         //spellEffect : récupère la séquence lancée dans un llste pour analyse
 

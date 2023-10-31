@@ -34,6 +34,7 @@ public class SpellBody : MonoBehaviour
         {
             var mainModule = instantiatedSpellBodyParticleSystem.main;
             mainModule.startSpeed = spell.attackRange;
+            mainModule.startColor = spell.spellBodyColor;
         }
        
     }

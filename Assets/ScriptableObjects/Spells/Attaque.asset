@@ -16,12 +16,13 @@ MonoBehaviour:
   spellEffect:
   - Dommage
   spellEffectTime: 0
-  spellLifeTime: 3
+  spellLifeTime: 10
   refreshSpellZoneTime: 0.1
   spellZone: Sphere
   attackRange: 20
   spellID: 0
   spellBody: {fileID: 5544498127794046043, guid: c89e2371494234741936126bfd5e3c89, type: 3}
+  spellBodyColor: {r: 0, g: 0.81960785, b: 0.016354622, a: 1}
   spellDommageValue: 3
   spellDotValue: 0
   spellDotLifeTime: 0
